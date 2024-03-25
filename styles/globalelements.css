@@ -1,0 +1,184 @@
+/* AddPatient css*/
+.containeraddpatient {
+    background-color: white;
+    padding: 50px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.formaddpatient {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.formaddpatient label {
+    color: #2B3674;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.formaddpatient .flex-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.formaddpatient .flex-row .flex-col {
+    width: calc(47% - 5px);
+}
+
+.formaddpatient input,
+.formaddpatient select,
+.formaddpatient textarea {
+
+    padding: 8px;
+    border: 1.2px solid #2B3674;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    height: 50px;
+    font-size: 15px;
+}
+
+
+
+.formaddpatient button {
+    margin-top: 5%;
+    margin-left: auto;
+    width: 10%;
+    padding: 10px;
+    height: 43px;
+    font-size: 14px;
+    background-color: #593DFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    /* Assurez-vous que le popup est au-dessus de tous les autres éléments */
+}
+
+.popup p {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.popup button {
+    background-color: #2B3674;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.popup button:hover {
+    background-color: #1e2459;
+}
+
+/* Single User */
+.containersingleuser {
+    background-color: white;
+    display: flex;
+    gap: 50px;
+    margin-top: 20px;
+    border-radius: 5px;
+    padding-top: 3%;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-bottom: 5%;
+    width: 100%;
+}
+
+.infoContaineruser {
+    padding: 20px;
+    border-radius: 10px;
+    font-weight: bold;
+    height: max-content;
+    margin-top: 35px;
+    width: 30%;
+}
+
+.formContaineruser {
+    margin-top: 50px;
+    width: 55%;
+
+}
+
+.imguserContainer {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    padding: 40px;
+    background-color: #F8F9FA;
+}
+
+
+.formIduser {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+
+.formIduser input,
+.formIduser textarea,
+.formIduser select {
+    background-color: #F8F9FA;
+    padding: 8px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    height: 50px;
+    font-size: 15px;
+}
+
+
+.formIduser input::placeholder,
+.formIduser textarea::placeholder,
+.formIduser textarea::placeholder {
+    color: #000000;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+
+.formIduser label {
+    color: #2B3674;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.formIduser button {
+    margin-top: 10px;
+    width: 100%;
+    padding: 10px;
+    height: 43px;
+    font-size: 14px;
+    background-color: #593DFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.separator {
+    position: relative;
+    width: 0.5px;
+    background-color: #2B3674;
+    margin: 0 20px;
+
+}
