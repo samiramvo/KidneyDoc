@@ -15,15 +15,14 @@ const Navbar = () => {
     return (
         <div className="containernav">
             <div className="titlenav ">{"Pages" + pathname}</div>
-            <div className="menunav">
-                <div className="searchcont">
-                    <div className="search">
-                        <ThemeSwitcher />
-                    </div>
+            <div className="menunav ">
+                <div className="searchcont dark:bg-[#333]">
+                    <ThemeSwitcher />
+
                     <div className="iconsnav">
-                        <MdOutlineChat size={15} />
-                        <MdNotifications size={15} />
-                        <MdPublic size={15} />
+                        <MdOutlineChat size={15} className="dark:text-white" />
+                        <MdNotifications size={15} className="dark:text-white" />
+                        <MdPublic size={15} className="dark:text-white" />
                     </div>
                     <div>
                         <Image

@@ -4,7 +4,7 @@ import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
 
-const DashboardLayout = ({ children, isDashboardLayout }) => {
+const DashboardLayout = ({ children }) => {
     const [sidebarExpanded, setSidebarExpanded] = useState(true);
 
     const handleToggleSidebar = (expanded) => {

@@ -148,13 +148,18 @@
 
 
 .formIduser input::placeholder,
-.formIduser textarea::placeholder,
 .formIduser textarea::placeholder {
     color: #000000;
     font-size: 15px;
     font-weight: 400;
 }
 
+.dark .formIduser input::placeholder,
+.dark .formIduser textarea::placeholder {
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 400;
+}
 
 .formIduser label {
     color: #2B3674;

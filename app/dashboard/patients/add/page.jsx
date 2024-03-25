@@ -59,54 +59,54 @@ const AddPatientPage = () => {
     return (
         <div>
             <div>
-                <h1 className="font-bold text-[#2B3674] text-[26px] mb-8">New Patient</h1>
+                <h1 className="font-bold text-[#2B3674] text-[26px] mb-8 dark:text-white">New Patient</h1>
             </div>
-            <div className="containeraddpatient shadow-lg ">
+            <div className="containeraddpatient shadow-lg dark:bg-[#333] ">
                 <div>
-                    <h1 className="font-medium text-[#2B3674] text-[17px] mt-4 mb-8">Basic Information</h1>
+                    <h1 className="font-medium text-[#2B3674] text-[17px] mt-4 mb-8 dark:text-white">Basic Information</h1>
                 </div>
                 <form ref={formRef} onSubmit={handleFormSubmit} className="formaddpatient">
                     <div className="flex flex-row">
                         <div className="flex flex-col">
-                            <label htmlFor="name_patient">Last Name</label>
-                            <input type="text" placeholder="Nom patient" name="name_patient" id="name_patient" required />
+                            <label htmlFor="name_patient" className="dark:text-[#A3AED0]">Last Name</label>
+                            <input type="text" placeholder="Nom patient" name="name_patient" id="name_patient" className="dark:bg-[#121212] dark:opacity-[80%] dark:border-none" required />
                         </div>
                         <div className="flex flex-col">
-                            <label htmlFor="prenom_patient">First Name</label>
-                            <input type="text" placeholder="Prenom patient" name="prenom_patient" id="prenom_patient" required />
+                            <label htmlFor="prenom_patient" className="dark:text-[#A3AED0]">First Name</label>
+                            <input type="text" placeholder="Prenom patient" name="prenom_patient" id="prenom_patient" className="dark:bg-[#121212] dark:opacity-[80%] dark:border-none" required />
                         </div>
                     </div>
                     <div className="flex flex-row">
                         <div className="flex flex-col">
-                            <label htmlFor="gender">Gender</label>
-                            <select name="gender" id="gender" required>
+                            <label htmlFor="gender" className="dark:text-[#A3AED0]">Gender</label>
+                            <select name="gender" id="gender" className="dark:bg-[#121212] dark:opacity-[80%] dark:border-none" required>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                             </select>
                         </div>
                         <div className="flex flex-col">
-                            <label htmlFor="birth">Date of birth</label>
-                            <input type="date" name="birth" id="birth" required />
+                            <label htmlFor="birth" className="dark:text-[#A3AED0]">Date of birth</label>
+                            <input type="date" name="birth" id="birth" className="dark:bg-[#121212] dark:opacity-[80%] dark:border-none" required />
                         </div>
                     </div>
                     <div className="flex flex-row">
                         <div className="flex flex-col">
-                            <label htmlFor="agepatient">Age</label>
-                            <input type="number" placeholder="Age patient" name="agepatient" id="agepatient" required />
+                            <label htmlFor="agepatient" className="dark:text-[#A3AED0]">Age</label>
+                            <input type="number" placeholder="Age patient" name="agepatient" id="agepatient" className="dark:bg-[#121212] dark:opacity-[80%] dark:border-none" required />
                         </div>
                         <div className="flex flex-col">
-                            <label htmlFor="addresspatient">Address</label>
-                            <input type="text" placeholder="Adress patient" name="addresspatient" id="addresspatient" required />
+                            <label htmlFor="addresspatient" className="dark:text-[#A3AED0]">Address</label>
+                            <input type="text" placeholder="Adress patient" name="addresspatient" id="addresspatient" className="dark:bg-[#121212] dark:opacity-[80%] dark:border-none" required />
                         </div>
                     </div>
                     <div className="flex flex-row">
                         <div className="flex flex-col">
-                            <label htmlFor="phone_patient">Phone Number</label>
-                            <input type="tel" placeholder="Phone number patient" name="phone_patient" id="phone_patient" required />
+                            <label htmlFor="phone_patient" className="dark:text-[#A3AED0]">Phone Number</label>
+                            <input type="tel" placeholder="Phone number patient" name="phone_patient" id="phone_patient" className="dark:bg-[#121212] dark:opacity-[80%] dark:border-none" required />
                         </div>
                         <div className="flex flex-col">
-                            <label htmlFor="doctor">Doctor Assigned</label>
-                            <select name="doctor" id="doctor" required>
+                            <label htmlFor="doctor" className="dark:text-[#A3AED0]">Doctor Assigned</label>
+                            <select name="doctor" id="doctor" className="dark:bg-[#121212] dark:opacity-[80%] dark:border-none" required>
                                 <option>Dr VIGAN</option>
                                 <option>Dr Pascal</option>
                             </select>

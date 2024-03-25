@@ -14,9 +14,9 @@ const Administration = async ({ searchParams }) => {
     return (
         <div>
             <div>
-                <h1 className="font-bold text-[#2B3674] text-[26px] mb-8">Administration</h1>
+                <h1 className="font-bold text-[#2B3674] text-[26px] mb-8 dark:text-white">Administration</h1>
             </div>
-            <div className="containeradmin  shadow-lg">
+            <div className="containeradmin  shadow-lg dark:bg-[#333]">
 
                 <div className="topadmin">
                     <Search placeholder="Search for a user..." />
@@ -28,7 +28,7 @@ const Administration = async ({ searchParams }) => {
                 </div>
                 <table className="tableUser ">
                     <thead>
-                        <tr className="text-[#605BFF]">
+                        <tr className="text-[#605BFF] dark:text-[#A3AED0]">
                             <td>Name</td>
                             <td>Email</td>
                             <td>Created At</td>
@@ -41,7 +41,7 @@ const Administration = async ({ searchParams }) => {
                         {users.map((user) => (
                             <tr key={user.id} className=" font-medium text-[#1B2559]  text-[15px]">
                                 <td>
-                                    <div className="flex items-center gap-[10px]">
+                                    <div className="flex items-center gap-[10px] dark:text-white">
                                         <Image
                                             src={user.img || "/assets/images/Elipse 5.png"}
                                             alt=""
@@ -53,10 +53,10 @@ const Administration = async ({ searchParams }) => {
                                     </div>
 
                                 </td>
-                                <td>{user.emailuser}</td>
-                                <td>{user.createdAt?.toString().slice(4, 24)}</td>
-                                <td>{user.isAdmin ? "Admin" : "User"}</td>
-                                <td>{user.isActive ? "active" : "passive"}</td>
+                                <td className='dark:text-white'>{user.emailuser}</td>
+                                <td className='dark:text-white'>{user.createdAt?.toString().slice(4, 24)}</td>
+                                <td className='dark:text-white'>{user.isAdmin ? "Admin" : "User"}</td>
+                                <td className='dark:text-white'>{user.isActive ? "active" : "passive"}</td>
                                 <td>
                                     <div className="buttonsuser">
                                         <Link href={`/dashboard/administration/${user.id}`}>

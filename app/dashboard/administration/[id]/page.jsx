@@ -9,48 +9,48 @@ const SingleUserPage = async ({ params }) => {
     const user = await fetchUser(id);
 
     return (
-        <div className="containersingleuser shadow-lg">
+        <div className="containersingleuser shadow-lg dark:bg-[#333]">
 
             <div className="formContaineruser">
                 <form action={updateUser} className='formIduser'>
                     <input type="hidden" name="id" value={user.id} />
                     <div className="flex flex-row w-[100%]">
                         <div className="flex flex-col w-[100%] ">
-                            <label htmlFor='username'>Username</label>
-                            <input type="text" id='username' name="username" placeholder={user.username} />
+                            <label htmlFor='username' className="dark:text-[#A3AED0]">Username</label>
+                            <input type="text" id='username' name="username" placeholder={user.username} className=' dark:bg-[#121212] dark:opacity-[80%] dark:border-none' />
                         </div>
 
                     </div>
                     <div className="flex flex-row w-[100%]">
                         <div className="flex flex-col w-[100%] ">
-                            <label htmlFor='email'>Email</label>
-                            <input type="email" id='email' name="email" placeholder={user.emailuser} />
+                            <label htmlFor='email' className="dark:text-[#A3AED0]">Email</label>
+                            <input type="email" id='email' name="email" placeholder={user.emailuser} className=' dark:bg-[#121212] dark:opacity-[80%] dark:border-none' />
                         </div>
                     </div>
                     <div className=" flex flex-row">
                         <div className="flex">
                             <div className="flex flex-col mr-[30px] ">
-                                <label htmlFor='password'>Password</label>
-                                <input type="password" id="password" name="password" className="w-[260px]" />
+                                <label htmlFor='password' className="dark:text-[#A3AED0]">Password</label>
+                                <input type="password" id="password" name="password" className="w-[260px]  dark:bg-[#121212] dark:opacity-[80%] dark:border-none" />
                             </div>
                             <div className="flex flex-col">
-                                <label htmlFor='phone'>Phone</label>
-                                <input type="text" id="phone" vname="phone" placeholder={user.phoneuser} className="w-[260px]" />
+                                <label htmlFor='phone' className="dark:text-[#A3AED0]">Phone</label>
+                                <input type="text" id="phone" vname="phone" placeholder={user.phoneuser} className="w-[260px] dark:bg-[#121212] dark:opacity-[80%] dark:border-none" />
                             </div>
                         </div>
                     </div>
                     <div className=" flex flex-row w-[100%]">
                         <div className="flex">
                             <div className="flex flex-col mr-[30px]">
-                                <label htmlFor='isActive'>Is Active?</label>
-                                <select name="isActive" id="isActive" className="w-[260px]">
+                                <label htmlFor='isActive' className="dark:text-[#A3AED0]">Is Active?</label>
+                                <select name="isActive" id="isActive" className="w-[260px]  dark:bg-[#121212] dark:opacity-[80%] dark:border-none">
                                     <option value={true} selected={user.isActive}>Yes</option>
                                     <option value={false} selected={!user.isActive}>No</option>
                                 </select>
                             </div>
                             <div className="flex flex-col ">
-                                <label htmlFor='isAdmin'>Is Admin?</label>
-                                <select name="isAdmin" id="isAdmin" className="w-[260px]">
+                                <label htmlFor='isAdmin' className="dark:text-[#A3AED0]">Is Admin?</label>
+                                <select name="isAdmin" id="isAdmin" className="w-[260px]  dark:bg-[#121212] dark:opacity-[80%] dark:border-none">
                                     <option value={true} selected={user.isAdmin}>Yes</option>
                                     <option value={false} selected={!user.isAdmin}>No</option>
                                 </select>
@@ -60,14 +60,14 @@ const SingleUserPage = async ({ params }) => {
 
                     <div className="flex flex-row w-[100%]">
                         <div className="flex flex-col w-[100%] ">
-                            <label htmlFor='address'>Address</label>
-                            <textarea type="text" id="address" name="address" placeholder={user.useraddress} />
+                            <label htmlFor='address' className="dark:text-[#A3AED0]">Address</label>
+                            <textarea type="text" id="address" name="address" placeholder={user.useraddress} className=' dark:bg-[#121212] dark:opacity-[80%] dark:border-none' />
                         </div>
                     </div>
                     <button>Update</button>
                 </form>
             </div >
-            <div className="separator">
+            <div className="separator dark:bg-white dark:w-[0.2px]">
             </div>
             <div className="infoContaineruser">
                 <div className="imguserContainer">

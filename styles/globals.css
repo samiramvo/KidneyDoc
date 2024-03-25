@@ -27,7 +27,6 @@
 
 
 
-
 .theme-switcher input {
     display: none;
 }
@@ -48,7 +47,7 @@
     width: 85px;
     height: 30px;
     border-radius: 999px;
-    background: #F3F3F3;
+    background: #F4F7FE;
     box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.05) inset;
     cursor: pointer;
     position: relative;
@@ -119,6 +118,7 @@ input[type=checkbox]:checked+.toggle-label .circle .moon {
     margin-top: 0%;
     opacity: 1;
 }
+
 
 .main {
     width: 100vw;
@@ -306,19 +306,7 @@ input[type="checkbox"]:checked {
     border-radius: 30px;
 }
 
-.search {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background-color: #F4F7FE;
-    padding: 5px;
-    border-radius: 30px;
-}
 
-.search::placeholder {
-    color: #8F9BBA;
-    font-size: 5px;
-}
 
 .inputnav {
     background-color: transparent;
@@ -391,7 +379,7 @@ input[type="checkbox"]:checked {
 
 .addButtonuser {
     padding: 8px;
-    background-color: #6AD2FF;
+    background-color: #2a79d7;
     color: white;
     border: none;
     border-radius: 5px;

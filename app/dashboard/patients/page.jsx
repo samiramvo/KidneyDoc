@@ -14,11 +14,11 @@ const Patients = async ({ searchParams }) => {
         <div>
             <div className='flex items-center justify-between'>
                 <div>
-                    <h1 className="font-bold text-[#2B3674] text-[26px] mb-8">Patient Data</h1>
+                    <h1 className="font-bold text-[#2B3674] text-[26px] mb-8 dark:text-white">Patient Data</h1>
                 </div>
                 <div className='mt-[50px] '>
                     <Link href="/dashboard/patients/add">
-                        <button className="bg-[#6AD2FF] w-[150px] p-[8px] text-[15px] text-white border-none cursor-pointer rounded-[5px] flex hover:shadow-xl transition duration-300">
+                        <button className="bg-[#2a79d7] w-[150px] p-[8px] text-[15px] text-white border-none cursor-pointer rounded-[5px] flex hover:shadow-xl transition duration-300">
                             <RiAddLine className="mr-[14px] mt-[2px]" size={20} />
                             New patient
                         </button>
@@ -26,14 +26,14 @@ const Patients = async ({ searchParams }) => {
                 </div>
             </div>
             <FilterForm />
-            <div className="containerpatient rounded-lg shadow-lg">
+            <div className="containerpatient rounded-lg shadow-lg dark:bg-[#333]">
                 <div className='mb-6'>
                     <Search placeholder="Search for a patient..." />
                 </div>
 
                 <table className="table">
                     <thead>
-                        <tr className='text-[#605BFF]'>
+                        <tr className='text-[#605BFF] dark:text-[#A3AED0]'>
                             <td>ID</td>
                             <td>Name</td>
                             <td>Assigned Doctor</td>
@@ -53,16 +53,16 @@ const Patients = async ({ searchParams }) => {
                                     </div>
                                 </td>
                                 <td>
-                                    <div className="namepatient">
+                                    <div className="namepatient dark:text-white">
                                         <span>{patient.name_patient}</span> <span>{patient.prenom_patient}</span>
                                     </div>
 
                                 </td>
-                                <td>{patient.doctor}</td>
-                                <td>{patient.gender}</td>
-                                <td>{patient.agepatient}</td>
-                                <td>{patient.phone_patient}</td>
-                                <td>{patient.createdAt?.toString().slice(4, 24)}</td>
+                                <td className='dark:text-white'>{patient.doctor}</td>
+                                <td className='dark:text-white'>{patient.gender}</td>
+                                <td className='dark:text-white'>{patient.agepatient}</td>
+                                <td className='dark:text-white'>{patient.phone_patient}</td>
+                                <td className='dark:text-white'>{patient.createdAt?.toString().slice(4, 24)}</td>
                                 <td>
                                     <Link href={`/dashboard/patients/${patient.id}`}>
                                         <div className='relative bg-[#eeefff] rounded-[8px] text-[#4318FF] w-[42px] h-[32px]  flex items-center justify-center'>

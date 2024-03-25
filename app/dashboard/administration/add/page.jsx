@@ -56,42 +56,43 @@ const AddUserPage = () => {
     return (
         <div>
             <div>
-                <h1 className="font-bold text-[#2B3674] text-[26px] mb-8">New User</h1>
+                <h1 className="font-bold text-[#2B3674] text-[26px] mb-8 dark:text-white">New User</h1>
             </div>
-            <div className="containeraddpatient  shadow-lg ">
+            <div className="containeraddpatient  shadow-lg dark:bg-[#333] ">
                 <form ref={formRef} onSubmit={handleFormSubmit} className="formaddpatient">
                     <div className="flex flex-row">
                         <div className="flex flex-col">
-                            <label htmlFor="username">Name</label>
-                            <input type="text" placeholder="username" name="username" required />
+                            <label htmlFor="username" className="dark:text-[#A3AED0]">Name</label>
+                            <input type="text" placeholder="username" name="username" className="dark:bg-[#121212] dark:opacity-[80%] dark:border-none" required />
                         </div>
                         <div className="flex flex-col">
-                            <label htmlFor="emailuser">Email</label>
-                            <input type="email" placeholder="email" name="emailuser" id="emailuser" required />
+                            <label htmlFor="emailuser" className="dark:text-[#A3AED0]">Email</label>
+                            <input type="email" placeholder="email" name="emailuser" id="emailuser" className="dark:bg-[#121212] dark:opacity-[80%] dark:border-none" required />
                         </div>
                     </div>
                     <div className="flex flex-row">
 
                         <div className="flex flex-col">
-                            <label htmlFor="passworduser">Password</label>
+                            <label htmlFor="passworduser" className="dark:text-[#A3AED0]">Password</label>
                             <input
                                 type="password"
                                 placeholder="password"
                                 name="passworduser"
                                 id="passworduser"
                                 required
+                                className="dark:bg-[#121212] dark:opacity-[80%] dark:border-none"
                             />
                         </div>
                         <div className="flex flex-col">
-                            <label htmlFor="phoneuser">Phone</label>
-                            <input type="phone" placeholder="phone" name="phoneuser" id="phoneuser" />
+                            <label htmlFor="phoneuser" className="dark:text-[#A3AED0]">Phone</label>
+                            <input type="phone" placeholder="phone" name="phoneuser" id="phoneuser" className="dark:bg-[#121212] dark:opacity-[80%] dark:border-none" />
                         </div>
                     </div>
                     <div className="flex flex-row">
 
                         <div className="flex flex-col">
-                            <label htmlFor="admin">Admin or not</label>
-                            <select name="isAdmin" id="isAdmin">
+                            <label htmlFor="admin" className="dark:text-[#A3AED0]">Admin or not</label>
+                            <select name="isAdmin" id="isAdmin" className="dark:bg-[#121212] dark:opacity-[80%] dark:border-none">
                                 <option value={false}>
                                     Is Admin?
                                 </option>
@@ -100,8 +101,8 @@ const AddUserPage = () => {
                             </select>
                         </div>
                         <div className="flex flex-col">
-                            <label htmlFor="active">Active or not</label>
-                            <select name="isActive" id="isActive">
+                            <label htmlFor="active" className="dark:text-[#A3AED0]">Active or not</label>
+                            <select name="isActive" id="isActive" className="dark:bg-[#121212] dark:opacity-[80%] dark:border-none">
                                 <option value={true}>
                                     Is Active?
                                 </option>
@@ -113,12 +114,12 @@ const AddUserPage = () => {
                     </div>
                     <div className="flex flex-row">
                         <div className="flex flex-col">
-                            <label htmlFor="useraddress">Address</label>
+                            <label htmlFor="useraddress" className="dark:text-[#A3AED0]">Address</label>
                             <textarea
                                 name="useraddress"
                                 id="useraddress"
                                 placeholder="Address"
-                                className=" resize-none rounded-md p-2 w-[100%]"
+                                className=" resize-none rounded-md p-2 w-[100%] dark:bg-[#121212] dark:opacity-[80%] dark:border-none"
                             ></textarea>
                         </div>
                     </div>

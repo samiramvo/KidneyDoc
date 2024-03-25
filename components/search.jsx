@@ -23,12 +23,12 @@ const Search = ({ placeholder }) => {
     }, 300);
 
     return (
-        <div className="containersearch">
-            <MdSearch />
+        <div className="containersearch ">
+            <MdSearch className="dark:text-black" />
             <input
                 type="text"
                 placeholder={placeholder}
-                className="inputsearch"
+                className="inputsearch dark:text-black"
                 onChange={handleSearch}
             />
         </div>

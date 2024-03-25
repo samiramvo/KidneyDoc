@@ -23,7 +23,7 @@ const ThemeSwitcher = () => {
         <div className="theme-switcher">
             <div className="display">
                 <input type="checkbox" id="toggle" onChange={toggleTheme} checked={theme === 'dark'} />
-                <label htmlFor="toggle" className="toggle-label">
+                <label htmlFor="toggle" className="toggle-label  dark:border-4 dark:border-[#1F1F21]">
                     <div className="circle">
                         <FiSun className="sun" />
                         <FiMoon className="moon" />

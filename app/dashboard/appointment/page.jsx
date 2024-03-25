@@ -109,11 +109,11 @@ export default function Appointment() {
     return (
         <>
             <div>
-                <h1 className="font-bold text-[#2B3674] text-[26px] mb-8">Calendar</h1>
+                <h1 className="font-bold text-[#2B3674] text-[26px] mb-8 dark:text-white">Calendar</h1>
             </div>
             <div className="flex min-h-screen font-dm_sans flex-col items-center justify-between p-4 text-[#2B3674]">
                 <div className="grid grid-cols-10 ml-[5%]  ">
-                    <div className="col-span-8  shadow-lg">
+                    <div className="col-span-8  shadow-lg ">
                         <FullCalendar
                             plugins={[
                                 dayGridPlugin,
@@ -134,6 +134,7 @@ export default function Appointment() {
                             dateClick={handleDateClick}
                             drop={(data) => addEvent(data)}
                             eventClick={(data) => handleDeleteModal(data)}
+
 
                         />
 
