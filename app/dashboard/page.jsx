@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import {
     MdPeople,
@@ -8,6 +7,7 @@ import LineChart from "@/components/charts/linechart";
 import BarChartComponent from "@/components/charts/barchart";
 import BarChart from "@/components/charts/stackedbar"
 import Tablepatient from "@/components/tablepatient";
+import Informationuser from "@/components/informationuser";
 
 const Dashboard = () => {
 
@@ -15,12 +15,13 @@ const Dashboard = () => {
         <div className="dark:bg-[#121212]">
             <div>
                 <h1 className="font-bold text-[#2B3674] text-[26px] mb-8 dark:text-white">Welcome to KidneyDoc!</h1>
+                <Informationuser />
             </div>
             <div className="wrapperdash">
 
                 <div className="maindash">
                     <div className="cards">
-                        <div className="dark:bg-[#333] bg-white p-[10px] rounded-[15px] flex gap-[20px] w-[25%] justify-center items-center shadow-lg">
+                        <div className="dark:bg-[#333] bg-white p-[10px] rounded-[15px] flex gap-[20px] w-[25%] justify-center items-center shadow-lg dark:shadow-lg">
                             <div className="relative">
                                 <Image
                                     src={"/assets/icons/Shadow.png"}
@@ -47,7 +48,7 @@ const Dashboard = () => {
                             </div>
                         </div>
 
-                        <div className="dark:bg-[#333] bg-white p-[10px] rounded-[15px] flex gap-[20px] w-[25%] justify-center items-center shadow-lg">
+                        <div className="dark:bg-[#333] bg-white p-[10px] rounded-[15px] flex gap-[20px] w-[25%] justify-center items-center shadow-lg dark:shadow-lg">
                             <div>
                                 <div className="dark:text-[#A3AED0]  text-[#A3AED0] font-bold  text-[14px]">Spent this month</div>
                                 <div className="dark:text-white text-[#1B2559] font-bold text-[18px]">$682.5</div>
@@ -61,7 +62,7 @@ const Dashboard = () => {
                                 />
                             </div>
                         </div>
-                        <div className="dark:bg-[#333] bg-white p-[10px] rounded-[15px] flex gap-[20px] w-[25%] justify-center items-center shadow-lg">
+                        <div className="dark:bg-[#333] bg-white p-[10px] rounded-[15px] flex gap-[20px] w-[25%] justify-center items-center shadow-lg dark:shadow-lg">
                             <div className="relative">
                                 <Image
                                     src={"/assets/icons/Shadow2.png"}
@@ -85,7 +86,7 @@ const Dashboard = () => {
                             </div>
 
                         </div>
-                        <div className="bg-[#624aff] p-[10px] rounded-[15px] flex gap-[20px] w-[25%] justify-center items-center shadow-lg">
+                        <div className="bg-[#624aff] p-[10px] rounded-[15px] flex gap-[20px] w-[25%] justify-center items-center shadow-lg dark:shadow-lg">
                             <div>
                                 <div className="text-white font-bold  text-[14px]">Activity</div>
                                 <div className="text-white font-bold text-[18px]">$540.5</div>
@@ -103,20 +104,20 @@ const Dashboard = () => {
                 </div>
             </div>
             <div className="grid grid-cols-12 gap-4 mt-[1%]">
-                <div className="col-span-8 rounded-lg shadow-lg px-4 py-4  bg-white dark:bg-[#333]">
+                <div className="col-span-8 rounded-lg shadow-lg dark:shadow-lg px-4 py-4  bg-white dark:bg-[#333]">
                     <BarChartComponent />
 
                 </div>
-                <div className="col-span-4 rounded-lg shadow-lg px-4 py-4  bg-white dark:bg-[#333]">
+                <div className="col-span-4 rounded-lg shadow-lg dark:shadow-lg px-4 py-4  bg-white dark:bg-[#333]">
                     <PieChart />
                 </div>
 
             </div>
             <div className="grid grid-cols-12 gap-4 mt-[1%]">
-                <div className="col-span-8 rounded-lg shadow-lg px-4 py-4   bg-white dark:bg-[#333]">
+                <div className="col-span-8 rounded-lg shadow-lg dark:shadow-lg px-4 py-4   bg-white dark:bg-[#333]">
                     <LineChart />
                 </div>
-                <div className="col-span-4 rounded-lg shadow-lg px-4 py-4   bg-white dark:bg-[#333]">
+                <div className="col-span-4 rounded-lg shadow-lg dark:shadow-lg px-4 py-4   bg-white dark:bg-[#333]">
                     <BarChart />
                 </div>
             </div>

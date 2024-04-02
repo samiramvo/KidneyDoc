@@ -9,7 +9,7 @@ const SinglePatientPage = async ({ params }) => {
     const patient = await fetchPatient(id);
     return (
         <>
-            <div className="containersingleuser  shadow-lg dark:bg-[#333] ">
+            <div className="containersingleuser  shadow-lg dark:bg-[#333] dark:shadow-lg">
 
                 <div className="formContaineruser">
                     <form action={updatePatient} className='formIduser'>
@@ -37,8 +37,9 @@ const SinglePatientPage = async ({ params }) => {
                                 <div className="flex flex-col mr-[30px]">
                                     <label htmlFor='genderpatient' className="dark:text-[#A3AED0]">Gender</label>
                                     <select name="genderpatient" id="genderpatient" className="w-[260px] dark:bg-[#121212] dark:opacity-[80%] dark:border-none">
-                                        <option value="Male" selected={patient.gender}>Male</option>
-                                        <option value="Female" selected={patient.gender}>Female</option>
+                                        <option value="general">Sexe</option>
+                                        <option value="Male" >Male</option>
+                                        <option value="Female" >Female</option>
                                     </select>
                                 </div>
                                 <div className="flex flex-col ">

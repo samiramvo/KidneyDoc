@@ -64,7 +64,7 @@ const SingleUserPage = async ({ params }) => {
                             <textarea type="text" id="address" name="address" placeholder={user.useraddress} className=' dark:bg-[#121212] dark:opacity-[80%] dark:border-none' />
                         </div>
                     </div>
-                    <button>Update</button>
+                    <button className='hover:shadow-xl'>Update</button>
                 </form>
             </div >
             <div className="separator dark:bg-white dark:w-[0.2px]">
@@ -77,7 +77,7 @@ const SingleUserPage = async ({ params }) => {
                     />
                 </div>
 
-                <h1 className="font-bold text-[#2B3674] text-[17px] mb-8"> {user.username}</h1>
+                <h1 className="font-bold text-[#2B3674] text-[17px] mb-8 dark:text-white"> {user.username}</h1>
             </div>
         </div >
     );

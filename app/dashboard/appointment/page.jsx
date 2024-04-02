@@ -113,7 +113,7 @@ export default function Appointment() {
             </div>
             <div className="flex min-h-screen font-dm_sans flex-col items-center justify-between p-4 text-[#2B3674]">
                 <div className="grid grid-cols-10 ml-[5%]  ">
-                    <div className="col-span-8  shadow-lg ">
+                    <div className="col-span-8  shadow-lg dark:shadow-lg ">
                         <FullCalendar
                             plugins={[
                                 dayGridPlugin,

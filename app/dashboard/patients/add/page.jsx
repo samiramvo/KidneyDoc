@@ -61,7 +61,7 @@ const AddPatientPage = () => {
             <div>
                 <h1 className="font-bold text-[#2B3674] text-[26px] mb-8 dark:text-white">New Patient</h1>
             </div>
-            <div className="containeraddpatient shadow-lg dark:bg-[#333] ">
+            <div className="containeraddpatient shadow-lg dark:bg-[#333] dark:shadow-lg ">
                 <div>
                     <h1 className="font-medium text-[#2B3674] text-[17px] mt-4 mb-8 dark:text-white">Basic Information</h1>
                 </div>
@@ -80,6 +80,7 @@ const AddPatientPage = () => {
                         <div className="flex flex-col">
                             <label htmlFor="gender" className="dark:text-[#A3AED0]">Gender</label>
                             <select name="gender" id="gender" className="dark:bg-[#121212] dark:opacity-[80%] dark:border-none" required>
+                                <option value="general">Sexe</option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                             </select>

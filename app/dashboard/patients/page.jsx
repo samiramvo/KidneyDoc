@@ -26,7 +26,7 @@ const Patients = async ({ searchParams }) => {
                 </div>
             </div>
             <FilterForm />
-            <div className="containerpatient rounded-lg shadow-lg dark:bg-[#333]">
+            <div className="containerpatient rounded-lg shadow-lg dark:bg-[#333] dark:shadow-lg">
                 <div className='mb-6'>
                     <Search placeholder="Search for a patient..." />
                 </div>
@@ -46,7 +46,7 @@ const Patients = async ({ searchParams }) => {
                     </thead>
                     <tbody className=' font-medium text-[#1B2559]  text-[15px]'>
                         {patients.map((patient) => (
-                            <tr key={patient.id}>
+                            <tr key={patient.id} className="group hover:bg-gray-100 dark:hover:bg-gray-700 ">
                                 <td>
                                     <div className='bg-[#eeefff] rounded-[8px] text-[#4318FF] w-[32px] h-[32px]  flex items-center justify-center'>
                                         1

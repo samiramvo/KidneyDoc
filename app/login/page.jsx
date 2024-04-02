@@ -6,7 +6,8 @@ import "@/styles/globals.css"
 import Typewriter from 'typewriter-effect';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import ThemeSwitcher from "../ThemeSwitcher";
-
+import { authenticate } from "@/lib/actions";
+import toast from "react-hot-toast";
 
 const PasswordInput = () => {
     const [password, setPassword] = useState('');
@@ -30,10 +31,10 @@ const PasswordInput = () => {
                 <input
                     type={showPassword ? 'text' : 'password'}
                     placeholder="Min. 8 characters"
-                    required
                     className="form_input password_input pl-[40px]"
                     value={password}
                     onChange={handlePasswordChange}
+                    name="passworduser"
                 />
                 <div className="absolute inset-y-0 left-[68%] flex items-center">
                     <div onClick={togglePasswordVisibility}>
@@ -54,6 +55,25 @@ const Login = () => {
     const handleCheckboxChange = () => {
         setIsChecked(!isChecked);
     };
+
+    async function connexion(event) {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
+
+        try {
+            const response = await authenticate(formData);
+            if (response?.error) {
+                toast.error(response.error);
+            } else {
+                toast.success('Successful connection'
+                );
+            }
+        } catch (error) {
+            console.error("An error occurred:", error);
+            toast.error("Wrong credentials");
+        }
+    }
+
     return (
         <div className="dark:bg-[#121212]">
             <div className="theme-switcher-wrapper">
@@ -102,12 +122,12 @@ const Login = () => {
                 </div>
                 <div className=" md:w-[50%] ">
 
-                    <form action="/login" method="post">
+                    <form onSubmit={connexion} >
 
                         <div className="mt-[10%] ml-[15%]">
                             <h1 className="text-[25px] font-bold font-dm_sans text-violettitle dark:text-violetpur">Log In</h1>
                             <p className='desc'>
-                                Enter your email and password to log in!
+                                Enter your username and password to log in!
                             </p>
                             <div className="mt-[30px]">
                                 <div className="flex flex-col">
@@ -115,10 +135,11 @@ const Login = () => {
                                         <span className="text-violetpur text-[18px]">*</span>
                                     </label>
                                     <input
-                                        type='text'
+                                        type='email'
                                         placeholder='mail@simple.com'
-                                        required
                                         className='form_input'
+                                        name="emailuser"
+                                        id="emailuser"
                                     />
                                 </div>
                                 <PasswordInput />
@@ -138,9 +159,9 @@ const Login = () => {
                                     <Link className="font-medium text-violetpur text-[16px] ml-[25%]" href="#">Forget password?</Link>
                                 </div>
                                 <div className="mt-[30px]">
-                                    <Link href="/loginfacial">
-                                        <button type="submit" className="font-dm_sans buttonlog text-white text-center text-[15px] font-bold">Log In</button>
-                                    </Link>
+
+                                    <button type="submit" className="font-dm_sans buttonlog text-white text-center text-[15px] font-bold hover:shadow-xl dark:hover:shadow-xl">Log In</button>
+
                                 </div>
                             </div>
                         </div>

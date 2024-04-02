@@ -9,7 +9,7 @@ const Tablepatient = async () => {
     return (
         <div>
 
-            <div className="containerpatient shadow-lg dark:bg-[#333]">
+            <div className="containerpatient shadow-lg dark:bg-[#333] dark:shadow-lg">
                 <div className='flex '>
                     <h2 className="titlepatient ml-[10px] dark:text-[#605BFF]">Patient Data</h2>
                     <Link href={"/dashboard/patients"} className="ml-auto">
@@ -33,7 +33,7 @@ const Tablepatient = async () => {
                     </thead>
                     <tbody className=' font-medium text-[#1B2559]  text-[15px]'>
                         {patients.map((patient) => (
-                            <tr key={patient.id}>
+                            <tr key={patient.id} className="group hover:bg-gray-100 dark:hover:bg-gray-700 ">
                                 <td>
                                     <div className='bg-[#eeefff] rounded-[8px] text-[#4318FF] w-[32px] h-[32px]  flex items-center justify-center'>
                                         1

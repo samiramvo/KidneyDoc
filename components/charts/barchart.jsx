@@ -21,7 +21,7 @@ export default function BarChartComponent() {
         backgroundColor: theme === 'light' ? '#FFF' : '#333',
         legend: {
             textStyle: {
-                color: '#A3AED0',
+                color: theme === 'light' ? '#A3AED0' : '#FFFFFF',
                 fontName: 'DM Sans',
                 fontSize: 14
             }

@@ -13,7 +13,7 @@ const DashboardLayout = ({ children }) => {
 
     return (
         <div className="bg-[#F4F7FE] flex font-dm_sans dark:bg-[#121212] ">
-            <div className={`bg-white dark:bg-[#121212] menudash ${sidebarExpanded ? "expanded" : "collapsed"}`}>
+            <div className={`bg-white dark:bg-[#333] menudash ${sidebarExpanded ? "expanded" : "collapsed"} `}>
                 <Sidebar onToggleSidebar={handleToggleSidebar} />
             </div>
             <div className={`contentdash dark:bg-[#121212] ${sidebarExpanded ? "expanded" : "collapsed"}`}>
