@@ -116,9 +116,13 @@ const PatientClient = async ({ patients, count }) => {
                     </div>
                   </td>
                   <td>
-                    <div className="namepatient dark:text-white">
-                      <span>{patient.name_patient}</span>{" "}
-                      <span>{patient.prenom_patient}</span>
+                    <div className="namepatient flex dark:text-white">
+                      <div className="mr-2">
+                        <span>{patient.name_patient}</span>
+                      </div>
+                      <div>
+                        <span>{patient.prenom_patient}</span>
+                      </div>
                     </div>
                   </td>
                   <td className="dark:text-white">{patient.doctor}</td>

@@ -1,6 +1,10 @@
 "use client";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import PhoneInput from "react-phone-number-input";
+import PhoneInput, {
+  isPossiblePhoneNumber,
+  isValidPhoneNumber,
+} from "react-phone-number-input";
+
 import "react-phone-number-input/style.css";
 import { useRef, useState, useEffect } from "react";
 import { addUser } from "@/lib/actions";
@@ -49,9 +53,7 @@ function generateStrongPassword() {
 const AddUserPage = () => {
   const formRef = useRef(null);
   const [showPassword, setShowPassword] = useState(false);
-  const [phoneNumber, setPhoneNumber] = useState();
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   const formSchema = z.object({
     username: z.string().min(1, "Le nom d'utilisateur est requis"),
     emailuser: z
@@ -60,12 +62,31 @@ const AddUserPage = () => {
       .min(1, "L'adresse e-mail est requise"),
     passworduser: z
       .string()
-      .min(8, "Le mot de passe doit contenir au moins 8 caractères"),
+      .min(8, "Le mot de passe doit contenir au moins 8 caractères")
+      .regex(
+        /[A-Z]/,
+        "Le mot de passe doit contenir au moins une lettre majuscule"
+      )
+      .regex(
+        /[a-z]/,
+        "Le mot de passe doit contenir au moins une lettre minuscule"
+      )
+      .regex(/\d/, "Le mot de passe doit contenir au moins un chiffre")
+      .regex(
+        /[@$!%*?&]/,
+        "Le mot de passe doit contenir au moins un caractère spécial @$!%*?&."
+      ),
     phoneuser: z
       .string()
-      .regex(/^\+?\d{10,15}$/, "Le numéro de téléphone est invalide"),
+      .min(1, "Le numéro de téléphone est requis")
+      .refine((value) => isPossiblePhoneNumber(value), {
+        message: "Le numéro de téléphone est invalide",
+      })
+      .refine((value) => isValidPhoneNumber(value), {
+        message: "Le numéro de téléphone n'est pas valide dans ce pays",
+      }),
     useraddress: z.string().min(1, "L'adresse est requise"),
-    admin: z.string().min(1, "Le nom de l'admin est requis"),
+    isAdmin: z.string().min(1, "Le nom de l'admin est requis"),
     isActive: z.string().min(1, "Le statut actif ou non est requis"),
   });
   const form = useForm({
@@ -75,9 +96,9 @@ const AddUserPage = () => {
       passworduser: "",
       emailuser: "",
       phoneuser: "",
-      admin: "",
+      isAdmin: "",
       isActive: "",
-      useradress: "",
+      useraddress: "",
     },
   });
   const { control, handleSubmit, setValue } = form;
@@ -96,9 +117,9 @@ const AddUserPage = () => {
     formData.append("emailuser", values.emailuser);
     formData.append("passworduser", values.passworduser);
     formData.append("phoneuser", values.phoneuser);
-    formData.append("admin", values.admin);
+    formData.append("isAdmin", values.isAdmin);
     formData.append("isActive", values.isActive);
-    formData.append("useradress", values.useradress);
+    formData.append("useraddress", values.useraddress);
     setIsSubmitting(true);
     try {
       const response = await addUser(formData);
@@ -259,12 +280,12 @@ const AddUserPage = () => {
                 </div>
               </div>
               <div className="flex flex-col">
-                <FormField
-                  control={form.control}
+                <Controller
+                  control={control}
                   name="phoneuser"
-                  render={({ field }) => (
+                  render={({ field, fieldState }) => (
                     <FormItem>
-                      <FormLabel className="dark:text-[#A3AED0]">
+                      <FormLabel>
                         Phone
                         <span className="text-red-500 text-[18px]">*</span>
                       </FormLabel>
@@ -272,14 +293,16 @@ const AddUserPage = () => {
                         <PhoneInput
                           international
                           defaultCountry="BJ"
-                          name="phoneuser"
-                          value={phoneNumber}
-                          onChange={setPhoneNumber}
+                          value={field.value}
+                          onChange={field.onChange}
                           className="dark:bg-[#121212] dark:opacity-[80%] dark:border-none focus:border-[#2B3674] focus:ring-7 focus:ring-[#2B3674]   focus-visible:ring-0 focus-visible:ring-offset-0"
-                          {...field}
                         />
                       </FormControl>
-                      <FormMessage className="text-red-400 font-medium" />
+                      {fieldState.error && (
+                        <FormMessage className="text-red-400 font-medium">
+                          {fieldState.error.message}
+                        </FormMessage>
+                      )}
                     </FormItem>
                   )}
                 />
@@ -296,7 +319,7 @@ const AddUserPage = () => {
               <div className="flex flex-col">
                 <FormField
                   control={form.control}
-                  name="admin"
+                  name="isAdmin"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="dark:text-[#A3AED0]">

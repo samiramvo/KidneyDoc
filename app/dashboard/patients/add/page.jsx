@@ -7,6 +7,11 @@ import "@/styles/globalelements.css";
 import "@/styles/globals.css";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import PhoneInput, {
+  isPossiblePhoneNumber,
+  isValidPhoneNumber,
+} from "react-phone-number-input";
+
 import {
   Form,
   FormControl,
@@ -75,7 +80,13 @@ const AddPatientPage = () => {
     addresspatient: z.string().min(1, "L'adresse est requise"),
     phone_patient: z
       .string()
-      .regex(/^\+?\d{10,15}$/, "Le numéro de téléphone est invalide"),
+      .min(1, "Le numéro de téléphone est requis")
+      .refine((value) => isPossiblePhoneNumber(value), {
+        message: "Le numéro de téléphone est invalide",
+      })
+      .refine((value) => isValidPhoneNumber(value), {
+        message: "Le numéro de téléphone n'est pas valide dans ce pays",
+      }),
     doctor: z.string().min(1, "Le nom du docteur est requis"),
   });
 
@@ -365,26 +376,29 @@ const AddPatientPage = () => {
             </div>
             <div className="flex flex-row">
               <div className="flex flex-col mb-4">
-                <FormField
-                  control={form.control}
+                <Controller
+                  control={control}
                   name="phone_patient"
-                  render={({ field }) => (
+                  render={({ field, fieldState }) => (
                     <FormItem>
-                      <FormLabel className="dark:text-[#A3AED0]">
+                      <FormLabel>
                         Phone Number
                         <span className="text-red-500 text-[18px]">*</span>
                       </FormLabel>
                       <FormControl>
-                        <Input
-                          type="tel"
-                          placeholder="Phone number patient"
-                          name="phone_patient"
-                          id="phone_patient"
+                        <PhoneInput
+                          international
+                          defaultCountry="BJ"
+                          value={field.value}
+                          onChange={field.onChange}
                           className="dark:bg-[#121212] dark:opacity-[80%] dark:border-none focus:border-[#2B3674] focus:ring-7 focus:ring-[#2B3674]   focus-visible:ring-0 focus-visible:ring-offset-0"
-                          {...field}
                         />
                       </FormControl>
-                      <FormMessage className="text-red-400 font-medium" />
+                      {fieldState.error && (
+                        <FormMessage className="text-red-400 font-medium">
+                          {fieldState.error.message}
+                        </FormMessage>
+                      )}
                     </FormItem>
                   )}
                 />

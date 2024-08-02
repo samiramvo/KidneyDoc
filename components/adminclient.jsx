@@ -76,6 +76,7 @@ const AdminClient = ({ users, count }) => {
             <tr className="text-[#605BFF] dark:text-[#A3AED0]">
               <td>Name</td>
               <td>Email</td>
+              <td>Phone</td>
               <td>Created At</td>
               <td>Role</td>
               <td>Status</td>
@@ -102,6 +103,7 @@ const AdminClient = ({ users, count }) => {
                     </div>
                   </td>
                   <td className="dark:text-white">{user.emailuser}</td>
+                  <td className="dark:text-white">{user.phoneuser}</td>
                   <td className="dark:text-white">
                     {/* {user.createdAt?.toString().slice(4, 24)} */}
 
