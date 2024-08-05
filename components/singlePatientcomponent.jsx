@@ -106,7 +106,7 @@ const SinglePatientComponent = ({ patient }) => {
         setTimeout(() => {
           router.refresh();
         }, 3000);
-        formRef.current?.reset();
+        reset();
       }
     } catch (error) {
       console.error("An error occurred:", error);

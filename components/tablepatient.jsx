@@ -6,7 +6,7 @@ import { fr } from "date-fns/locale";
 import ClientModal from "./modal";
 import { deletePatient } from "@/lib/actions";
 
-const Tablepatient = async ({ patients }) => {
+const Tablepatient = ({ patients }) => {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const formattedDate = format(date, "EEEE d MMMM yyyy 'à' HH:mm", {
@@ -76,7 +76,7 @@ const Tablepatient = async ({ patients }) => {
             {patients.map((patient) => (
               <tr
                 key={patient._id}
-                className="group hover:bg-gray-100 dark:hover:bg-gray-700 "
+                className="group hover:bg-[#f8f8fa] dark:hover:bg-gray-700 "
               >
                 {/* <td>
                   <div className="bg-[#eeefff] rounded-[8px] text-[#4318FF] w-[32px] h-[32px]  flex items-center justify-center">

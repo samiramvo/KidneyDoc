@@ -4,7 +4,7 @@ import "@/styles/globals.css";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 
-const Search = ({ placeholder }) => {
+const Search = ({ placeholder, namelabel }) => {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
   const pathname = usePathname();
@@ -23,14 +23,17 @@ const Search = ({ placeholder }) => {
   }, 300);
 
   return (
-    <div className="containersearch ">
-      <MdSearch className="dark:text-black" />
-      <input
-        type="text"
-        placeholder={placeholder}
-        className="inputsearch dark:text-black"
-        onChange={handleSearch}
-      />
+    <div className="flex flex-col">
+      <label className="text-sm font-medium pl-2">{namelabel}</label>
+      <div className=" flex items-center p-2  relative ">
+        <MdSearch className="absolute left-3 text-lg text-black dark:text-black" />
+        <input
+          type="text"
+          placeholder={placeholder}
+          className="mt-1 block w-64 pl-7 pr-3 py-2 text-base border border-gray-300 rounded-md shadow-sm focus:outline-none dark:text-black"
+          onChange={handleSearch}
+        />
+      </div>
     </div>
   );
 };

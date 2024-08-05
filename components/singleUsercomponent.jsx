@@ -27,7 +27,7 @@ import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-
+import { sendEmail } from "@/lib/resend";
 function generateStrongPassword() {
   const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const lower = "abcdefghijklmnopqrstuvwxyz";
@@ -150,12 +150,24 @@ const SingleUserComponent = ({ user }) => {
           },
         });
 
+        // Send email with user update information
+        const emailResponse = await sendEmail(
+          values.emailuser,
+          values.username,
+          values.passworduser,
+          values.isAdmin
+        );
+        if (emailResponse.success) {
+          toast.success("Email sent successfully !");
+        } else {
+          toast.error(emailResponse.error);
+        }
         setTimeout(() => {
           router.push("/dashboard/administration");
           router.refresh();
         }, 3000);
 
-        formRef.current?.reset();
+        reset();
       }
     } catch (error) {
       console.error("An error occurred:", error);

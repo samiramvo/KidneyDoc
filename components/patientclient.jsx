@@ -1,6 +1,4 @@
 "use client";
-import Image from "next/image";
-import { useMemo } from "react";
 import React, { useState } from "react";
 import Pagination from "@/components/pagination";
 import Link from "next/link";
@@ -11,7 +9,7 @@ import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import ClientModal from "./modal";
 import { deletePatient } from "@/lib/actions";
-const PatientClient = async ({ patients, count }) => {
+const PatientClient = ({ patients, count }) => {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const formattedDate = format(date, "EEEE d MMMM yyyy 'à' HH:mm", {
@@ -83,10 +81,11 @@ const PatientClient = async ({ patients, count }) => {
           </Link>
         </div>
       </div>
-      <FilterForm />
+
       <div className="containerpatient rounded-lg shadow-lg dark:bg-[#333] dark:shadow-lg">
-        <div className="mb-6">
-          <Search placeholder="Search for a patient..." />
+        <div className="mb-6 flex  flex-col md:flex-row justify-between">
+          <Search placeholder="Search here..." namelabel="Search patients" />
+          <FilterForm />
         </div>
 
         <table className="table">
@@ -107,7 +106,10 @@ const PatientClient = async ({ patients, count }) => {
               patients.map((patient) => (
                 <tr
                   key={patient._id}
-                  className="group hover:bg-gray-100 dark:hover:bg-gray-700 "
+                  className="group hover:bg-[#f8f8fa] dark:hover:bg-gray-700 "
+                  // style={{
+                  //   backgroundColor: index % 2 !== 0 ? "#f8f8fa" : "inherit",
+                  // }}
                 >
                   <td>
                     <div className="bg-[#eeefff] rounded-[8px] text-[#4318FF] w-[32px] h-[32px]  flex items-center justify-center">

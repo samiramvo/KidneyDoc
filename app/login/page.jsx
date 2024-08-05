@@ -302,6 +302,44 @@ const Login = () => {
     }
   }
 
+  // async function sendOtp(email) {
+  //   const response = await fetch("/api/send-otp", {
+  //     method: "POST",
+  //     body: JSON.stringify({ email }),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+
+  //   if (!response.ok) {
+  //     throw new Error("Failed to send OTP");
+  //   }
+  // }
+
+  // async function handleOtpSubmit(e) {
+  //   e.preventDefault();
+
+  //   const response = await verifyOtp(otp); // Vérification de l'OTP
+  //   if (response.success) {
+  //     toast.success("OTP vérifié avec succès !");
+  //     router.push("/dashboard"); // Rediriger vers le tableau de bord
+  //   } else {
+  //     toast.error("OTP incorrect");
+  //   }
+  // }
+
+  // async function verifyOtp(otp) {
+  //   const response = await fetch("/api/verify-otp", {
+  //     method: "POST",
+  //     body: JSON.stringify({ otp }),
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   });
+
+  //   return await response.json();
+  // }
+
   return (
     <div className="dark:bg-[#121212]">
       <div className="theme-switcher-wrapper">
@@ -437,6 +475,22 @@ const Login = () => {
             </form>
           </Form>
         </div>
+        {/* {showOtpForm && (
+          <form onSubmit={handleOtpSubmit} className="mt-4">
+            <h2 className="text-lg font-bold">Entrez votre OTP</h2>
+            <input
+              type="text"
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
+              className="form_input mt-2"
+              placeholder="Votre OTP"
+              required
+            />
+            <button type="submit" className="mt-4 buttonlog">
+              Vérifier OTP
+            </button>
+          </form>
+        )} */}
       </div>
     </div>
   );

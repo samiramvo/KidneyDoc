@@ -5,8 +5,8 @@ import LineChart from "@/components/charts/linechart";
 import BarChartComponent from "@/components/charts/barchart";
 import BarChart from "@/components/charts/stackedbar";
 import Tablepatient from "@/components/tablepatient";
-import Informationuser from "@/components/informationuser";
 import { fetchRecentPatients } from "@/lib/data";
+import Informationuser from "@/components/informationuser";
 const Dashboard = async () => {
   const { patients } = await fetchRecentPatients();
   const Patientsjson = JSON.parse(JSON.stringify(patients));

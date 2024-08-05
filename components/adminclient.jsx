@@ -62,7 +62,7 @@ const AdminClient = ({ users, count }) => {
         <div className="topadmin">
           {/* <input type="text" placeholder="Search for a user..." /> */}
 
-          <Search placeholder="Search for a user..." />
+          <Search placeholder="Search here..." namelabel="Search users" />
 
           <Link href="/dashboard/administration/add">
             <button className="addButtonuser text-[13px] flex hover:shadow-xl transition duration-300">

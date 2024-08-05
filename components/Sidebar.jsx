@@ -16,7 +16,7 @@ import { TbMessageChatbot } from "react-icons/tb";
 import { IoPersonCircle } from "react-icons/io5";
 import { logout } from "@/lib/actions";
 import Spinner from "@/components/Spinner";
-// import Informationuser from "./informationuser";
+// import InformationuserClient from "./informationuserclient";
 //const SidebarContext = createContext()
 const menuItems = [
   {
@@ -104,7 +104,7 @@ const Sidebar = ({ onToggleSidebar }) => {
           height="10"
         />
       </div>
-      {/* <Informationuser /> */}
+      {/* <InformationuserClient /> */}
       <button
         onClick={handleToggleSidebar}
         className="absolute p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100 ml-[100%] mt-[15%]"

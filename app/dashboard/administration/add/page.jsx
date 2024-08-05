@@ -26,8 +26,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useForm, Controller } from "react-hook-form";
 import { z } from "zod";
+import { sendEmail } from "@/lib/resend";
 import { zodResolver } from "@hookform/resolvers/zod";
-// import nodemailer from "nodemailer";
 
 function generateStrongPassword() {
   const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -111,6 +111,7 @@ const AddUserPage = () => {
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
   async function handleFormSubmit(values) {
     const formData = new FormData();
     formData.append("username", values.username);
@@ -158,7 +159,20 @@ const AddUserPage = () => {
             );
           },
         });
-        // sendEmail(formData.get("emailuser"), generatedPassword);
+
+        // Send email with user information
+        const emailResponse = await sendEmail(
+          values.emailuser,
+          values.username,
+          values.passworduser,
+          values.isAdmin
+        );
+        if (emailResponse.success) {
+          toast.success("Email sent successfully !");
+        } else {
+          toast.error(emailResponse.error);
+        }
+
         formRef.current?.reset();
       }
     } catch (error) {

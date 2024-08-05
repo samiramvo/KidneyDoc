@@ -1,42 +1,50 @@
-"use client";
-import React from "react";
+import { useState } from "react";
 
-const FilterForm = () => {
-  // const [filter, setFilter] = useState("");
-  // const [doctor, setDoctor] = useState("");
-  // const [doctors, setDoctors] = useState([]);
+const TableFilter = () => {
+  const [selectedCountry, setSelectedCountry] = useState("");
+  const [sortOption, setSortOption] = useState("");
 
-  // // Simuler une fonction pour récupérer la liste des docteurs
-  // useEffect(() => {
-  //   const fetchDoctors = async () => {
-  //     // Remplacez cette ligne par un appel réel à votre API pour récupérer les docteurs
-  //     const doctorsList = [
-  //       { id: "doc1", name: "Dr. Smith" },
-  //       { id: "doc2", name: "Dr. Johnson" },
-  //       // Ajoutez d'autres docteurs ici
-  //     ];
-  //     setDoctors(doctorsList);
-  //   };
+  const handleCountryChange = (event) => {
+    setSelectedCountry(event.target.value);
+  };
 
-  //   fetchDoctors();
-  // }, []);
+  const handleSortChange = (event) => {
+    setSortOption(event.target.value);
+  };
 
   return (
-    <form>
-      <div>
-        <label htmlFor="doctor">Filter by Doctor:</label>
-        {/* <select id="doctor" value={doctor}>
-          <option value="">-- Select --</option>
-          {doctors.map((doc) => (
-            <option key={doc.id} value={doc.id}>
-              {doc.name}
-            </option>
-          ))}
-        </select> */}
+    <div className=" flex flex-col md:flex-row gap-3 items-center">
+      <div className="flex items-center space-x-4">
+        <div className="flex flex-col">
+          <label className="text-sm font-medium ">Select by Doctor</label>
+          <select
+            value={selectedCountry}
+            onChange={handleCountryChange}
+            className="mt-1 block w-64 pl-2 pr-3 py-2 text-base border border-gray-300 rounded-md shadow-sm focus:outline-none dark:text-black text-gray-600"
+          >
+            <option value="">Select By Doctor</option>
+            <option value="USA">Dr VIGAN</option>
+            <option value="Canada">Dr Agbangla</option>
+          </select>
+        </div>
       </div>
-      <button type="submit">Apply Filters</button>
-    </form>
+
+      <div className="flex flex-col">
+        <label className="text-sm font-medium ">Sort by</label>
+        <select
+          value={sortOption}
+          onChange={handleSortChange}
+          className="mt-1 block w-64 pl-2 pr-3 py-2 text-base border border-gray-300 rounded-md shadow-sm focus:outline-none dark:text-black text-gray-600"
+        >
+          <option value="">Sort by</option>
+          <option value="nameAsc">Name Ascending</option>
+          <option value="nameDesc">Name Descending</option>
+          <option value="dateAsc">Date Ascending</option>
+          <option value="dateDesc">Date Descending</option>
+        </select>
+      </div>
+    </div>
   );
 };
 
-export default FilterForm;
+export default TableFilter;
