@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { RiAddLine } from "react-icons/ri";
@@ -9,7 +9,10 @@ import Pagination from "./pagination";
 import { deleteUser } from "@/lib/actions";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
+import { Eye, Trash, Edit2 } from "iconsax-react";
+import AddUserPage from "@/app/dashboard/administration/AjoutUser";
 import Search from "./search";
+import { User2 } from "lucide-react";
 const AdminClient = ({ users, count }) => {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -23,6 +26,7 @@ const AdminClient = ({ users, count }) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [userIdToDelete, setUserIdToDelete] = useState(null);
 
   const [nameuser, setNameUser] = useState("");
@@ -38,6 +42,13 @@ const AdminClient = ({ users, count }) => {
     setUserIdToDelete(null);
     setNameUser("");
   };
+  const openAddModal = () => {
+    window.location.href = `${window.location.pathname}?showAddModal=true`;
+  };
+
+  const closeAddModal = () => {
+    setIsAddModalOpen(false);
+  };
 
   const handleDelete = async () => {
     if (!userIdToDelete) return;
@@ -51,49 +62,56 @@ const AdminClient = ({ users, count }) => {
     closeModal();
   };
 
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("showAddModal") === "true") {
+      setIsAddModalOpen(true);
+
+      urlParams.delete("showAddModal");
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }, []);
   return (
     <div>
       <div>
-        <h1 className="font-bold text-[#2B3674] text-[26px] mb-8 dark:text-white">
+        <h1 className="font-bold text-textSecondary text-[26px] mb-8 dark:text-white">
           Administration
         </h1>
       </div>
-      <div className="containeradmin shadow-lg dark:bg-[#333]">
+      <div className="containeradmin border-t border-solid border-b-[#EEEFF2] shadow-lg dark:bg-[#333]">
         <div className="topadmin">
-          {/* <input type="text" placeholder="Search for a user..." /> */}
+          <Search placeholder="Search ..." />
 
-          <Search placeholder="Search here..." namelabel="Search users" />
-
-          <Link href="/dashboard/administration/add">
-            <button className="addButtonuser text-[13px] flex hover:shadow-xl transition duration-300">
-              <RiAddLine className="mr-[14px] mt-[2px]" size={20} />
-              Add New
-            </button>
-          </Link>
+          <button
+            onClick={openAddModal}
+            className="bg-violettitle text-white rounded-full w-8 h-8 flex items-center justify-center cursor-pointer"
+          >
+            <RiAddLine size={22} />
+          </button>
         </div>
         <table className="tableUser">
           <thead>
-            <tr className="text-[#605BFF] dark:text-[#A3AED0]">
+            <tr className="text-violetdesc dark:text-[#A3AED0]">
               <td>Name</td>
               <td>Email</td>
               <td>Phone</td>
               <td>Created At</td>
               <td>Role</td>
               <td>Status</td>
-              <td>Action</td>
+              <td>Actions</td>
             </tr>
           </thead>
-          <tbody>
+          <tbody className=" font-medium text-violettitle   text-[15px]">
             {count > 0 ? (
               users.map((user) => (
                 <tr
                   key={user._id} // Utilisation de _id au lieu de id
-                  className="font-medium text-[#1B2559] text-[15px]"
+                  className="group hover:bg-[#f8f8fa] dark:hover:bg-gray-700 border-b border-solid border-b-[#EEEFF2] "
                 >
-                  <td>
+                  {/* <td>
                     <div className="flex items-center gap-[10px] dark:text-white">
                       <Image
-                        src={user.img || "/assets/images/Elipse 5.png"}
+                        src={user.img || Users2}
                         alt=""
                         width={30}
                         height={30}
@@ -101,7 +119,33 @@ const AdminClient = ({ users, count }) => {
                       />
                       {user.username}
                     </div>
+                  </td> */}
+                  <td>
+                    <div className="flex items-center gap-[10px] dark:text-white">
+                      {user?.img ? (
+                        <>
+                          <Image
+                            src={user?.img}
+                            alt={user?.username || "default user"}
+                            width={30}
+                            height={30}
+                            className="rounded-full"
+                          />
+                          {user.username}
+                        </>
+                      ) : (
+                        <>
+                          <User2
+                            width={22}
+                            height={22}
+                            className="bg-background text-violettitle rounded-full w-6 h-6 flex items-center justify-center cursor-pointer"
+                          />
+                          {user.username}
+                        </>
+                      )}
+                    </div>
                   </td>
+
                   <td className="dark:text-white">{user.emailuser}</td>
                   <td className="dark:text-white">{user.phoneuser}</td>
                   <td className="dark:text-white">
@@ -118,16 +162,13 @@ const AdminClient = ({ users, count }) => {
                   <td>
                     <div className="buttonsuser">
                       <Link href={`/dashboard/administration/${user._id}`}>
-                        <button className="buttonuser buttonview text-[13px]">
-                          View
-                        </button>
+                        <Eye size="24" color="#3C3F4A" />
                       </Link>
-
+                      <Edit2 size="24" color="#3C3F4A" />
                       <button
                         onClick={() => openModal(user._id, user.username)}
-                        className="buttonuser buttondelete text-[13px]"
                       >
-                        Delete
+                        <Trash size="24" color="#3C3F4A" />
                       </button>
                     </div>
                   </td>
@@ -151,6 +192,7 @@ const AdminClient = ({ users, count }) => {
         onConfirm={handleDelete}
         name={nameuser}
       />
+      <AddUserPage isOpen={isAddModalOpen} onClose={closeAddModal} />
     </div>
   );
 };

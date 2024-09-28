@@ -16,7 +16,7 @@
 } */
 
 
-.formaddpatient {
+/* .formaddpatient {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -35,13 +35,13 @@
     flex-wrap: wrap;
     justify-content: space-between;
     width: 100%;
-}
+} */
 
-.formaddpatient .flex-row .flex-col {
+/* .formaddpatient .flex-row .flex-col {
     width: calc(47% - 5px);
-}
+} */
 
-.formaddpatient input,
+/* .formaddpatient input,
 .formaddpatient select,
 .formaddpatient textarea {
 
@@ -51,11 +51,11 @@
     margin-bottom: 20px;
     height: 50px;
     font-size: 15px;
-}
+} */
 
 
 
-.formaddpatient button {
+/* .formaddpatient button {
     margin-top: 2%;
     margin-left: auto;
     width: 20%;
@@ -67,7 +67,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-}
+} */
 
 .popup {
     position: fixed;

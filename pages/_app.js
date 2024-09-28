@@ -1,11 +1,15 @@
+// pages/_app.js
 import Head from "next/head";
-const MyApp = () => (
-  <>
-    <Head>
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
-    {/* Other page content */}
-  </>
-);
+
+function MyApp({ Component, pageProps }) {
+  return (
+    <>
+      <Head>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Component {...pageProps} />
+    </>
+  );
+}
 
 export default MyApp;

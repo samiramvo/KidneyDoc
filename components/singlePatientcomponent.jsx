@@ -350,13 +350,15 @@ const SinglePatientComponent = ({ patient }) => {
         <div className="separator dark:bg-white dark:w-[0.2px]"></div>
 
         <div className="mt-[5%] ">
-          <div className="flex py-6 px-12 bg-[#F4F7FE] mb-[40%] rounded-md hover:bg-[#593DFF] text-white">
-            <div className=" relative grid place-items-center ">
-              <FaNotesMedical className="w-[75%] h-[75%] text-[#593DFF] mr-8" />
+          <Link href={`/dashboard/patients/${patient._id}/consultation`}>
+            <div className="flex py-6 px-12 bg-[#F4F7FE] mb-[40%] rounded-md  text-white">
+              <div className=" relative grid place-items-center ">
+                <FaNotesMedical className="w-[75%] h-[75%] text-[#593DFF] mr-8" />
+              </div>
+              <div className="mt-[8%] text-[#1B2559]">Consultation</div>
             </div>
-            <div className="mt-[8%] text-[#1B2559]">Consultation</div>
-          </div>
-          <Link href={`/dashboard/patients/${patient.id}/`}>
+          </Link>
+          <Link href={`/dashboard/patients/${patient._id}/observation`}>
             <div className="flex  py-6 px-12 bg-[#F4F7FE] mb-[40%] rounded-md">
               <div className=" relative grid place-items-center">
                 <FaNotesMedical className="w-[75%] h-[75%] text-[#593DFF] mr-8" />

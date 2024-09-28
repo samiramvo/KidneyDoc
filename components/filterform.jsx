@@ -1,11 +1,12 @@
 import { useState } from "react";
+import { FaFilter, FaSort } from "react-icons/fa"; // Import des icônes
 
 const TableFilter = () => {
-  const [selectedCountry, setSelectedCountry] = useState("");
+  const [selectedDoctor, setSelectedDoctor] = useState("");
   const [sortOption, setSortOption] = useState("");
 
-  const handleCountryChange = (event) => {
-    setSelectedCountry(event.target.value);
+  const handleDoctorChange = (event) => {
+    setSelectedDoctor(event.target.value);
   };
 
   const handleSortChange = (event) => {
@@ -13,28 +14,28 @@ const TableFilter = () => {
   };
 
   return (
-    <div className=" flex flex-col md:flex-row gap-3 items-center">
-      <div className="flex items-center space-x-4">
-        <div className="flex flex-col">
-          <label className="text-sm font-medium ">Select by Doctor</label>
-          <select
-            value={selectedCountry}
-            onChange={handleCountryChange}
-            className="mt-1 block w-64 pl-2 pr-3 py-2 text-base border border-gray-300 rounded-md shadow-sm focus:outline-none dark:text-black text-gray-600"
-          >
-            <option value="">Select By Doctor</option>
-            <option value="USA">Dr VIGAN</option>
-            <option value="Canada">Dr Agbangla</option>
-          </select>
-        </div>
+    <div className="flex flex-col md:flex-row gap-3 items-center">
+      {/* Select by Doctor */}
+      <div className="flex items-center space-x-2 bg-gray-100 px-2 rounded-full shadow-sm">
+        <FaFilter className="text-gray-500" /> {/* Icône de filtre */}
+        <select
+          value={selectedDoctor}
+          onChange={handleDoctorChange}
+          className="bg-transparent focus:outline-none text-gray-600 border-none"
+        >
+          <option value="">Select by Doctor</option>
+          <option value="DrVigan">Dr VIGAN</option>
+          <option value="DrAgbangla">Dr Agbangla</option>
+        </select>
       </div>
 
-      <div className="flex flex-col">
-        <label className="text-sm font-medium ">Sort by</label>
+      {/* Sort by */}
+      <div className="flex items-center space-x-2 bg-gray-100 px-2 rounded-full shadow-sm">
+        <FaSort className="text-gray-500" /> {/* Icône de tri */}
         <select
           value={sortOption}
           onChange={handleSortChange}
-          className="mt-1 block w-64 pl-2 pr-3 py-2 text-base border border-gray-300 rounded-md shadow-sm focus:outline-none dark:text-black text-gray-600"
+          className="bg-transparent focus:outline-none text-gray-600  border-none"
         >
           <option value="">Sort by</option>
           <option value="nameAsc">Name Ascending</option>

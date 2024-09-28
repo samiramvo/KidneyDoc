@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Pagination from "@/components/pagination";
 import Link from "next/link";
 import Search from "./search";
@@ -8,7 +8,10 @@ import { RiAddLine } from "react-icons/ri";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import ClientModal from "./modal";
+import { Eye, Trash, Edit2 } from "iconsax-react";
+
 import { deletePatient } from "@/lib/actions";
+import AddPatientPage from "@/app/dashboard/patients/AjoutPatient";
 const PatientClient = ({ patients, count }) => {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -21,23 +24,11 @@ const PatientClient = ({ patients, count }) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [patientIdToDelete, setPatientIdToDelete] = useState(null);
 
   const [namepatient, setNamepatient] = useState("");
   const [prenompatient, setPrenompatient] = useState("");
-
-  // const idMap = useMemo(() => {
-  //   // Trier les patients par date de création (plus ancien en premier)
-  //   const sortedByDate = [...patients].sort(
-  //     (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
-  //   );
-  //   // Créer un mapping des _id aux numéros d'ordre basé sur createdAt
-  //   const map = new Map();
-  //   sortedByDate.forEach((patient, index) => {
-  //     map.set(patient._id, index + 1);
-  //   });
-  //   return map;
-  // }, [patients]);
 
   const openModal = (id, name_patient, prenom_patient) => {
     setPatientIdToDelete(id);
@@ -52,6 +43,13 @@ const PatientClient = ({ patients, count }) => {
     setNamepatient("");
     setPrenompatient("");
   };
+  const openAddModal = () => {
+    window.location.href = `${window.location.pathname}?showAddModal=true`;
+  };
+
+  const closeAddModal = () => {
+    setIsAddModalOpen(false);
+  };
 
   const handleDelete = async () => {
     if (!patientIdToDelete) return;
@@ -64,33 +62,44 @@ const PatientClient = ({ patients, count }) => {
 
     closeModal();
   };
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("showAddModal") === "true") {
+      setIsAddModalOpen(true);
+
+      urlParams.delete("showAddModal");
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }, []);
   return (
     <div>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="font-bold text-[#2B3674] text-[26px] mb-8 dark:text-white">
+          <h1 className="font-bold text-textSecondary text-[26px] mb-8 dark:text-white">
             Patient Data
           </h1>
         </div>
-        <div className="mt-[50px] ">
-          <Link href="/dashboard/patients/add">
-            <button className="bg-[#2a79d7] w-[150px] p-[8px] text-[15px] text-white border-none cursor-pointer rounded-[5px] flex hover:shadow-xl transition duration-300">
-              <RiAddLine className="mr-[14px] mt-[2px]" size={20} />
-              New patient
-            </button>
-          </Link>
-        </div>
+      </div>
+      <div className="mb-6">
+        <FilterForm />
       </div>
 
-      <div className="containerpatient rounded-lg shadow-lg dark:bg-[#333] dark:shadow-lg">
-        <div className="mb-6 flex  flex-col md:flex-row justify-between">
-          <Search placeholder="Search here..." namelabel="Search patients" />
-          <FilterForm />
+      <div className="containerpatient  border-t border-solid border-b-[#EEEFF2]  shadow-lg dark:bg-[#333] dark:shadow-lg">
+        <div className="topadmin">
+          <Search placeholder="Search ... " />
+
+          <button
+            onClick={openAddModal}
+            className="bg-violettitle text-white rounded-full w-8 h-8 flex items-center justify-center cursor-pointer"
+          >
+            <RiAddLine size={22} />
+          </button>
         </div>
 
         <table className="table">
           <thead>
-            <tr className="text-[#605BFF] dark:text-[#A3AED0]">
+            <tr className="text-violetdesc dark:text-[#A3AED0]">
               <td>ID</td>
               <td>Name</td>
               <td>Assigned Doctor</td>
@@ -98,21 +107,18 @@ const PatientClient = ({ patients, count }) => {
               <td>Age</td>
               <td>Phone Number</td>
               <td>Created At</td>
-              <td>Details</td>
+              <td>Actions</td>
             </tr>
           </thead>
-          <tbody className=" font-medium text-[#1B2559]  text-[15px]">
+          <tbody className=" font-medium text-violettitle   text-[15px]">
             {count > 0 ? (
-              patients.map((patient) => (
+              patients.map((patient, index) => (
                 <tr
                   key={patient._id}
-                  className="group hover:bg-[#f8f8fa] dark:hover:bg-gray-700 "
-                  // style={{
-                  //   backgroundColor: index % 2 !== 0 ? "#f8f8fa" : "inherit",
-                  // }}
+                  className="group hover:bg-[#f8f8fa] dark:hover:bg-gray-700 border-b border-solid border-b-[#EEEFF2] "
                 >
                   <td>
-                    <div className="bg-[#eeefff] rounded-[8px] text-[#4318FF] w-[32px] h-[32px]  flex items-center justify-center">
+                    <div className="bg-[#EEEFF2] rounded-[8px] text-violettitle w-[32px] h-[32px]  flex items-center justify-center">
                       {/* {idMap.get(patient._id)} */}
                       {patient.tempId}
                     </div>
@@ -135,20 +141,12 @@ const PatientClient = ({ patients, count }) => {
                     {formatDate(patient.createdAt)}
                   </td>
                   <td>
-                    <div className="buttonsuser">
+                    <div className="buttonsuser flex space-x-4">
                       <Link href={`/dashboard/patients/${patient._id}`}>
-                        {/* <div className="relative bg-[#eeefff] rounded-[8px] text-[#4318FF] w-[42px] h-[32px]  flex items-center justify-center">
-                        <Image
-                          src={"/assets/icons/more_horiz.png"}
-                          alt="Icon"
-                          width="20"
-                          height="20"
-                        />
-                      </div> */}
-                        <button className="buttonuser buttonview text-[13px]">
-                          View
-                        </button>
+                        <Eye size="24" color="#3C3F4A" />
                       </Link>
+
+                      <Edit2 size="24" color="#3C3F4A" />
                       <button
                         onClick={() =>
                           openModal(
@@ -157,9 +155,8 @@ const PatientClient = ({ patients, count }) => {
                             patient.prenom_patient
                           )
                         }
-                        className="buttonuser buttondelete text-[13px]"
                       >
-                        Delete
+                        <Trash size="24" color="#3C3F4A" />
                       </button>
                     </div>
                   </td>
@@ -182,6 +179,7 @@ const PatientClient = ({ patients, count }) => {
         onConfirm={handleDelete}
         name={`${namepatient} ${prenompatient}`}
       />
+      <AddPatientPage isOpen={isAddModalOpen} onClose={closeAddModal} />
     </div>
   );
 };
