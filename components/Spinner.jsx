@@ -1,19 +1,15 @@
-"use client"
+"use client";
 
-import { HashLoader } from "react-spinners"
+import { HashLoader } from "react-spinners";
 
 import "@/styles/globals.css";
 
 const Spinner = () => {
-    return (
-        <div className="spinner" >
-            <HashLoader
-                color="#593DFF"
-                speedMultiplier={1}
-            />
-
-        </ div>
-    );
-}
+  return (
+    <div className="spinner">
+      <HashLoader color="#1B2559" speedMultiplier={1} />
+    </div>
+  );
+};
 
 export default Spinner;

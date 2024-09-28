@@ -2,7 +2,7 @@
 import '@/styles/globals.css'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
-import interactionPlugin, { Draggable, DropArg } from '@fullcalendar/interaction'
+import interactionPlugin, { Draggable } from '@fullcalendar/interaction'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import { Fragment, useEffect, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
@@ -10,7 +10,7 @@ import { CheckIcon, ExclamationTriangleIcon } from '@heroicons/react/20/solid'
 
 
 export default function Appointment() {
-    const [events, setEvents] = useState([
+    const [events] = useState([
         { title: 'event 1', id: '1' },
         { title: 'event 2', id: '2' },
         { title: 'event 3', id: '3' },
@@ -109,11 +109,11 @@ export default function Appointment() {
     return (
         <>
             <div>
-                <h1 className="font-bold text-[#2B3674] text-[26px] mb-8">Calendar</h1>
+                <h1 className="font-bold text-[#2B3674] text-[26px] mb-8 dark:text-white">Calendar</h1>
             </div>
             <div className="flex min-h-screen font-dm_sans flex-col items-center justify-between p-4 text-[#2B3674]">
-                <div className="grid grid-cols-10 ml-[5%] ">
-                    <div className="col-span-8">
+                <div className="grid grid-cols-10 ml-[5%]  ">
+                    <div className="col-span-8  shadow-lg dark:shadow-lg ">
                         <FullCalendar
                             plugins={[
                                 dayGridPlugin,
@@ -134,6 +134,8 @@ export default function Appointment() {
                             dateClick={handleDateClick}
                             drop={(data) => addEvent(data)}
                             eventClick={(data) => handleDeleteModal(data)}
+
+
                         />
 
                     </div>
