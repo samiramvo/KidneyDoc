@@ -1,17 +1,5 @@
-[build]
-  command = "npm run build"
-  publish = ".next"
-
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
-  force = true
-
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
-[functions]
-  directory = "netlify/functions"
