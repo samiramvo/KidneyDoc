@@ -1,15 +1,27 @@
 /* AddPatient css*/
 .containeraddpatient {
     background-color: white;
-    padding: 50px;
+    padding-top: 45px;
+    padding-bottom: 45px;
+    padding-left: 60px;
+    padding-right: 60px;
     border-radius: 10px;
     margin-top: 20px;
 }
+/* .containeraddpatient {
+    background-color: white;
+    padding: 50px;
+    border-radius: 10px;
+    margin-top: 20px;
+} */
 
-.formaddpatient {
+
+/* .formaddpatient {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    width: 100%;
+    
 }
 
 .formaddpatient label {
@@ -23,31 +35,31 @@
     flex-wrap: wrap;
     justify-content: space-between;
     width: 100%;
-}
+} */
 
-.formaddpatient .flex-row .flex-col {
+/* .formaddpatient .flex-row .flex-col {
     width: calc(47% - 5px);
-}
+} */
 
-.formaddpatient input,
+/* .formaddpatient input,
 .formaddpatient select,
 .formaddpatient textarea {
 
-    padding: 8px;
+    padding: 10px;
     border: 1.2px solid #2B3674;
     border-radius: 5px;
     margin-bottom: 20px;
     height: 50px;
     font-size: 15px;
-}
+} */
 
 
 
-.formaddpatient button {
-    margin-top: 5%;
+/* .formaddpatient button {
+    margin-top: 2%;
     margin-left: auto;
-    width: 10%;
-    padding: 10px;
+    width: 20%;
+    padding: 15px;
     height: 43px;
     font-size: 14px;
     background-color: #593DFF;
@@ -55,7 +67,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-}
+} */
 
 .popup {
     position: fixed;
