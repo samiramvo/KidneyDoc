@@ -1,7 +1,7 @@
 // components/NewPatientConsultation.js
 import React from "react";
 import SophisticatedForm from "./forms/consultationform";
-import ProgressBar from "./ProgressBar";
+import ProgressBar from "./progressbar";
 
 const NewPatientConsultation = ({ currentStep, setCurrentStep }) => {
   const steps = [

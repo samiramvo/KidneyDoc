@@ -114,7 +114,7 @@
 // export default Patients;
 
 import { fetchPatients } from "@/lib/data";
-import PatientClient from "@/components/patientClient";
+import PatientClient from "@/components/patientclient";
 const Patients = async ({ searchParams }) => {
   const q = searchParams?.q || "";
   const page = searchParams?.page || 1;
