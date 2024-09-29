@@ -112,7 +112,7 @@ const PatientClient = ({ patients, count }) => {
           </thead>
           <tbody className=" font-medium text-violettitle   text-[15px]">
             {count > 0 ? (
-              patients.map((patient, index) => (
+              patients.map((patient) => (
                 <tr
                   key={patient._id}
                   className="group hover:bg-[#f8f8fa] dark:hover:bg-gray-700 border-b border-solid border-b-[#EEEFF2] "

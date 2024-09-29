@@ -6,7 +6,6 @@ import Link from "next/link";
 import "@/styles/globalelements.css";
 import "@/styles/globals.css";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
 import "react-toastify/dist/ReactToastify.css";
 import Modal from "@/components/modalpatient";
 import PhoneInput, {
@@ -171,7 +170,7 @@ const AddPatientPage = ({ isOpen, onClose }) => {
             </div>
             <div className="modal-form-role flex flex-align-item-center  pb-4">
               <div className="bg-violetclair border-2 mx-4" />
-              <p className="paragraphe ">Ajout d'un patient</p>
+              <p className="paragraphe ">Ajout d&apos;un patient</p>
             </div>
           </div>
           <div className="modal-form-body">

@@ -162,7 +162,7 @@ import { GrSchedules } from "react-icons/gr";
 import { TbMessageChatbot } from "react-icons/tb";
 import { logout } from "@/lib/actions";
 import Spinner from "@/components/Spinner";
-
+import Image from "next/image";
 const menuItems = [
   {
     title: "Pages",
@@ -208,16 +208,16 @@ const menuItems = [
   },
 ];
 
-const Sidebar = ({ onToggleSidebar }) => {
+const Sidebar = () => {
   const user = useUser();
 
-  const [expanded, setExpanded] = useState(true);
+  const [expanded] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleToggleSidebar = () => {
-    setExpanded((curr) => !curr);
-    onToggleSidebar(!expanded);
-  };
+  // const handleToggleSidebar = () => {
+  //   setExpanded((curr) => !curr);
+  //   onToggleSidebar(!expanded);
+  // };
   const handleLogout = async (e) => {
     e.preventDefault();
     setIsLoading(true);

@@ -195,7 +195,7 @@ const AddUserPage = ({ isOpen, onClose }) => {
             </div>
             <div className="modal-form-role flex flex-align-item-center  pb-4">
               <div className="bg-violetclair border-2 mx-4" />
-              <p className="paragraphe ">Ajout d'un nouvel Utilisateur</p>
+              <p className="paragraphe ">Ajout d&apos;un nouvel Utilisateur</p>
             </div>
           </div>
           <div className="modal-form-body">
