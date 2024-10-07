@@ -112,7 +112,7 @@
 // };
 
 // export default Administration;
-import React from "react";
+
 import { fetchUsers } from "@/lib/data";
 import { auth } from "@/app/auth";
 import AdminClient from "@/components/adminclient";
