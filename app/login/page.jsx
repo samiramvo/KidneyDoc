@@ -146,7 +146,7 @@ const Login = () => {
             <div className="relative grid place-items-center">
               <Image
                 className={"object-cover mt-[5%]"}
-                src={"/assets/images/kidneysansfond3-fotor-202402081532.png"}
+                src={`url('/assets/images/kidneysansfond3-fotor-202402081532.png')`}
                 alt="Login logo image"
                 width="300"
                 height="50"
