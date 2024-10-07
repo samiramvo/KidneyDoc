@@ -77,15 +77,16 @@
 // };
 
 // export default Navbar;
+
 "use client";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { MdNotifications, MdOutlineChat, MdPublic } from "react-icons/md";
 import ThemeSwitcher from "@/app/ThemeSwitcher";
-
-const Navbar = ({ onToggleSidebar, sidebarExpanded }) => {
+import { useSidebar } from "@/app/SidebarContext";
+const Navbar = () => {
   const pathname = usePathname();
-
+  const { toggleSidebar, expanded } = useSidebar();
   return (
     <div className="p-3 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#EEEFF2]">
       <div className="flex items-center gap-4">
@@ -97,10 +98,10 @@ const Navbar = ({ onToggleSidebar, sidebarExpanded }) => {
           height="10"
         />
         <button
-          onClick={onToggleSidebar}
+          onClick={toggleSidebar}
           className="p-1.5 rounded-lg bg-gray-50 hover:bg-gray-100"
         >
-          {sidebarExpanded ? (
+          {expanded ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -132,7 +133,7 @@ const Navbar = ({ onToggleSidebar, sidebarExpanded }) => {
             </svg>
           )}
         </button>
-        <div className="titlenav gap-2">{"Pages" + pathname}</div>
+        <div className="titlenav flex gap-2">{"Pages" + pathname}</div>
       </div>
 
       <div className="flex items-center gap-4">

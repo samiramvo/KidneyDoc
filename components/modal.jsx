@@ -11,9 +11,8 @@ const ClientModal = ({ isOpen, onClose, onConfirm, name }) => {
         <h2 className="text-lg font-bold mb-2">Confirmation</h2>
         <p className="mb-4">Are you sure you want to delete {name} ?</p>
         <p className="text-red-500 my-5 w-[500px]">
-          Cette action est irréversible. Une fois supprimé, cet élément ne
-          pourra pas être récupéré mais sera toujours présent dans la base de
-          donnée.
+          This action is irreversible. Once deleted, this item cannot be
+          recovered but will still be present in the database.
         </p>
         <div className="flex justify-end space-x-4 ">
           <button onClick={onClose} className="bg-gray-300 p-2 rounded">

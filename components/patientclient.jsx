@@ -9,10 +9,17 @@ import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import ClientModal from "./modal";
 import { Eye, Trash, Edit2 } from "iconsax-react";
-
+import { useRouter, useSearchParams } from "next/navigation";
 import { deletePatient } from "@/lib/actions";
 import AddPatientPage from "@/app/dashboard/patients/AjoutPatient";
+import UpdatePatientPage from "@/app/dashboard/patients/ModifierPatient";
+
 const PatientClient = ({ patients, count }) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const modalType = searchParams.get("modal");
+  const patientId = searchParams.get("patient");
+
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const formattedDate = format(date, "EEEE d MMMM yyyy 'à' HH:mm", {
@@ -25,8 +32,9 @@ const PatientClient = ({ patients, count }) => {
   };
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [patientIdToDelete, setPatientIdToDelete] = useState(null);
-
+  const [selectedPatient, setSelectedPatient] = useState(null);
   const [namepatient, setNamepatient] = useState("");
   const [prenompatient, setPrenompatient] = useState("");
 
@@ -43,12 +51,45 @@ const PatientClient = ({ patients, count }) => {
     setNamepatient("");
     setPrenompatient("");
   };
-  const openAddModal = () => {
-    window.location.href = `${window.location.pathname}?showAddModal=true`;
-  };
-
   const closeAddModal = () => {
     setIsAddModalOpen(false);
+    router.push("/dashboard/patients");
+  };
+
+  const closeUpdateModal = () => {
+    setIsUpdateModalOpen(false);
+    setSelectedPatient(null);
+    router.push("/dashboard/patients");
+  };
+
+  useEffect(() => {
+    if (modalType === "add") {
+      setIsAddModalOpen(true);
+    } else {
+      setIsAddModalOpen(false);
+    }
+
+    if (modalType === "update" && patientId) {
+      const patientToUpdate = patients.find(
+        (patient) => patient._id === patientId
+      );
+      if (patientToUpdate) {
+        setSelectedPatient(patientToUpdate);
+        setIsUpdateModalOpen(true);
+      }
+    } else {
+      setIsUpdateModalOpen(false);
+      setSelectedPatient(null);
+    }
+  }, [modalType, patientId, patients]);
+
+  const openAddModal = () => {
+    router.push("/dashboard/patients?modal=add");
+  };
+
+  const openUpdateModal = (patient) => {
+    setSelectedPatient(patient);
+    router.push(`/dashboard/patients?modal=update&patient=${patient._id}`);
   };
 
   const handleDelete = async () => {
@@ -63,15 +104,6 @@ const PatientClient = ({ patients, count }) => {
     closeModal();
   };
 
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get("showAddModal") === "true") {
-      setIsAddModalOpen(true);
-
-      urlParams.delete("showAddModal");
-      window.history.replaceState({}, document.title, window.location.pathname);
-    }
-  }, []);
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -146,7 +178,12 @@ const PatientClient = ({ patients, count }) => {
                         <Eye size="24" color="#3C3F4A" />
                       </Link>
 
-                      <Edit2 size="24" color="#3C3F4A" />
+                      <Edit2
+                        size="24"
+                        color="#3C3F4A"
+                        className="cursor-pointer"
+                        onClick={() => openUpdateModal(patient)}
+                      />
                       <button
                         onClick={() =>
                           openModal(
@@ -179,7 +216,18 @@ const PatientClient = ({ patients, count }) => {
         onConfirm={handleDelete}
         name={`${namepatient} ${prenompatient}`}
       />
-      <AddPatientPage isOpen={isAddModalOpen} onClose={closeAddModal} />
+
+      {isAddModalOpen && (
+        <AddPatientPage isOpen={isAddModalOpen} onClose={closeAddModal} />
+      )}
+
+      {isUpdateModalOpen && selectedPatient && (
+        <UpdatePatientPage
+          patient={selectedPatient}
+          isOpen={isUpdateModalOpen}
+          onClose={closeUpdateModal}
+        />
+      )}
     </div>
   );
 };

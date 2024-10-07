@@ -1,18 +1,16 @@
 "use client";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useState, useEffect } from "react";
+import "@/styles/globals.css";
+import "@/styles/globalelements.css";
+
+import { updateUser } from "@/lib/actions";
 import PhoneInput, {
   isPossiblePhoneNumber,
   isValidPhoneNumber,
 } from "react-phone-number-input";
-
+import { useRouter } from "next/navigation";
 import "react-phone-number-input/style.css";
-import { useState, useEffect } from "react";
-import { addUser } from "@/lib/actions";
-import Link from "next/link";
-import "@/styles/globalelements.css";
-import "@/styles/globals.css";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import toast from "react-hot-toast";
 import {
   Form,
   FormControl,
@@ -25,10 +23,11 @@ import { LoaderCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useForm, Controller } from "react-hook-form";
-import { UserAdd } from "iconsax-react";
 import { z } from "zod";
-import { sendEmail } from "@/lib/resend";
+import { UserEdit } from "iconsax-react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { sendEmail } from "@/lib/resend";
 import Modal from "@/components/modalform";
 function generateStrongPassword() {
   const upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -51,44 +50,48 @@ function generateStrongPassword() {
 
   return password;
 }
-const AddUserPage = ({ isOpen, onClose }) => {
-  const [showPassword, setShowPassword] = useState(false);
+const UpdateUserPage = ({ user, isOpen, onClose }) => {
+  const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   const formSchema = z.object({
-    username: z.string().min(1, "Le nom d'utilisateur est requis"),
-    emailuser: z
-      .string()
-      .email("L'adresse e-mail est invalide")
-      .min(1, "L'adresse e-mail est requise"),
+    username: z.string().optional(),
+    emailuser: z.string().email("L'adresse e-mail est invalide").optional(),
     passworduser: z
       .string()
       .min(8, "Le mot de passe doit contenir au moins 8 caractères")
-      .regex(
-        /[A-Z]/,
-        "Le mot de passe doit contenir au moins une lettre majuscule"
-      )
-      .regex(
-        /[a-z]/,
-        "Le mot de passe doit contenir au moins une lettre minuscule"
-      )
-      .regex(/\d/, "Le mot de passe doit contenir au moins un chiffre")
-      .regex(
-        /[@$!%*?&]/,
-        "Le mot de passe doit contenir au moins un caractère spécial @$!%*?&."
-      ),
+      .refine((value) => value === undefined || /[A-Z]/.test(value), {
+        message: "Le mot de passe doit contenir au moins une lettre majuscule",
+      })
+      .refine((value) => value === undefined || /[a-z]/.test(value), {
+        message: "Le mot de passe doit contenir au moins une lettre minuscule",
+      })
+      .refine((value) => value === undefined || /\d/.test(value), {
+        message: "Le mot de passe doit contenir au moins un chiffre",
+      })
+      .refine((value) => value === undefined || /[@$!%*?&]/.test(value), {
+        message:
+          "Le mot de passe doit contenir au moins un caractère spécial @$!%*?&.",
+      })
+      .optional(),
+
     phoneuser: z
       .string()
-      .min(1, "Le numéro de téléphone est requis")
-      .refine((value) => isPossiblePhoneNumber(value), {
+      .refine((value) => value === undefined || isPossiblePhoneNumber(value), {
         message: "Le numéro de téléphone est invalide",
       })
-      .refine((value) => isValidPhoneNumber(value), {
+      .refine((value) => value === undefined || isValidPhoneNumber(value), {
         message: "Le numéro de téléphone n'est pas valide dans ce pays",
-      }),
-    useraddress: z.string().min(1, "L'adresse est requise"),
-    isAdmin: z.string().min(1, "Le nom de l'admin est requis"),
-    isActive: z.string().min(1, "Le statut actif ou non est requis"),
+      })
+      .optional(),
+    useraddress: z.string().optional(),
+    isAdmin: z.string().optional(),
+    isActive: z.string().optional(),
   });
+
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -104,16 +107,26 @@ const AddUserPage = ({ isOpen, onClose }) => {
   const { control, handleSubmit, setValue } = form;
 
   useEffect(() => {
-    const password = generateStrongPassword();
-    setValue("passworduser", password);
-  }, [setValue]);
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
-  async function handleFormSubmit(values) {
+    if (user) {
+      setValue("username", user.username || "");
+      setValue("emailuser", user.emailuser || "");
+      setValue("phoneuser", user.phoneuser || "");
+      const password = generateStrongPassword();
+      setValue("passworduser", password);
+      setValue(
+        "isAdmin",
+        user.isAdmin !== undefined ? String(user.isAdmin) : ""
+      );
+      setValue(
+        "isActive",
+        user.isActive !== undefined ? String(user.isActive) : ""
+      );
+      setValue("useraddress", user.useraddress || "");
+    }
+  }, [user, setValue]);
+  async function handleFormupdateSubmit(values) {
     const formData = new FormData();
+    formData.append("id", user._id);
     formData.append("username", values.username);
     formData.append("emailuser", values.emailuser);
     formData.append("passworduser", values.passworduser);
@@ -123,45 +136,21 @@ const AddUserPage = ({ isOpen, onClose }) => {
     formData.append("useraddress", values.useraddress);
     setIsSubmitting(true);
     try {
-      const response = await addUser(formData);
+      const response = await updateUser(formData);
 
       if (response?.error) {
         toast.error(response.error);
       } else {
-        form.reset();
-        toast.success("User is successfully registered!", {
+        toast.success("User is successfully updated!", {
           position: "top-right",
-          autoClose: 3000,
           theme: "light",
           bodyClassName: "custom-toast-body",
           style: {
             fontFamily: "DM Sans, sans-serif",
           },
-          onClose: () => {
-            toast.info(
-              <div>
-                <div>Redirecting to User Details</div>
-                <div className="mt-[10px]">
-                  <Link href={`/dashboard/administration/${response}`}>
-                    <button
-                      onClick={() => toast.dismiss()}
-                      className="bg-blue-500 hover:bg-blue-700 text-white p-[5px] rounded"
-                    >
-                      Details
-                    </button>
-                  </Link>
-                </div>
-              </div>,
-              {
-                position: "top-right",
-                autoClose: 5000,
-                theme: "light",
-              }
-            );
-          },
         });
 
-        // Send email with user information
+        // Send email with user update information
         const emailResponse = await sendEmail(
           values.emailuser,
           values.username,
@@ -173,10 +162,16 @@ const AddUserPage = ({ isOpen, onClose }) => {
         } else {
           toast.error(emailResponse.error);
         }
+        setTimeout(() => {
+          router.push("/dashboard/administration");
+          router.refresh();
+        }, 3000);
       }
     } catch (error) {
       console.error("An error occurred:", error);
-      toast.error("An error occurred while adding the user. Please try again.");
+      toast.error(
+        "An error occurred while updating the user. Please try again."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -189,12 +184,12 @@ const AddUserPage = ({ isOpen, onClose }) => {
           <div className="modal-form-header flex gap-2 mb-4">
             <div className="modal-form-logo">
               <span>
-                <UserAdd size={28} className="text-violettitle" />
+                <UserEdit size={28} className="text-violettitle" />
               </span>
             </div>
             <div className="modal-form-role flex flex-align-item-center  pb-4">
               <p className="text-lg text-violettitle font-bold">
-                Ajout d&apos;un nouveau Utilisateur
+                Modification de l&apos;Utilisateur {user?.username}
               </p>
             </div>
           </div>
@@ -202,26 +197,26 @@ const AddUserPage = ({ isOpen, onClose }) => {
             <div className=" dark:bg-[#333]  ">
               <Form {...form}>
                 <form
-                  onSubmit={handleSubmit(handleFormSubmit)}
+                  onSubmit={handleSubmit(handleFormupdateSubmit)}
                   className="form-layout"
                 >
+                  <input type="hidden" name="id" value={user?._id} />
                   <div className="form-row w-[100%] mb-4">
-                    <div className="w-[48%]">
+                    <div className="w-full">
                       <FormField
                         control={form.control}
                         name="username"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel className="dark:text-[#A3AED0]">
-                              Name
-                              <span className="text-red-500 text-[18px]">
-                                *
-                              </span>
+                              Username
                             </FormLabel>
                             <FormControl>
                               <Input
                                 type="text"
-                                placeholder=""
+                                placeholder={user?.username}
+                                value={field.value || ""}
+                                onChange={field.onChange}
                                 name="username"
                                 id="username"
                                 className="form-input2 bg-white focus-visible:ring-background focus-visible:ring-1"
@@ -233,7 +228,9 @@ const AddUserPage = ({ isOpen, onClose }) => {
                         )}
                       />
                     </div>
-                    <div className="w-[48%]">
+                  </div>
+                  <div className="form-row w-[100%]  mb-4">
+                    <div className="w-full">
                       <FormField
                         control={form.control}
                         name="emailuser"
@@ -241,14 +238,13 @@ const AddUserPage = ({ isOpen, onClose }) => {
                           <FormItem>
                             <FormLabel className="dark:text-[#A3AED0]">
                               Email
-                              <span className="text-red-500 text-[18px]">
-                                *
-                              </span>
                             </FormLabel>
                             <FormControl>
                               <Input
                                 type="email"
-                                placeholder=""
+                                placeholder={user?.emailuser}
+                                value={field.value || ""}
+                                onChange={field.onChange}
                                 name="emailuser"
                                 id="emailuser"
                                 className="form-input2 bg-white focus-visible:ring-background focus-visible:ring-1"
@@ -261,30 +257,44 @@ const AddUserPage = ({ isOpen, onClose }) => {
                       />
                     </div>
                   </div>
-                  <div className="form-row w-[100%] mb-4">
+                  <div className="form-row w-[100%] mb-4 ">
                     <div className="w-[48%] relative">
+                      {/* <label htmlFor="passworduser" className="dark:text-[#A3AED0]">
+                        Password
+                      </label>
+                      <input
+                        type="password"
+                        id="passworduser"
+                        name="passworduser"
+                        // placeholder={user.passworduser}
+                        className="w-[260px]  dark:bg-[#121212] dark:opacity-[80%] dark:border-none"
+                      /> */}
+
                       <Controller
                         control={control}
                         name="passworduser"
-                        render={({ field }) => (
+                        render={({ field, fieldState }) => (
                           <FormItem>
                             <FormLabel className="dark:text-[#A3AED0]">
                               Password
-                              <span className="text-red-500 text-[18px]">
-                                *
-                              </span>
                             </FormLabel>
                             <FormControl>
                               <Input
                                 type={showPassword ? "text" : "password"}
-                                placeholder=""
+                                placeholder="Enter new password"
                                 name="passworduser"
                                 id="passworduser"
+                                value={field.value || ""}
+                                onChange={field.onChange}
                                 className="form-input2 bg-white focus-visible:ring-background focus-visible:ring-1"
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage className="text-red-400 font-medium" />
+                            {fieldState.error && (
+                              <FormMessage className="text-red-400 font-medium">
+                                {fieldState.error.message}
+                              </FormMessage>
+                            )}
                           </FormItem>
                         )}
                       />
@@ -313,18 +323,13 @@ const AddUserPage = ({ isOpen, onClose }) => {
                         name="phoneuser"
                         render={({ field, fieldState }) => (
                           <FormItem>
-                            <FormLabel>
-                              Phone
-                              <span className="text-red-500 text-[18px]">
-                                *
-                              </span>
-                            </FormLabel>
+                            <FormLabel>Phone</FormLabel>
                             <FormControl>
                               <PhoneInput
                                 international
-                                defaultCountry="BJ"
-                                value={field.value}
+                                value={field.value || ""}
                                 onChange={field.onChange}
+                                placeholder={user?.phoneuser}
                                 className="form-input2 bg-white focus-visible:ring-background focus-visible:ring-1"
                               />
                             </FormControl>
@@ -336,50 +341,10 @@ const AddUserPage = ({ isOpen, onClose }) => {
                           </FormItem>
                         )}
                       />
-                      {/* <input
-                type="phone"
-                placeholder="phone"
-                name="phoneuser"
-                id="phoneuser"
-                className="dark:bg-[#121212] dark:opacity-[80%] dark:border-none"
-              /> */}
                     </div>
                   </div>
+
                   <div className="form-row w-[100%] ">
-                    <div className="w-[48%]">
-                      <FormField
-                        control={form.control}
-                        name="isAdmin"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="dark:text-[#A3AED0]">
-                              Admin or not
-                              <span className="text-red-500 text-[18px]">
-                                *
-                              </span>
-                            </FormLabel>
-                            <FormControl>
-                              <div>
-                                <select
-                                  {...field}
-                                  name="isAdmin"
-                                  id="isAdmin"
-                                  className="form-input2 bg-white focus-visible:ring-background focus-visible:ring-1"
-                                  value={field.value || "default"}
-                                >
-                                  <option disabled value="default">
-                                    Is Admin?
-                                  </option>
-                                  <option value={true}>Yes</option>
-                                  <option value={false}>No</option>
-                                </select>
-                              </div>
-                            </FormControl>
-                            <FormMessage className="text-red-400 font-medium" />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
                     <div className="w-[48%]">
                       <FormField
                         control={form.control}
@@ -387,10 +352,7 @@ const AddUserPage = ({ isOpen, onClose }) => {
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel className="dark:text-[#A3AED0]">
-                              Active or not
-                              <span className="text-red-500 text-[18px]">
-                                *
-                              </span>
+                              Is Active?
                             </FormLabel>
                             <FormControl>
                               <div>
@@ -398,10 +360,11 @@ const AddUserPage = ({ isOpen, onClose }) => {
                                   {...field}
                                   name="isActive"
                                   id="isActive"
+                                  value={field.value}
+                                  onChange={field.onChange}
                                   className="form-input2 bg-white focus-visible:ring-background focus-visible:ring-1"
-                                  value={field.value || "default"}
                                 >
-                                  <option disabled value="default">
+                                  <option disabled value="">
                                     Is Active?
                                   </option>
                                   <option value={true}>Yes</option>
@@ -414,8 +377,41 @@ const AddUserPage = ({ isOpen, onClose }) => {
                         )}
                       />
                     </div>
+                    <div className="w-[48%]">
+                      <FormField
+                        control={form.control}
+                        name="isAdmin"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="dark:text-[#A3AED0]">
+                              Is Admin?
+                            </FormLabel>
+                            <FormControl>
+                              <div>
+                                <select
+                                  {...field}
+                                  name="isAdmin"
+                                  id="isAdmin"
+                                  value={field.value}
+                                  onChange={field.onChange}
+                                  className="form-input2 bg-white focus-visible:ring-background focus-visible:ring-1"
+                                >
+                                  <option disabled value="">
+                                    Is Admin?
+                                  </option>
+                                  <option value={true}>Yes</option>
+                                  <option value={false}>No</option>
+                                </select>
+                              </div>
+                            </FormControl>
+                            <FormMessage className="text-red-400 font-medium" />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
                   </div>
-                  <div className="form-row w-[100%]  mb-8">
+
+                  <div className="form-row w-[100%] mb-4 ">
                     <div className="w-full">
                       <FormField
                         control={form.control}
@@ -424,16 +420,13 @@ const AddUserPage = ({ isOpen, onClose }) => {
                           <FormItem>
                             <FormLabel className="dark:text-[#A3AED0]">
                               Address
-                              <span className="text-red-500 text-[18px]">
-                                *
-                              </span>
                             </FormLabel>
                             <FormControl>
                               <textarea
                                 name="useraddress"
                                 id="useraddress"
-                                placeholder=""
-                                className="resize-none rounded-md p-2 w-[100%] border border-input"
+                                placeholder={user?.useraddress}
+                                className="resize-none rounded-md p-2 w-[100%] border border-input "
                                 {...field}
                               />
                             </FormControl>
@@ -443,7 +436,6 @@ const AddUserPage = ({ isOpen, onClose }) => {
                       />
                     </div>
                   </div>
-
                   <Button
                     type="submit"
                     className={`w-[30%] rounded-[20px] px-2 py-2 text-[15px]   bg-violettitle text-white ${
@@ -455,7 +447,7 @@ const AddUserPage = ({ isOpen, onClose }) => {
                     {isSubmitting ? (
                       <LoaderCircle size={30} className="animate-spin" />
                     ) : (
-                      "Create"
+                      "Update"
                     )}
                   </Button>
                 </form>
@@ -468,4 +460,4 @@ const AddUserPage = ({ isOpen, onClose }) => {
   );
 };
 
-export default AddUserPage;
+export default UpdateUserPage;

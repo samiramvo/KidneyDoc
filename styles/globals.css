@@ -169,7 +169,7 @@ input[type=checkbox]:checked+.toggle-label .circle .moon {
 
 
 .buttonlog {
-    width: 75%;
+    width: 70%;
     height: 50px;
     border-radius: 10px;
     background-color: #4318FF;
@@ -247,7 +247,6 @@ input[type="checkbox"]:checked {
     width: 17%;
     padding: 20px;
     min-height: 100vh;
-    transition: width 0.3s ease;
 }
 
 .contentdash {
@@ -428,6 +427,7 @@ input[type="checkbox"]:checked {
     margin-bottom: 20px;
   }
   
+  
   .form-input2 label {
     display: block;
     margin-bottom: 5px;
@@ -436,7 +436,10 @@ input[type="checkbox"]:checked {
 .form-input2 input,
 select {
   width: 100%;
-  padding: 8px;
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 11px;
+  padding-bottom: 11px;
   border: 1px solid #ccc;
   border-radius: 10px;
 }
@@ -516,6 +519,13 @@ select {
 
 .max-h-screens {
     max-height: 100vh;
+    overflow-y: auto;
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
+  }
+  
+  .max-h-screen {
+    max-height: 80vh;
     overflow-y: auto;
     scrollbar-width: none; 
     -ms-overflow-style: none;
