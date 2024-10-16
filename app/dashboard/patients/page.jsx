@@ -115,14 +115,15 @@
 
 import { fetchPatients } from "@/lib/data";
 import PatientClient from "@/components/patientclient";
+import { auth } from "@/app/auth";
 const Patients = async ({ searchParams }) => {
   const q = searchParams?.q || "";
   const page = searchParams?.page || 1;
   const { count, patients } = await fetchPatients(q, page);
 
   const Patientsjson = JSON.parse(JSON.stringify(patients));
-
-  return <PatientClient patients={Patientsjson} count={count} />;
+  const { user } = await auth();
+  return <PatientClient patients={Patientsjson} count={count} user={user} />;
 };
 
 export default Patients;

@@ -3,15 +3,13 @@ import React from "react";
 import SophisticatedForm from "./forms/consultationform";
 import ProgressBar from "./progressbar";
 
-const NewPatientConsultation = ({ currentStep, setCurrentStep }) => {
+const NewPatientConsultation = ({ patientId, currentStep, setCurrentStep }) => {
   const steps = [
-    { name: "Chief Complaints", subSteps: 2 },
-    { name: "Associate Complaints", subSteps: 3 },
-    { name: "Examination", subSteps: 1 },
-    { name: "Investigation", subSteps: 2 },
-    { name: "Probable Diagnosis", subSteps: 2 },
-    { name: "Treatment Management Plan", subSteps: 1 },
-    { name: "Case Taking", subSteps: 1 },
+    { name: "Motif d'hospitalisation", subSteps: 1 },
+    { name: "Antécédents personnels et familiaux", subSteps: 2 },
+    { name: "Habitudes sociales", subSteps: 1 },
+    { name: "Examen clinique", subSteps: 2 },
+    { name: "Traitement et évolution", subSteps: 1 },
   ];
 
   const totalSteps = steps.length;
@@ -33,8 +31,10 @@ const NewPatientConsultation = ({ currentStep, setCurrentStep }) => {
   return (
     <div className="p-4 bg-white shadow-md rounded-lg">
       <h2 className="text-xl font-bold mb-4">New Patient Consultation</h2>
+
       <ProgressBar progress={progress} />
       <SophisticatedForm
+        patientId={patientId}
         step={steps[currentStep]}
         onNext={handleNextStep}
         onPrevious={handlePreviousStep}

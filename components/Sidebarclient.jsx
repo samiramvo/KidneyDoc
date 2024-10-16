@@ -39,8 +39,8 @@ const menuItems = [
     title: "IA & Analytics",
     list: [
       {
-        title: "Assistant Chatbot",
-        path: "/dashboard/chatbot",
+        title: "Analysis Data",
+        path: "/dashboard/data-analysis",
         icon: <TbMessageChatbot />,
       },
     ],
@@ -77,6 +77,13 @@ const SidebarClient = ({ user }) => {
     }
   };
   const sidebarClass = expanded ? "p-[25px] w-64" : "w-24 p-[20px]";
+
+  const filteredMenuItems = menuItems.map((category) => ({
+    ...category,
+    list: category.list.filter(
+      (item) => !(item.title === "Administration" && !user.isAdmin)
+    ),
+  }));
   return (
     <div
       className={`h-full bg-background  p-4 border-r border-solid border-r-[#EEEFF2] font-jakarta ${sidebarClass} `}
@@ -105,12 +112,12 @@ const SidebarClient = ({ user }) => {
             {user?.isAdmin ? (
               <span className="userTitle">Administrator</span>
             ) : (
-              <span className="userTitle">User</span>
+              <span className="userTitle">Doctor</span>
             )}
           </div>
         </div>
         <ul className="list-none mt-6">
-          {menuItems.map((cat) => (
+          {filteredMenuItems.map((cat) => (
             <li key={cat.title} className="mt-10">
               <span className="text-textPrimary font-semibold">
                 {cat.title}

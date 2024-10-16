@@ -89,7 +89,6 @@ const UpdateUserPage = ({ user, isOpen, onClose }) => {
       .optional(),
     useraddress: z.string().optional(),
     isAdmin: z.string().optional(),
-    isActive: z.string().optional(),
   });
 
   const form = useForm({
@@ -100,7 +99,6 @@ const UpdateUserPage = ({ user, isOpen, onClose }) => {
       emailuser: "",
       phoneuser: "",
       isAdmin: "",
-      isActive: "",
       useraddress: "",
     },
   });
@@ -117,10 +115,6 @@ const UpdateUserPage = ({ user, isOpen, onClose }) => {
         "isAdmin",
         user.isAdmin !== undefined ? String(user.isAdmin) : ""
       );
-      setValue(
-        "isActive",
-        user.isActive !== undefined ? String(user.isActive) : ""
-      );
       setValue("useraddress", user.useraddress || "");
     }
   }, [user, setValue]);
@@ -132,7 +126,6 @@ const UpdateUserPage = ({ user, isOpen, onClose }) => {
     formData.append("passworduser", values.passworduser);
     formData.append("phoneuser", values.phoneuser);
     formData.append("isAdmin", values.isAdmin);
-    formData.append("isActive", values.isActive);
     formData.append("useraddress", values.useraddress);
     setIsSubmitting(true);
     try {
@@ -343,74 +336,6 @@ const UpdateUserPage = ({ user, isOpen, onClose }) => {
                       />
                     </div>
                   </div>
-
-                  <div className="form-row w-[100%] ">
-                    <div className="w-[48%]">
-                      <FormField
-                        control={form.control}
-                        name="isActive"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="dark:text-[#A3AED0]">
-                              Is Active?
-                            </FormLabel>
-                            <FormControl>
-                              <div>
-                                <select
-                                  {...field}
-                                  name="isActive"
-                                  id="isActive"
-                                  value={field.value}
-                                  onChange={field.onChange}
-                                  className="form-input2 bg-white focus-visible:ring-background focus-visible:ring-1"
-                                >
-                                  <option disabled value="">
-                                    Is Active?
-                                  </option>
-                                  <option value={true}>Yes</option>
-                                  <option value={false}>No</option>
-                                </select>
-                              </div>
-                            </FormControl>
-                            <FormMessage className="text-red-400 font-medium" />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                    <div className="w-[48%]">
-                      <FormField
-                        control={form.control}
-                        name="isAdmin"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="dark:text-[#A3AED0]">
-                              Is Admin?
-                            </FormLabel>
-                            <FormControl>
-                              <div>
-                                <select
-                                  {...field}
-                                  name="isAdmin"
-                                  id="isAdmin"
-                                  value={field.value}
-                                  onChange={field.onChange}
-                                  className="form-input2 bg-white focus-visible:ring-background focus-visible:ring-1"
-                                >
-                                  <option disabled value="">
-                                    Is Admin?
-                                  </option>
-                                  <option value={true}>Yes</option>
-                                  <option value={false}>No</option>
-                                </select>
-                              </div>
-                            </FormControl>
-                            <FormMessage className="text-red-400 font-medium" />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-                  </div>
-
                   <div className="form-row w-[100%] mb-4 ">
                     <div className="w-full">
                       <FormField

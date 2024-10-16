@@ -10,7 +10,7 @@ const NotePatientComponent = () => {
           <p className="text-violettitle text-md">Add Note</p>
         </div>
       </div>
-      <div className=" flex justify-center items-center text-md mt-4">
+      <div className=" flex justify-center items-center text-md mt-10">
         No notes added
       </div>
     </div>

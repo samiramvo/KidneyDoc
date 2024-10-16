@@ -17,7 +17,9 @@ module.exports = {
       borderRadius: {
         customBlRadius: "0 0 20% 0",
       },
-
+      backdropBlur: {
+        custom: "5px",
+      },
       colors: {
         violettitle: "#1B2559",
         violetdesc: "#302CA4",

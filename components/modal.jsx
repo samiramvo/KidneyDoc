@@ -6,7 +6,7 @@ const ClientModal = ({ isOpen, onClose, onConfirm, name }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="modal fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="modal backdrop-blur-custom fixed inset-0 flex items-center justify-center ">
       <div className="modal-content bg-white p-6 rounded shadow-lg">
         <h2 className="text-lg font-bold mb-2">Confirmation</h2>
         <p className="mb-4">Are you sure you want to delete {name} ?</p>

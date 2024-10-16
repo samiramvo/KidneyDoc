@@ -51,7 +51,7 @@ function generateStrongPassword() {
 
   return password;
 }
-const AddUserPage = ({ isOpen, onClose }) => {
+const AddUserPage = ({ isOpen, onClose, user }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const formSchema = z.object({
@@ -87,7 +87,7 @@ const AddUserPage = ({ isOpen, onClose }) => {
       }),
     useraddress: z.string().min(1, "L'adresse est requise"),
     isAdmin: z.string().min(1, "Le nom de l'admin est requis"),
-    isActive: z.string().min(1, "Le statut actif ou non est requis"),
+    createdby: z.string().min(1, "Le nom du créateur est requis"),
   });
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -97,7 +97,7 @@ const AddUserPage = ({ isOpen, onClose }) => {
       emailuser: "",
       phoneuser: "",
       isAdmin: "",
-      isActive: "",
+      createdby: `Dr ${user.username}`,
       useraddress: "",
     },
   });
@@ -119,7 +119,7 @@ const AddUserPage = ({ isOpen, onClose }) => {
     formData.append("passworduser", values.passworduser);
     formData.append("phoneuser", values.phoneuser);
     formData.append("isAdmin", values.isAdmin);
-    formData.append("isActive", values.isActive);
+    formData.append("createdby", values.createdby);
     formData.append("useraddress", values.useraddress);
     setIsSubmitting(true);
     try {
@@ -383,31 +383,23 @@ const AddUserPage = ({ isOpen, onClose }) => {
                     <div className="w-[48%]">
                       <FormField
                         control={form.control}
-                        name="isActive"
+                        name="createdby"
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel className="dark:text-[#A3AED0]">
-                              Active or not
+                              Created By
                               <span className="text-red-500 text-[18px]">
                                 *
                               </span>
                             </FormLabel>
                             <FormControl>
-                              <div>
-                                <select
-                                  {...field}
-                                  name="isActive"
-                                  id="isActive"
-                                  className="form-input2 bg-white focus-visible:ring-background focus-visible:ring-1"
-                                  value={field.value || "default"}
-                                >
-                                  <option disabled value="default">
-                                    Is Active?
-                                  </option>
-                                  <option value={true}>Yes</option>
-                                  <option value={false}>No</option>
-                                </select>
-                              </div>
+                              <Input
+                                type="text"
+                                readOnly
+                                value={`Dr ${user?.username}`}
+                                className="form-input2 bg-white focus-visible:ring-background focus-visible:ring-1"
+                                {...field}
+                              />
                             </FormControl>
                             <FormMessage className="text-red-400 font-medium" />
                           </FormItem>

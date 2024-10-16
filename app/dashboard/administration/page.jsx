@@ -133,7 +133,7 @@ const Administration = async ({ searchParams }) => {
   }
   const Usersjson = JSON.parse(JSON.stringify(users));
 
-  return <AdminClient users={Usersjson} count={count} />;
+  return <AdminClient users={Usersjson} count={count} user={user} />;
 };
 
 export default Administration;

@@ -15,7 +15,7 @@ import UpdateUserPage from "@/app/dashboard/administration/ModifierUser";
 import Search from "./search";
 import { User2 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
-const AdminClient = ({ users, count }) => {
+const AdminClient = ({ users, count, user }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const modalType = searchParams.get("modal");
@@ -126,7 +126,7 @@ const AdminClient = ({ users, count }) => {
               <td>Phone</td>
               <td>Created At</td>
               <td>Role</td>
-              <td>Status</td>
+              <td>Created By</td>
               <td>Actions</td>
             </tr>
           </thead>
@@ -183,11 +183,9 @@ const AdminClient = ({ users, count }) => {
                     {formatDate(user.createdAt)}
                   </td>
                   <td className="dark:text-white">
-                    {user.isAdmin ? "Admin" : "User"}
+                    {user.isAdmin ? "Admin" : "Doctor"}
                   </td>
-                  <td className="dark:text-white">
-                    {user.isActive ? "active" : "passive"}
-                  </td>
+                  <td className="dark:text-white">{user.createdby}</td>
                   <td>
                     <div className="buttonsuser">
                       <Link href={`/dashboard/administration/${user._id}`}>
@@ -199,6 +197,7 @@ const AdminClient = ({ users, count }) => {
                         className="cursor-pointer"
                         onClick={() => openUpdateModal(user)}
                       />
+
                       <button
                         onClick={() => openModal(user._id, user.username)}
                       >
@@ -227,7 +226,11 @@ const AdminClient = ({ users, count }) => {
         name={nameuser}
       />
       {isAddModalOpen && (
-        <AddUserPage isOpen={isAddModalOpen} onClose={closeAddModal} />
+        <AddUserPage
+          isOpen={isAddModalOpen}
+          onClose={closeAddModal}
+          user={user}
+        />
       )}
 
       {isUpdateModalOpen && selectedUser && (

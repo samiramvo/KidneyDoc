@@ -153,7 +153,7 @@ import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import { Eye, Trash } from "iconsax-react";
 import ClientModal from "./modal";
-import { deletePatient } from "@/lib/actions";
+import { archivePatient } from "@/lib/actions";
 
 const Tablepatient = ({ patients }) => {
   const formatDate = (dateString) => {
@@ -191,7 +191,7 @@ const Tablepatient = ({ patients }) => {
     if (!patientIdToDelete) return;
 
     try {
-      await deletePatient(patientIdToDelete);
+      await archivePatient(patientIdToDelete);
     } catch (error) {
       console.error("Une erreur est survenue :", error);
     }

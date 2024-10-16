@@ -1,6 +1,8 @@
 "use client";
 import { Edit2 } from "iconsax-react";
 import { GrAnalytics } from "react-icons/gr";
+import { HospitalIcon } from "lucide-react";
+import { MdLoupe } from "react-icons/md";
 import Link from "next/link";
 
 const SinglePatientComponent = ({ patient }) => {
@@ -56,13 +58,15 @@ const SinglePatientComponent = ({ patient }) => {
         </div>
         <div className="w-[25%] flex  justify-end">
           <div>
-            <Link href={`/dashboard/patients/${patient._id}/consultation`}>
-              <div className="w-auto rounded-[20px] px-8 py-2 text-[15px] mb-4   bg-violettitle text-white  ">
+            <Link href={`/dashboard/patients/${patient._id}/consultations`}>
+              <div className="w-auto flex items-center  rounded-[20px] px-8 py-2 text-[15px] mb-4   bg-violettitle text-white  ">
+                <HospitalIcon size={20} className="text-white mr-4" />
                 <div>Consultation</div>
               </div>
             </Link>
             <Link href={`/dashboard/patients/${patient._id}/observation`}>
-              <div className="w-auto rounded-[20px] px-8 py-2 text-[15px]  mb-4  bg-violettitle text-white ">
+              <div className="w-auto flex items-center  rounded-[20px] px-8 py-2 text-[15px]  mb-4  bg-violettitle text-white ">
+                <MdLoupe size={20} className="text-white mr-4" />
                 <div>Observation</div>
               </div>
             </Link>

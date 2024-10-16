@@ -1,12 +1,12 @@
 // import { NextRequest } from "next/server";
 // import speakeasy from "speakeasy";
-// import { getServerSession } from "next-auth";
-// import { signIn, signOut, auth } from "@/app/auth";
+
+// import { auth } from "@/app/auth";
 
 // export async function POST(req, res) {
 //   const { secret, token } = await req.json();
 
-//   const session = await getServerSession({ signIn, signOut, auth });
+//   const session = await getServerSession(auth);
 
 //   // Here, we have to implement 2 strategies
 //   // 1. Verifying during LOGIN

@@ -28,7 +28,7 @@ import { useForm, Controller } from "react-hook-form";
 import { UserAdd } from "iconsax-react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-const AddPatientPage = ({ isOpen, onClose }) => {
+const AddPatientPage = ({ isOpen, onClose, user }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const formSchema = z.object({
@@ -66,7 +66,7 @@ const AddPatientPage = ({ isOpen, onClose }) => {
       agepatient: "",
       addresspatient: "",
       phone_patient: "",
-      doctor: "",
+      doctor: `Dr ${user.username}`,
     },
   });
 
@@ -388,17 +388,6 @@ const AddPatientPage = ({ isOpen, onClose }) => {
                       />
                     </div>
                     <div className="w-[48%]">
-                      {/* <input
-                  type="text"
-                  placeholder="Name of doctor"
-                  name="doctor"
-                  id="doctor"
-                  // value={user.username}
-                  readOnly
-                  className="dark:bg-[#121212] dark:opacity-[80%] dark:border-none"
-                  required
-                /> */}
-
                       <FormField
                         control={form.control}
                         name="doctor"
@@ -411,21 +400,13 @@ const AddPatientPage = ({ isOpen, onClose }) => {
                               </span>
                             </FormLabel>
                             <FormControl>
-                              <div>
-                                <select
-                                  {...field}
-                                  name="doctor"
-                                  id="doctor"
-                                  className="form-input2 bg-white focus-visible:ring-background focus-visible:ring-1"
-                                  value={field.value || "default"}
-                                >
-                                  <option disabled value="default">
-                                    Select Doctor
-                                  </option>
-                                  <option value="Dr VIGAN">Dr VIGAN</option>
-                                  <option value="Dr Pascal">Dr Pascal</option>
-                                </select>
-                              </div>
+                              <Input
+                                type="text"
+                                readOnly
+                                value={`Dr ${user?.username}`}
+                                className="form-input2 bg-white focus-visible:ring-background focus-visible:ring-1"
+                                {...field}
+                              />
                             </FormControl>
                             <FormMessage className="text-red-400 font-medium" />
                           </FormItem>

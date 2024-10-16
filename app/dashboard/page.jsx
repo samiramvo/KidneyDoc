@@ -1,5 +1,7 @@
 import Image from "next/image";
 import { MdPeople } from "react-icons/md";
+import { Calendar } from "iconsax-react";
+import { RiCustomerService2Fill } from "react-icons/ri";
 import PieChart from "@/components/charts/piechart";
 import LineChart from "@/components/charts/linechart";
 import BarChartComponent from "@/components/charts/barchart";
@@ -53,66 +55,64 @@ const Dashboard = async () => {
             </div>
 
             <div className="dark:bg-[#333] bg-[#F9FAFA] p-[10px] rounded-[15px] flex gap-[20px] w-[25%] justify-center items-center shadow-lg dark:shadow-lg">
-              <div>
-                <div className="dark:text-[#A3AED0]  text-textPrimary font-bold  text-[14px]">
-                  Spent this month
-                </div>
-                <div className="dark:text-white text-violettitles font-bold text-[18px]">
-                  $682.5
-                </div>
-              </div>
-              {/* <div>
-                <Image
-                  src={"/assets/icons/Icontrait.png"}
-                  alt="Icon"
-                  width="46"
-                  height="10"
-                />
-              </div> */}
-            </div>
-            <div className="dark:bg-[#333] bg-[#F9FAFA] p-[10px] rounded-[15px] flex gap-[20px] w-[25%] justify-center items-center shadow-lg dark:shadow-lg">
               <div className="relative">
                 <Image
-                  src={"/assets/icons/Shadow2.png"}
+                  src={"/assets/icons/Shadow.png"}
                   alt="Background Image"
                   width="40"
                   height="40"
                 />
-                {/* <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                  <Image
-                    src={"/assets/icons/Icon.png"}
-                    alt="Icon"
-                    width="40"
-                    height="40"
-                  />
-                </div> */}
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                  <Calendar className="text-white" size={20} />
+                </div>
+              </div>
+              <div>
+                <div className="dark:text-[#A3AED0]  text-textPrimary font-bold  text-[14px]">
+                  New Patients This Month
+                </div>
+                <div className="dark:text-white text-violettitles font-bold text-[18px]">
+                  45
+                </div>
+              </div>
+            </div>
+            <div className="dark:bg-[#333] bg-[#F9FAFA] p-[10px] rounded-[15px] flex gap-[20px] w-[25%] justify-center items-center shadow-lg dark:shadow-lg">
+              <div className="relative">
+                <Image
+                  src={"/assets/icons/Shadow.png"}
+                  alt="Background Image"
+                  width="40"
+                  height="40"
+                />
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                  <RiCustomerService2Fill className="text-white" size={20} />
+                </div>
               </div>
               <div>
                 <div className="dark:text-[ #718096] text-textPrimary font-bold  text-[14px]">
-                  Earnings
+                  Total Services Provided
                 </div>
                 <div className="dark:text-white text-violettitle font-bold text-[18px]">
-                  $350.5
+                  150
                 </div>
               </div>
             </div>
             <div className="bg-[#EEEFF2] p-[10px] rounded-[15px] flex gap-[20px] w-[25%] justify-center items-center shadow-lg dark:shadow-lg">
               <div>
                 <div className="text-textPrimary font-bold  text-[14px]">
-                  Activity
+                  Average Patient Spend
                 </div>
                 <div className="text-violettitle font-bold text-[18px]">
-                  $540.5
+                  $90.00
                 </div>
               </div>
-              {/* <div>
+              <div>
                 <Image
                   src={"/assets/icons/Chart.png"}
                   alt="Icon"
-                  width="58"
-                  height="28"
+                  width="76"
+                  height="32"
                 />
-              </div> */}
+              </div>
             </div>
           </div>
         </div>
