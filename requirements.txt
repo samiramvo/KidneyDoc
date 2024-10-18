@@ -1,6 +1,6 @@
-fastapi
-uvicorn
-pandas
-joblib
-python-dotenv
-openpyxl  
+fastapi==0.95.0
+uvicorn==0.22.0
+pandas==1.5.3
+joblib==1.2.0
+python-dotenv==0.21.0
+openpyxl==3.0.10
