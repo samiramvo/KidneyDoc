@@ -392,7 +392,7 @@
 // export default SophisticatedForm;
 
 "use client";
-import React, { useState } from "react";
+import React from "react";
 
 import { useForm } from "react-hook-form";
 import { addConsultation } from "@/lib/actions";
@@ -474,7 +474,7 @@ const SophisticatedForm = ({
 
   const form = useForm({ defaultValues: formData });
   const router = useRouter();
-  const { handleSubmit, control, setValue, reset } = form;
+  const { handleSubmit, control, reset } = form;
 
   const onSubmit = async (data) => {
     try {
@@ -528,7 +528,9 @@ const SophisticatedForm = ({
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Father's history</label>
+              <label className="block text-gray-700">
+                Father&apos;s history
+              </label>
               <input
                 className="border rounded p-2 w-full"
                 placeholder=""
@@ -536,7 +538,9 @@ const SophisticatedForm = ({
               />
             </div>
             <div className="mb-4">
-              <label className="block text-gray-700">Mother's history</label>
+              <label className="block text-gray-700">
+                Mother&apos;s history
+              </label>
               <input
                 className="border rounded p-2 w-full"
                 placeholder=""

@@ -2,7 +2,7 @@ import { fetchConsultation } from "@/lib/data";
 import { createPDF } from "@/lib/pdfGenerator";
 
 export async function GET(req, { params }) {
-  const { patientId, consultationId } = params;
+  const { consultationId } = params;
 
   try {
     const consultation = await fetchConsultation(consultationId);
