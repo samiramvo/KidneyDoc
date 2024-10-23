@@ -4,11 +4,12 @@ import Steps from "@/components/stepsList";
 import { useState } from "react";
 
 const steps = [
-  { name: "Motif d'hospitalisation", subSteps: 1 },
-  { name: "Antécédents personnels et familiaux", subSteps: 2 },
-  { name: "Habitudes sociales", subSteps: 1 },
-  { name: "Examen clinique", subSteps: 2 },
-  { name: "Traitement et évolution", subSteps: 1 },
+  { name: "Reason for hospitalization", subSteps: 1 },
+  { name: "Personal and family history", subSteps: 2 },
+  { name: "Social habits", subSteps: 1 },
+  { name: "Clinical examination", subSteps: 4 }, // updated for new schema
+  { name: "Complementary exams", subSteps: 1 }, // added complementary exams step
+  { name: "Treatment and evolution", subSteps: 1 },
 ];
 
 const PatientConsultationPage = ({ params }) => {
