@@ -1,9 +1,27 @@
+// {
+//   "root": true,
+//   "extends": [
+//     "eslint:recommended",
+//     "next/core-web-vitals"
+//   ],
+//   "rules": {
+//     "react/prop-types": "off",
+//     "no-unused-vars": "warn"
+//   }
+// }
+
+
 {
   "root": true,
   "extends": [
     "eslint:recommended",
     "next/core-web-vitals"
   ],
+  "env": {
+    "es6": true,
+    "node": true,
+    "browser": true
+  },
   "rules": {
     "react/prop-types": "off",
     "no-unused-vars": "warn"

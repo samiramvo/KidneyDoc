@@ -48,3 +48,7 @@ venv/
 
 # Data files
 /data/
+
+# Auto Generated PWA files
+**/public/sw.js
+**/public/workbox-*.js

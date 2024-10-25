@@ -1,0 +1,23 @@
+{
+    "name": "KidneyDoc",
+    "short_name": "KidneyDoc",
+    "description": "The KidneyDoc web application aims to digitize and dematerialize patient information in the nephrology department at CNHU.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#000000",
+    "icons": [
+      {
+        "src": "assets/icons/logo.png",
+        "sizes": "144x144",
+        "type": "image/png"
+      },
+      {
+        "src": "assets/icons/kidney2.png",
+        "sizes": "144x144",
+        "type": "image/png"
+      }
+     
+    ]
+  }
+  
