@@ -45,7 +45,7 @@ const ClientModal = ({ isOpen, onClose, onConfirm, name }) => {
       const timer = setTimeout(() => setAnimationClass(""), 300);
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [isOpen]);
 
   if (!isOpen && animationClass === "") return null;
 

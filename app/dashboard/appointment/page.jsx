@@ -30,7 +30,7 @@ export default function Appointment() {
     notificationTime: "", // Ajout pour l'heure de la notification
   });
   const [alarmSound] = useState(new Audio("/audio.mp3")); // Fichier sonore pour l'alarme
-  const [, setIsAlarmPlaying] = useState(false); // Contrôler l'état de l'alarme
+  const [setIsAlarmPlaying] = useState(false); // Contrôler l'état de l'alarme
 
   useEffect(() => {
     let savedEvents = JSON.parse(localStorage.getItem("events"));
@@ -64,7 +64,7 @@ export default function Appointment() {
         scheduleNotification(event);
       }
     });
-  }, []);
+  }, [allEvents]);
 
   // Fonction pour gérer la planification d'une notification
   function scheduleNotification(event) {
