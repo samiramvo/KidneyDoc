@@ -30,7 +30,7 @@ export default function Appointment() {
     notificationTime: "", // Ajout pour l'heure de la notification
   });
   const [alarmSound] = useState(new Audio("/audio.mp3")); // Fichier sonore pour l'alarme
-  const [isAlarmPlaying, setIsAlarmPlaying] = useState(false); // Contrôler l'état de l'alarme
+  const [, setIsAlarmPlaying] = useState(false); // Contrôler l'état de l'alarme
 
   useEffect(() => {
     let savedEvents = JSON.parse(localStorage.getItem("events"));
@@ -64,7 +64,7 @@ export default function Appointment() {
         scheduleNotification(event);
       }
     });
-  }, [allEvents]);
+  }, []);
 
   // Fonction pour gérer la planification d'une notification
   function scheduleNotification(event) {
@@ -85,12 +85,12 @@ export default function Appointment() {
     setIsAlarmPlaying(true);
     toast(
       <div>
-        <p>L'alarme sonne pour l'événement!</p>
+        <p>L&apos;alarme sonne pour l&apos;événement!</p>
         <button
           onClick={stopAlarm}
           className="bg-red-500 text-white px-2 py-1 rounded"
         >
-          Arrêter l'alarme
+          Arrêter l&apos;alarme
         </button>
       </div>,
       { autoClose: false, closeOnClick: false }
