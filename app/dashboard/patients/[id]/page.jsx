@@ -20,7 +20,7 @@ const SinglePatientPage = async ({ params }) => {
           <DocumentUploadComponent patients={patients} />
         </div>
         <div className="w-[50%]  ">
-          <NotePatientComponent />
+          <NotePatientComponent patientId={id} />
         </div>
       </div>
     </>

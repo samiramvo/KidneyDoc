@@ -79,13 +79,17 @@
 // export default Navbar;
 
 "use client";
+import React from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { MdNotifications, MdOutlineChat, MdPublic } from "react-icons/md";
+
 import ThemeSwitcher from "@/app/ThemeSwitcher";
 import { useSidebar } from "@/app/SidebarContext";
+import Link from "next/link";
 const Navbar = () => {
   const pathname = usePathname();
+  const pathSegments = pathname.split("/").filter((segment) => segment);
   const { toggleSidebar, expanded } = useSidebar();
   return (
     <div className="p-3 flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#EEEFF2]">
@@ -133,7 +137,25 @@ const Navbar = () => {
             </svg>
           )}
         </button>
-        <div className="titlenav flex gap-2">{"Pages" + pathname}</div>
+        {/* <div className="titlenav flex gap-2">{"Pages" + pathname}</div> */}
+        {/* <Link href={pathname} className="titlenav flex gap-2">
+          {"Pages" + pathname}
+        </Link> */}
+        <div className="titlenav flex gap-1">
+          {"Pages"}
+          {pathSegments.map((segment, index) => {
+            // Construire le lien pour chaque segment
+            const href = `/${pathSegments.slice(0, index + 1).join("/")}`;
+            return (
+              <React.Fragment key={index}>
+                <Link href={href} className="text-violettitle hover:underline">
+                  {segment.charAt(0).toUpperCase() + segment.slice(1)}
+                </Link>
+                {index < pathSegments.length - 1 && <span>/</span>}
+              </React.Fragment>
+            );
+          })}
+        </div>
       </div>
 
       <div className="flex items-center gap-4">
