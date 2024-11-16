@@ -124,6 +124,35 @@ export default function Home() {
     setFile(event.target.files[0]);
   };
 
+  // const getPrediction = async () => {
+  //   if (!file) {
+  //     alert("Veuillez sélectionner un fichier Excel.");
+  //     return;
+  //   }
+
+  //   setLoading(true);
+
+  //   const formData = new FormData();
+  //   formData.append("file", file);
+
+  //   try {
+  //     const response = await fetch(
+  //       `${process.env.NEXT_PUBLIC_API_URL}/predict`,
+  //       {
+  //         method: "POST",
+  //         body: formData,
+  //       }
+  //     );
+
+  //     const data = await response.json();
+  //     setPrediction(data.CKD_Stage);
+  //   } catch (error) {
+  //     console.error("Erreur:", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
   const getPrediction = async () => {
     if (!file) {
       alert("Veuillez sélectionner un fichier Excel.");
@@ -144,10 +173,20 @@ export default function Home() {
         }
       );
 
+      if (!response.ok) {
+        throw new Error(`Erreur ${response.status}: ${response.statusText}`);
+      }
+
       const data = await response.json();
-      setPrediction(data.CKD_Stage);
+      if (data.error) {
+        console.error("Erreur de prédiction:", data.error);
+        alert("Erreur de prédiction : " + data.error);
+      } else {
+        setPrediction(data.CKD_Stage);
+      }
     } catch (error) {
       console.error("Erreur:", error);
+      alert("Erreur de connexion à l'API : " + error.message);
     } finally {
       setLoading(false);
     }

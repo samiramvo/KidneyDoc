@@ -1,34 +1,51 @@
 "use client";
 import { Chart } from "react-google-charts";
 import { useTheme } from "next-themes";
-export const data = [
-  ["City", "2010 Population", "2000 Population"],
-  ["New York City, NY", 8175000, 8008000],
-  ["Los Angeles, CA", 3792000, 3694000],
-  ["Chicago, IL", 2695000, 2896000],
-  ["Houston, TX", 2099000, 1953000],
-  ["Philadelphia, PA", 1526000, 1517000],
-];
 
-export default function App() {
+export default function App({ data }) {
   const { theme } = useTheme();
+
+  const transformData = () => {
+    if (!data) return [["Age group", "Men", "Women"]];
+
+    const ageGroups = {};
+    data.forEach((item) => {
+      const ageGroup = item._id?.ageGroup || "Inconnu";
+      const gender = item._id?.gender || "Inconnu";
+      if (!ageGroups[ageGroup]) {
+        ageGroups[ageGroup] = { Male: 0, Female: 0 };
+      }
+      ageGroups[ageGroup][gender] = item.count;
+    });
+
+    return [
+      ["Age group", "Men", "Women"],
+      ...Object.entries(ageGroups).map(([ageGroup, counts]) => [
+        ageGroup,
+        counts.Male || 0,
+        counts.Female || 0,
+      ]),
+    ];
+  };
+
+  const chartData = transformData();
+
   const options = {
-    title: "Population of Largest U.S. Cities",
-    chartArea: { width: "50%" },
+    title: "Distribution by age group and gender",
     isStacked: true,
     backgroundColor: theme === "light" ? "#F9FAFA" : "#333",
-    hAxis: {
-      title: "Total Population",
-      minValue: 0,
-    },
-    vAxis: {
-      title: "City",
-    },
-    orientation: "horizontal",
+    titleTextStyle: { color: theme === "light" ? "#1B2559" : "#FFFFFF" },
+    legend: { textStyle: { color: theme === "light" ? "#1B2559" : "#FFFFFF" } },
+    hAxis: { textStyle: { color: theme === "light" ? "#1B2559" : "#FFFFFF" } },
+    vAxis: { textStyle: { color: theme === "light" ? "#1B2559" : "#FFFFFF" } },
+    colors: ["#4318FF", "#6AD2FF"],
   };
+
   return (
     <Chart
-      chartType="BarChart"
+      chartType="ColumnChart"
+      data={chartData}
+      options={options}
       width="100%"
       height="400px"
       loader={
@@ -38,8 +55,6 @@ export default function App() {
           Loading Bar Chart
         </div>
       }
-      data={data}
-      options={options}
     />
   );
 }

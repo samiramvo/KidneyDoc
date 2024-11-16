@@ -1,68 +1,49 @@
 "use client";
 import { Chart } from "react-google-charts";
 import { useTheme } from "next-themes";
-export const data = [
-  ["Month", "Sales", "Expenses"],
-  ["Jan", 1000, 400],
-  ["Feb", 1170, 460],
-  ["Mar", 660, 1120],
-  ["Apr", 1030, 540],
-  ["May", 800, 200],
-  ["Jun", 1230, 900],
-  ["Jul", 1100, 700],
-  ["Aug", 1400, 600],
-  ["Sep", 1000, 300],
-  ["Oct", 1170, 600],
-  ["Nov", 660, 800],
-  ["Dec", 1030, 400],
-];
 
-export default function App() {
+export default function App({ consultationData, patientData }) {
   const { theme } = useTheme();
+
+  const months = [
+    "Jan",
+    "Fév",
+    "Mar",
+    "Avr",
+    "Mai",
+    "Jun",
+    "Jul",
+    "Aoû",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Déc",
+  ];
+
+  const chartData = [
+    ["Month", "Consultations", "New Patients"],
+    ...months.map((month, idx) => [
+      month,
+      consultationData.find((m) => m._id === idx + 1)?.count || 0,
+      patientData.find((m) => m._id === idx + 1)?.count || 0,
+    ]),
+  ];
+
   const options = {
-    title: "Company Performance",
-    curveType: "function",
+    title: "Monthly evolution",
     backgroundColor: theme === "light" ? "#F9FAFA" : "#333",
-    legend: { position: "bottom" },
-    series: {
-      0: { color: "#4318FF" }, // Couleur de la première série (Sales)
-      1: { color: "#6AD2FF" }, // Couleur de la deuxième série (Expenses)
-    },
-    titleTextStyle: {
-      color: theme === "light" ? "#1B2559" : "#FFFFFF",
-      fontName: "Plus Jakarta Sans",
-      fontSize: 18,
-    },
-    hAxis: {
-      title: "Month",
-      titleTextStyle: {
-        color: "#A3AED0",
-        fontName: "Plus Jakarta Sans",
-        fontSize: 14,
-      },
-      textStyle: {
-        color: "#A3AED0",
-        fontName: "Plus Jakarta Sans",
-        fontSize: 12,
-      },
-    },
-    vAxis: {
-      title: "Amount",
-      titleTextStyle: {
-        color: "#A3AED0",
-        fontName: "Plus Jakarta Sans",
-        fontSize: 14,
-      },
-      textStyle: {
-        color: "#A3AED03",
-        fontName: "Plus Jakarta Sans",
-        fontSize: 12,
-      },
-    },
+    titleTextStyle: { color: theme === "light" ? "#1B2559" : "#FFFFFF" },
+    legend: { textStyle: { color: theme === "light" ? "#1B2559" : "#FFFFFF" } },
+    hAxis: { textStyle: { color: theme === "light" ? "#1B2559" : "#FFFFFF" } },
+    vAxis: { textStyle: { color: theme === "light" ? "#1B2559" : "#FFFFFF" } },
+    colors: ["#4318FF", "#6AD2FF"],
   };
+
   return (
     <Chart
       chartType="LineChart"
+      data={chartData}
+      options={options}
       width="100%"
       height="400px"
       loader={
@@ -72,8 +53,6 @@ export default function App() {
           Loading Line Chart
         </div>
       }
-      data={data}
-      options={options}
     />
   );
 }

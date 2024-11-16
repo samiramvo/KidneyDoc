@@ -2,72 +2,37 @@
 import { Chart } from "react-google-charts";
 import { useTheme } from "next-themes";
 
-export const data = [
-  ["Year", "Sales", "Expenses", "Profit"],
-  ["2014", 1000, 400, 200],
-  ["2015", 1170, 460, 250],
-  ["2016", 660, 1120, 300],
-  ["2017", 1030, 540, 350],
-];
-
-export default function BarChartComponent() {
+export default function BarChartComponent({ data }) {
   const { theme } = useTheme();
 
+  const month = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const chartData = [
+    ["Month", "New Patients"],
+    ...data.map((entry) => [month[entry._id - 1], entry.count]),
+  ];
+
   const options = {
-    chart: {
-      title: "Company Performance",
-      subtitle: "Sales, Expenses, and Profit: 2014-2017",
-    },
+    title: "New patients per month",
     backgroundColor: theme === "light" ? "#F9FAFA" : "#333",
-    legend: {
-      textStyle: {
-        color: theme === "light" ? "#A3AED0" : "#FFFFFF",
-        fontName: "Plus Jakarta Sans",
-        fontSize: 14,
-      },
-    },
-    hAxis: {
-      titleTextStyle: {
-        color: theme === "light" ? "#A3AED0" : "#FFFFFF",
-        fontName: "Plus Jakarta Sans",
-        fontSize: 12,
-      },
-      textStyle: {
-        color: theme === "light" ? "#A3AED0" : "#FFFFFF",
-        fontName: "Plus Jakarta Sans",
-        fontSize: 12,
-      },
-    },
-    series: {
-      0: {
-        type: "bars",
-        areaOpacity: 0,
-        lineWidth: 1,
-        color: "#624aff",
-      },
-      1: {
-        type: "bars",
-        areaOpacity: 0,
-        lineWidth: 1,
-        color: "#6AD2FF",
-      },
-      2: {
-        type: "bars",
-        areaOpacity: 0,
-        lineWidth: 1,
-        color: "#EFF4FB",
-      },
-    },
-    titleTextStyle: {
-      color: "#1B2559",
-      fontName: "Plus Jakarta Sans",
-      fontSize: 20,
-    },
-    subtitleTextStyle: {
-      color: "#A3AED0",
-      fontName: "Plus Jakarta Sans",
-      fontSize: 14,
-    },
+    titleTextStyle: { color: theme === "light" ? "#1B2559" : "#FFFFFF" },
+    legend: { textStyle: { color: theme === "light" ? "#1B2559" : "#FFFFFF" } },
+    hAxis: { textStyle: { color: theme === "light" ? "#1B2559" : "#FFFFFF" } },
+    vAxis: { textStyle: { color: theme === "light" ? "#1B2559" : "#FFFFFF" } },
+    colors: ["#4318FF"],
   };
 
   return (
@@ -79,19 +44,12 @@ export default function BarChartComponent() {
           fontSize: 17,
         }}
       >
-        Company Performance
+        New patients per month
       </h2>
-      <h3
-        style={{
-          color: theme === "light" ? "#A3AED0" : "#A3AED0",
-          fontFamily: "Plus Jakarta Sans",
-          fontSize: 14,
-        }}
-      >
-        Sales, Expenses, and Profit: 2014-2017
-      </h3>
       <Chart
         chartType="ColumnChart"
+        data={chartData}
+        options={options}
         width="100%"
         height="400px"
         loader={
@@ -101,8 +59,6 @@ export default function BarChartComponent() {
             Loading Bar Chart
           </div>
         }
-        data={data}
-        options={options}
       />
     </div>
   );

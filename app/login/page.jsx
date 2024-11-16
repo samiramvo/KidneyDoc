@@ -69,7 +69,9 @@ const Login = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  // const [showOtpForm, setShowOtpForm] = useState(false);
+  const [attemptsLeft, setAttemptsLeft] = useState(null);
+
+  const [isBlocked, setIsBlocked] = useState(false);
   const handleCheckboxChange = () => {
     setIsChecked(!isChecked);
   };
@@ -97,37 +99,46 @@ const Login = () => {
   const form = useForm({
     resolver: zodResolver(formSchema),
   });
+
   async function connexion(values) {
     const formData = new FormData();
     formData.append("emailuser", values.emailuser);
     formData.append("passworduser", values.passworduser);
     setIsSubmitting(true);
+
     try {
       const response = await authenticate(formData);
+      console.log("Réponse du serveur:", response);
+
       if (response?.error) {
-        toast.error(response.error);
+        console.log("Erreur reçue:", response.error);
+        if (response.error.includes("bloqué")) {
+          setIsBlocked(true);
+          toast.error(
+            "Utilisateur bloqué. Veuillez réessayer après 5 minutes."
+          );
+        } else {
+          const matches = response.error.match(
+            /Il vous reste (\d+) tentatives/
+          );
+          if (matches) {
+            const attemptsLeft = parseInt(matches[1], 10);
+            toast.error(
+              `Identifiants incorrects ! Il vous reste ${attemptsLeft} tentatives.`
+            );
+          }
+        }
       } else {
-        // setShowOtpForm(true);
-        toast.success("Successful connection");
+        toast.success("Connexion réussie");
+        setIsBlocked(false);
       }
     } catch (error) {
-      console.error("An error occurred:", error);
-      toast.error("Wrong credentials");
+      console.error("Une erreur s'est produite:", error);
+      toast.error("Une erreur s'est produite lors de la connexion.");
     } finally {
       setIsSubmitting(false);
     }
   }
-
-  // const handleOtpVerification = (verified) => {
-  //   if (verified) {
-  //     setIsOtpVerified(true);
-  //     // Rediriger vers le tableau de bord après la vérification de l'OTP
-  //     window.location.href = "/dashboard";
-  //   } else {
-  //     toast.error("Invalid OTP");
-  //   }
-  // };
-
   return (
     <div className="dark:bg-[#121212]">
       <div className="theme-switcher-wrapper">
@@ -248,7 +259,7 @@ const Login = () => {
                   <Button
                     type="submit"
                     className={`font-dm_sans buttonlog text-white text-center text-[15px] font-bold hover:shadow-xl hover:bg-[#4318FF] dark:hover:shadow-xl ${
-                      isSubmitting
+                      isSubmitting || isBlocked
                         ? "opacity-85 cursor-not-allowed"
                         : "bg-[#4318FF] hover:bg-[#4318FF]"
                     }`}
@@ -264,7 +275,6 @@ const Login = () => {
             </form>
           </Form>
         </div>
-        {/* {showOtpForm && <TwoFactorModal />} */}
       </div>
     </div>
   );

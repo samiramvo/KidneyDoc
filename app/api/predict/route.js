@@ -4,7 +4,7 @@
 
 // async function loadModel() {
 //   try {
-//     const modelPath = join(__dirname, "/models/best_model.json"); // Use the correct model path
+//     const modelPath = join(__dirname, "/models/best_model.json");
 //     const model = await tf.loadLayersModel(`file://${modelPath}`);
 //     return model;
 //   } catch (error) {

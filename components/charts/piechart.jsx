@@ -1,47 +1,31 @@
 "use client";
 import { Chart } from "react-google-charts";
 import { useTheme } from "next-themes";
-export const data = [
-  ["Task", "Hours per Day"],
-  ["Work", 6],
-  ["Eat", 2],
-  ["Commute", 2],
-];
 
-export default function App() {
+export default function App({ data }) {
   const { theme } = useTheme();
+
+  const chartData = [
+    ["Gender", "Number of patients"],
+    ...data.map((entry) => [entry._id, entry.count]),
+  ];
+
   const options = {
-    title: "My Daily Activities",
+    title: "Distribution by gender",
     is3D: true,
     backgroundColor: theme === "light" ? "#F9FAFA" : "#333",
-    colors: ["#624aff", "#6AD2FF", "#EFF4FB"],
-    titleTextStyle: {
-      color: theme === "light" ? "#1B2559" : "#FFFFFF",
-      fontName: "Plus Jakarta Sans",
-      fontSize: 18,
-    },
-    pieSliceTextStyle: {
-      color: "#FFFFFF",
-      fontName: "Plus Jakarta Sans",
-      fontSize: 12,
-    },
-    legend: {
-      position: "bottom",
-      alignment: "center",
-      textStyle: {
-        color: "#A3AED0",
-        fontName: "Plus Jakarta Sans",
-        fontSize: 14,
-      },
-    },
+    titleTextStyle: { color: theme === "light" ? "#1B2559" : "#FFFFFF" },
+    legend: { textStyle: { color: theme === "light" ? "#1B2559" : "#FFFFFF" } },
+    colors: ["#4318FF", "#6AD2FF"],
   };
+
   return (
     <Chart
       chartType="PieChart"
-      data={data}
+      data={chartData}
       options={options}
-      width={"100%"}
-      height={"400px"}
+      width="100%"
+      height="400px"
       loader={
         <div
           className={theme === "light" ? "text-[#1B2559]" : "text-[#FFFFFF]"}
