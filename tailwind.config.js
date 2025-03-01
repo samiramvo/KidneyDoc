@@ -29,6 +29,10 @@ module.exports = {
         textSecondary: "#3C3F4A",
         buttonBlue: "#607AFB",
         activecolor: "#EEEFF2",
+        darkbackground: "#181537",
+        darkviolet: "#604bff",
+        darkgris:"#22203c",
+        darkblanc:"#EEEFF2",
       },
       fontWeight: {
         regular: "400",

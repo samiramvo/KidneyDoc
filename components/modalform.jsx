@@ -22,7 +22,7 @@ const Modal = ({ isOpen, onClose, title, children }) => {
 
   return (
     <div className="modal-overlay">
-      <div className="modal-container">
+      <div className="modal-container dark:bg-darkbackground">
         <div className="modal-header">
           {title && <h2>{title}</h2>}
           <button

@@ -23,7 +23,7 @@
 //       <div className="wrapperdash">
 //         <div className="maindash">
 //           <div className="cards">
-//             <div className="dark:bg-[#333] bg-[#F9FAFA] p-[10px] rounded-[15px] flex gap-[20px] w-[25%] justify-center items-center shadow-lg dark:shadow-lg">
+//             <div className=" bg-[#F9FAFA] p-[10px] rounded-[15px] flex gap-[20px] w-[25%] justify-center items-center shadow-lg dark:shadow-lg">
 //               <div className="relative">
 //                 <Image
 //                   src={"/assets/icons/Shadow.png"}
@@ -148,6 +148,7 @@ import LineChart from "@/components/charts/linechart";
 import BarChartComponent from "@/components/charts/barchart";
 import BarChart from "@/components/charts/stackedbar";
 import Tablepatient from "@/components/tablepatient";
+import TranslatedContent from "@/components/TranslateContent";
 import {
   fetchRecentPatients,
   fetchChartData,
@@ -161,16 +162,16 @@ const Dashboard = async () => {
   const stats = await fetchDashboardStats();
 
   return (
-    <div className="dark:bg-[#121212]">
+    <div className="dark:bg-darkbackground">
       <div>
         <h1 className="font-bold text-textSecondary text-[26px] mt-4 mb-4 dark:text-white">
-          Welcome to KidneyDoc!
+          <TranslatedContent translationKey="welcome" />
         </h1>
       </div>
       <div className="wrapperdash">
         <div className="maindash">
           <div className="cards">
-            <div className="dark:bg-[#333] bg-[#F9FAFA] p-[10px] rounded-[15px] flex gap-[20px] w-[25%] justify-center items-center shadow-lg dark:shadow-lg">
+            <div className="dark:bg-darkgris bg-[#F9FAFA] p-[10px] rounded-[15px] flex gap-[20px] w-[25%] justify-center items-center shadow-lg dark:shadow-lg">
               <div className="relative">
                 <Image
                   src={"/assets/icons/Shadow.png"}
@@ -184,7 +185,7 @@ const Dashboard = async () => {
               </div>
               <div>
                 <div className="dark:text-[#A3AED0] text-textPrimary font-bold text-[13px]">
-                  Total Patients
+                <TranslatedContent translationKey="totalPatients" />
                 </div>
                 <div className="text-violettitle font-bold dark:text-white">
                   {stats.totalPatients}
@@ -192,7 +193,7 @@ const Dashboard = async () => {
               </div>
             </div>
 
-            <div className="dark:bg-[#333] bg-[#F9FAFA] p-[10px] rounded-[15px] flex gap-[20px] w-[25%] justify-center items-center shadow-lg dark:shadow-lg">
+            <div className="dark:bg-darkgris bg-[#F9FAFA] p-[10px] rounded-[15px] flex gap-[20px] w-[25%] justify-center items-center shadow-lg dark:shadow-lg">
               <div className="relative">
                 <Image
                   src={"/assets/icons/Shadow.png"}
@@ -206,7 +207,7 @@ const Dashboard = async () => {
               </div>
               <div>
                 <div className="dark:text-[#A3AED0] text-textPrimary font-bold text-[14px]">
-                  New Patients This Month
+                <TranslatedContent translationKey="newPatientsThisMonth" />
                 </div>
                 <div className="dark:text-white text-violettitles font-bold text-[18px]">
                   {stats.newPatientsThisMonth}
@@ -214,7 +215,7 @@ const Dashboard = async () => {
               </div>
             </div>
 
-            <div className="dark:bg-[#333] bg-[#F9FAFA] p-[10px] rounded-[15px] flex gap-[20px] w-[25%] justify-center items-center shadow-lg dark:shadow-lg">
+            <div className="dark:bg-darkgris bg-[#F9FAFA] p-[10px] rounded-[15px] flex gap-[20px] w-[25%] justify-center items-center shadow-lg dark:shadow-lg">
               <div className="relative">
                 <Image
                   src={"/assets/icons/Shadow.png"}
@@ -228,7 +229,7 @@ const Dashboard = async () => {
               </div>
               <div>
                 <div className="dark:text-[#718096] text-textPrimary font-bold text-[14px]">
-                  Total Consultations
+                <TranslatedContent translationKey="totalConsultations" />
                 </div>
                 <div className="dark:text-white text-violettitle font-bold text-[18px]">
                   {stats.totalConsultations}
@@ -236,10 +237,10 @@ const Dashboard = async () => {
               </div>
             </div>
 
-            <div className="dark:bg-[#333] bg-[#EEEFF2] p-[10px] rounded-[15px] flex gap-[20px] w-[25%] justify-center items-center shadow-lg dark:shadow-lg">
+            <div className=" bg-[#EEEFF2] dark:bg-darkviolet p-[10px] rounded-[15px] flex gap-[20px] w-[25%] justify-center items-center shadow-lg dark:shadow-lg">
               <div>
-                <div className="text-textPrimary font-bold text-[14px] dark:text-[#A3AED0]">
-                  Average Consultations/Patient
+                <div className="text-textPrimary font-bold text-[14px] dark:text-white">
+                <TranslatedContent translationKey="averageConsultations" />
                 </div>
                 <div className="text-violettitle font-bold text-[18px] dark:text-white">
                   {stats.averageConsultations * 100} %
@@ -259,22 +260,22 @@ const Dashboard = async () => {
       </div>
 
       <div className="grid grid-cols-12 gap-4 mt-[1%]">
-        <div className="col-span-8 rounded-lg shadow-lg dark:shadow-lg px-4 py-4 bg-[#F9FAFA] dark:bg-[#333]">
+        <div className="col-span-8 rounded-lg shadow-lg dark:shadow-lg px-4 py-4 bg-[#F9FAFA] dark:bg-darkgris">
           <BarChartComponent data={chartData.patientsByMonth} />
         </div>
-        <div className="col-span-4 rounded-lg shadow-lg dark:shadow-lg px-4 py-4 bg-[#F9FAFA] dark:bg-[#333]">
+        <div className="col-span-4 rounded-lg shadow-lg dark:shadow-lg px-4 py-4 bg-[#F9FAFA] dark:bg-darkgris">
           <PieChart data={chartData.genderDistribution} />
         </div>
       </div>
 
       <div className="grid grid-cols-12 gap-4 mt-[1%]">
-        <div className="col-span-8 rounded-lg shadow-lg dark:shadow-lg px-4 py-4 bg-[#F9FAFA] dark:bg-[#333]">
+        <div className="col-span-8 rounded-lg shadow-lg dark:shadow-lg px-4 py-4 bg-[#F9FAFA] dark:bg-darkgris">
           <LineChart
             consultationData={chartData.consultationsByMonth}
             patientData={chartData.patientsByMonth}
           />
         </div>
-        <div className="col-span-4 rounded-lg shadow-lg dark:shadow-lg px-4 py-4 bg-[#F9FAFA] dark:bg-[#333]">
+        <div className="col-span-4 rounded-lg shadow-lg dark:shadow-lg px-4 py-4 bg-[#F9FAFA] dark:bg-darkgris">
           <BarChart data={chartData.ageGroups} />
         </div>
       </div>

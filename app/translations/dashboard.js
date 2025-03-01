@@ -1,0 +1,30 @@
+export const dashboard = {
+    en: {
+      totalPatients: "Total Patients",
+      newPatientsThisMonth: "New Patients This Month",
+      totalConsultations: "Total Consultations",
+      averageConsultations: "Average Consultations/Patient",
+      patientsByMonth: "Patients by Month",
+      genderDistribution: "Gender Distribution",
+      ageGroups: "Age Groups",
+      recentPatients: "Recent Patients",
+      consultationsTrend: "Consultations Trend",
+      patientStatistics: "Patient Statistics",
+      monthlyOverview: "Monthly Overview",
+      yearlyComparison: "Yearly Comparison",
+    },
+    fr: {
+      totalPatients: "Total des Patients",
+      newPatientsThisMonth: "Nouveaux Patients ce Mois",
+      totalConsultations: "Total des Consultations",
+      averageConsultations: "Moyenne des Consultations/Patient",
+      patientsByMonth: "Patients par Mois",
+      genderDistribution: "Distribution par Genre",
+      ageGroups: "Groupes d'Âge",
+      recentPatients: "Patients Récents",
+      consultationsTrend: "Tendance des Consultations",
+      patientStatistics: "Statistiques des Patients",
+      monthlyOverview: "Aperçu Mensuel",
+      yearlyComparison: "Comparaison Annuelle",
+    }
+  };

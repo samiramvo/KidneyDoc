@@ -23,6 +23,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 // import TwoFactorModal from "./OTP";
 import { zodResolver } from "@hookform/resolvers/zod";
+import CustomCaptcha from "@/components/CustomCaptcha";
 
 const PasswordInput = ({ form, showPassword, setShowPassword }) => {
   return (
@@ -70,6 +71,7 @@ const Login = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [attemptsLeft, setAttemptsLeft] = useState(null);
+  const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
 
   const [isBlocked, setIsBlocked] = useState(false);
   const handleCheckboxChange = () => {
@@ -101,6 +103,11 @@ const Login = () => {
   });
 
   async function connexion(values) {
+    if (!isCaptchaVerified) {
+      toast.error("Veuillez valider le captcha");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("emailuser", values.emailuser);
     formData.append("passworduser", values.passworduser);
@@ -137,6 +144,7 @@ const Login = () => {
       toast.error("Une erreur s'est produite lors de la connexion.");
     } finally {
       setIsSubmitting(false);
+      setIsCaptchaVerified(false);
     }
   }
   return (
@@ -235,6 +243,9 @@ const Login = () => {
                   showPassword={showPassword}
                   setShowPassword={setShowPassword}
                 />
+                   <div className="w-full mt-[20px]">
+          <CustomCaptcha onVerify={setIsCaptchaVerified} />
+        </div>
                 <div className="checkbox-wrapper mt-[30px] font-dm_sans flex items-center">
                   <input
                     type="checkbox"
@@ -250,16 +261,17 @@ const Login = () => {
                   </label>
                   <Link
                     className="font-medium text-violetpur text-[16px] ml-[25%]"
-                    href="#"
+                    href="/forgot-password"
                   >
                     Forget password?
                   </Link>
                 </div>
+             
                 <div className="mt-[30px]">
                   <Button
                     type="submit"
                     className={`font-dm_sans buttonlog text-white text-center text-[15px] font-bold hover:shadow-xl hover:bg-[#4318FF] dark:hover:shadow-xl ${
-                      isSubmitting || isBlocked
+                      isSubmitting || isBlocked || !isCaptchaVerified
                         ? "opacity-85 cursor-not-allowed"
                         : "bg-[#4318FF] hover:bg-[#4318FF]"
                     }`}

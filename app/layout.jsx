@@ -44,7 +44,7 @@
 import "@/styles/globals.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import SidebarProvider from "./SidebarContext";
+import SidebarProvider from "./contexts/SidebarContext";
 import Providers from "./providers";
 import { Toaster } from "react-hot-toast";
 import Favicon from "/favicon.ico";

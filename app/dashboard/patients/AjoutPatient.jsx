@@ -161,21 +161,21 @@ const AddPatientPage = ({ isOpen, onClose, user }) => {
   return (
     <div>
       <Modal isOpen={isOpen} onClose={onClose}>
-        <div className="modal-form-container max-h-screen font-jakarta">
+        <div className="modal-form-container max-h-screen font-jakarta dark:bg-darkbackground">
           <div className="modal-form-header flex gap-2 ">
             <div className="modal-form-logo">
               <span className="mr-4">
-                <UserAdd size={28} className="text-violettitle" />
+                <UserAdd size={28} className="text-violettitle dark:text-white" />
               </span>
             </div>
             <div className="modal-form-role flex flex-align-item-center  pb-4">
-              <p className="text-lg text-violettitle font-bold">
+              <p className="text-lg text-violettitle font-bold dark:text-white">
                 Ajout d&apos;un patient
               </p>
             </div>
           </div>
           <div className="modal-form-body">
-            <div className=" dark:bg-[#333]  ">
+            <div >
               <Form {...form}>
                 <form
                   onSubmit={handleSubmit(handleFormSubmit)}
@@ -200,11 +200,11 @@ const AddPatientPage = ({ isOpen, onClose, user }) => {
                                 placeholder=""
                                 name="name_patient"
                                 id="name_patient"
-                                className="form-input2 bg-white focus-visible:ring-background focus-visible:ring-1"
+                                className="form-input2 bg-white dark:bg-darkgris focus-visible:ring-background focus-visible:ring-1"
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage className="text-red-400 font-medium" />
+                            <FormMessage className="text-red-400 dark:text-red-700 font-medium" />
                           </FormItem>
                         )}
                       />
@@ -227,11 +227,11 @@ const AddPatientPage = ({ isOpen, onClose, user }) => {
                                 placeholder=""
                                 name="prenom_patient"
                                 id="prenom_patient"
-                                className="form-input2 bg-white focus-visible:ring-background focus-visible:ring-1"
+                                className="form-input2 bg-white dark:bg-darkgris focus-visible:ring-background focus-visible:ring-1"
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage className="text-red-400 font-medium" />
+                            <FormMessage className="text-red-400 dark:text-red-700 font-medium" />
                           </FormItem>
                         )}
                       />
@@ -255,11 +255,11 @@ const AddPatientPage = ({ isOpen, onClose, user }) => {
                                 type="date"
                                 name="birth"
                                 id="birth"
-                                className="form-input2 bg-white focus-visible:ring-background focus-visible:ring-1"
+                                className="form-input2 bg-white dark:bg-darkgris focus-visible:ring-background focus-visible:ring-1"
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage className="text-red-400 font-medium" />
+                            <FormMessage className="text-red-400 dark:text-red-700 font-medium" />
                           </FormItem>
                         )}
                       />
@@ -283,11 +283,11 @@ const AddPatientPage = ({ isOpen, onClose, user }) => {
                                 name="agepatient"
                                 id="agepatient"
                                 readOnly
-                                className="form-input2 bg-white focus-visible:ring-background focus-visible:ring-1"
+                                className="form-input2 bg-white dark:bg-darkgris focus-visible:ring-background focus-visible:ring-1"
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage className="text-red-400 font-medium" />
+                            <FormMessage className="text-red-400  dark:text-red-700 font-medium" />
                           </FormItem>
                         )}
                       />
@@ -312,7 +312,7 @@ const AddPatientPage = ({ isOpen, onClose, user }) => {
                                   {...field}
                                   name="gender"
                                   id="gender"
-                                  className="form-input2 bg-white focus-visible:ring-background focus-visible:ring-1"
+                                  className="form-input2 bg-white dark:bg-darkgris focus-visible:ring-background focus-visible:ring-1"
                                   value={field.value || "default"}
                                 >
                                   <option disabled value="default">
@@ -323,7 +323,7 @@ const AddPatientPage = ({ isOpen, onClose, user }) => {
                                 </select>
                               </div>
                             </FormControl>
-                            <FormMessage className="text-red-400 font-medium" />
+                            <FormMessage className="text-red-400 dark:text-red-700 font-medium" />
                           </FormItem>
                         )}
                       />
@@ -346,11 +346,11 @@ const AddPatientPage = ({ isOpen, onClose, user }) => {
                                 placeholder=""
                                 name="addresspatient"
                                 id="addresspatient"
-                                className="form-input2 bg-white focus-visible:ring-background focus-visible:ring-1"
+                                className="form-input2 bg-white dark:bg-darkgris focus-visible:ring-background focus-visible:ring-1"
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage className="text-red-400 font-medium" />
+                            <FormMessage className="text-red-400 dark:text-red-700 font-medium" />
                           </FormItem>
                         )}
                       />
@@ -375,11 +375,11 @@ const AddPatientPage = ({ isOpen, onClose, user }) => {
                                 defaultCountry="BJ"
                                 value={field.value}
                                 onChange={field.onChange}
-                                className="form-input2 bg-white focus-visible:ring-background focus-visible:ring-1"
+                                className="form-input2 bg-white dark:bg-darkbackground focus-visible:ring-background focus-visible:ring-1"
                               />
                             </FormControl>
                             {fieldState.error && (
-                              <FormMessage className="text-red-400 font-medium">
+                              <FormMessage className="text-red-400 dark:text-red-700 font-medium">
                                 {fieldState.error.message}
                               </FormMessage>
                             )}
@@ -404,11 +404,11 @@ const AddPatientPage = ({ isOpen, onClose, user }) => {
                                 type="text"
                                 readOnly
                                 value={`Dr ${user?.username}`}
-                                className="form-input2 bg-white focus-visible:ring-background focus-visible:ring-1"
+                                className="form-input2 bg-white dark:bg-darkgris focus-visible:ring-background focus-visible:ring-1"
                                 {...field}
                               />
                             </FormControl>
-                            <FormMessage className="text-red-400 font-medium" />
+                            <FormMessage className="text-red-400 dark:text-red-700 font-medium" />
                           </FormItem>
                         )}
                       />
@@ -420,7 +420,7 @@ const AddPatientPage = ({ isOpen, onClose, user }) => {
                     className={`w-[30%] rounded-[20px] px-2 py-2 text-[15px] ml-4  bg-violettitle text-white ${
                       isSubmitting
                         ? "opacity-85 cursor-not-allowed"
-                        : "bg-violettitle hover:bg-violettitle"
+                        : "bg-violettitle hover:bg-violettitle dark:bg-darkgris dark:hover:bg-darkviolet "
                     }`}
                   >
                     {isSubmitting ? (

@@ -201,7 +201,7 @@ const Tablepatient = ({ patients }) => {
 
   return (
     <div>
-      <div className="containerpatient border-t border-solid border-b-[#EEEFF2] shadow-lg dark:bg-[#333] dark:shadow-lg">
+      <div className="containerpatient border-t border-solid border-b-[#EEEFF2] shadow-lg dark:bg-darkgris dark:border-t-black dark:shadow-lg">
         <div className="flex ">
           <h2 className="titlepatient ml-[10px] dark:text-[#605BFF]">
             Patient Data
@@ -227,7 +227,7 @@ const Tablepatient = ({ patients }) => {
             {patients.map((patient) => (
               <tr
                 key={patient._id}
-                className="group hover:bg-[#f8f8fa] dark:hover:bg-gray-700 border-b border-solid border-b-[#EEEFF2] "
+                className="group hover:bg-[#f8f8fa] dark:hover:bg-darkbackground dark:border-b-black border-b border-solid border-b-[#EEEFF2] "
               >
                 <td>
                   <div className="namepatient flex dark:text-white">
@@ -247,9 +247,9 @@ const Tablepatient = ({ patients }) => {
                   {formatDate(patient.createdAt)}
                 </td>
                 <td>
-                  <div className="buttonsuser flex space-x-4">
+                  <div className="buttonsuser flex space-x-4 ">
                     <Link href={`/dashboard/patients/${patient._id}`}>
-                      <Eye size="24" color="#3C3F4A" />
+                      <Eye size="24" color="currentColor" className="dark:text-white"  />
                     </Link>
                     <button
                       onClick={() =>
@@ -260,7 +260,7 @@ const Tablepatient = ({ patients }) => {
                         )
                       }
                     >
-                      <Trash size="24" color="#3C3F4A" />
+                      <Trash size="24" color="currentColor" className="dark:text-white"  />
                     </button>
                   </div>
                 </td>

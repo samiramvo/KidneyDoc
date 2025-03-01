@@ -359,13 +359,13 @@ const PatientClient = ({ patients, count, user }) => {
         <FilterForm />
       </div>
 
-      <div className="containerpatient  border-t border-solid border-b-[#EEEFF2]  shadow-lg dark:bg-[#333] dark:shadow-lg">
+      <div className="containerpatient  border-t border-solid border-b-[#EEEFF2]  shadow-lg dark:bg-darkgris dark:border-t-black dark:shadow-lg">
         <div className="topadmin">
           <Search placeholder="Search ... " />
 
           <button
             onClick={openAddModal}
-            className="bg-violettitle text-white rounded-full w-8 h-8 flex items-center justify-center cursor-pointer"
+            className="bg-violettitle dark:bg-darkblanc dark:text-darkbackground text-white rounded-full w-8 h-8 flex items-center justify-center cursor-pointer"
           >
             <RiAddLine size={22} />
           </button>
@@ -389,7 +389,7 @@ const PatientClient = ({ patients, count, user }) => {
               activePatients.map((patient) => (
                 <tr
                   key={patient._id}
-                  className="group hover:bg-[#f8f8fa] dark:hover:bg-gray-700 border-b border-solid border-b-[#EEEFF2] "
+                  className="group hover:bg-[#f8f8fa] dark:hover:bg-darkbackground border-b border-solid border-b-[#EEEFF2] dark:border-b-black"
                 >
                   <td>
                     <div className="bg-[#EEEFF2] rounded-[8px] text-violettitle w-[32px] h-[32px]  flex items-center justify-center">
@@ -417,13 +417,13 @@ const PatientClient = ({ patients, count, user }) => {
                   <td>
                     <div className="buttonsuser flex space-x-4">
                       <Link href={`/dashboard/patients/${patient._id}`}>
-                        <Eye size="24" color="#3C3F4A" />
+                        <Eye size="24"  color="currentColor" className="dark:text-white" />
                       </Link>
 
                       <Edit2
                         size="24"
-                        color="#3C3F4A"
-                        className="cursor-pointer"
+                        color="currentColor"
+                        className="cursor-pointer dark:text-white"
                         onClick={() => openUpdateModal(patient)}
                       />
                       {user.isAdmin === true && (
@@ -436,7 +436,7 @@ const PatientClient = ({ patients, count, user }) => {
                             )
                           }
                         >
-                          <Trash size="24" color="#3C3F4A" />
+                          <Trash size="24" color="currentColor" className="dark:text-white" />
                         </button>
                       )}
                     </div>

@@ -29,6 +29,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import "@/styles/globals.css";
+import TranslatedContent from "./TranslateContent";
 
 const MenuLink = ({ item }) => {
   const pathname = usePathname();
@@ -36,14 +37,14 @@ const MenuLink = ({ item }) => {
   return (
     <Link
       href={item.path}
-      className={`containerlink flex items-center space-x-2 py-2 ${
-        pathname === item.path ? "active" : ""
+      className={`containerlink  dark:hover:bg-darkgris dark:text-white flex items-center space-x-2 py-2 ${
+        pathname === item.path ? "active dark:bg-darkgris" : ""
       } ${!item.expanded ? "collapsed" : ""}`}
       title={item.title}
     >
       <span>{item.icon}</span>
       <span className={`text ${item.expanded ? "inline" : "hidden"}`}>
-        {item.title}
+      <TranslatedContent translationKey={item.title.toLowerCase()}/>
       </span>
     </Link>
   );

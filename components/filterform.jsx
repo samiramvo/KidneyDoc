@@ -16,12 +16,12 @@ const TableFilter = () => {
   return (
     <div className="flex flex-col md:flex-row gap-3 items-center">
       {/* Select by Doctor */}
-      <div className="flex items-center space-x-2 bg-gray-100 px-2 rounded-full shadow-sm">
+      <div className="flex items-center space-x-2 bg-gray-100 px-2 rounded-full dark:border dark:border-gray-300  shadow-sm dark:bg-darkgris ">
         <FaFilter className="text-gray-500" /> {/* Icône de filtre */}
         <select
           value={selectedDoctor}
           onChange={handleDoctorChange}
-          className="bg-transparent focus:outline-none text-gray-600 border-none"
+          className="bg-transparent focus:outline-none text-gray-600 dark:text-white border-none"
         >
           <option value="">Select by Doctor</option>
           <option value="DrVigan">Dr VIGAN</option>
@@ -30,12 +30,12 @@ const TableFilter = () => {
       </div>
 
       {/* Sort by */}
-      <div className="flex items-center space-x-2 bg-gray-100 px-2 rounded-full shadow-sm">
+      <div className="flex items-center space-x-2 bg-gray-100 px-2 rounded-full dark:border dark:border-gray-300 shadow-sm  dark:bg-darkgris">
         <FaSort className="text-gray-500" /> {/* Icône de tri */}
         <select
           value={sortOption}
           onChange={handleSortChange}
-          className="bg-transparent focus:outline-none text-gray-600  border-none"
+          className="bg-transparent focus:outline-none text-gray-600  dark:text-white border-none"
         >
           <option value="">Sort by</option>
           <option value="nameAsc">Name Ascending</option>

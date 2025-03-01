@@ -69,7 +69,7 @@ const Pagination = ({ count, ITEM_PER_PAGE }) => {
     <div className="flex items-center justify-center mt-4 space-x-4">
       <button
         className={`${
-          hasPrev ? "bg-violettitle" : "bg-gray-300 cursor-not-allowed"
+          hasPrev ? "bg-violettitle dark:bg-darkbackground" : "bg-gray-300 cursor-not-allowed dark:bg-darkgris"
         } text-white rounded-full w-8 h-8 flex items-center justify-center text-lg`}
         onClick={() => hasPrev && handleChangePage(page - 1)}
         disabled={!hasPrev}
@@ -81,7 +81,7 @@ const Pagination = ({ count, ITEM_PER_PAGE }) => {
       </div>
       <button
         className={`${
-          hasNext ? "bg-violettitle" : "bg-gray-300 cursor-not-allowed"
+          hasNext ? "bg-violettitle dark:bg-darkbackground" : "bg-gray-300 cursor-not-allowed dark:bg-darkgris"
         } text-white rounded-full w-8 h-8 flex items-center justify-center text-lg`}
         onClick={() => hasNext && handleChangePage(page + 1)}
         disabled={!hasNext}

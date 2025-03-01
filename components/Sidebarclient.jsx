@@ -11,12 +11,13 @@ import {
 import { IoPersonCircle } from "react-icons/io5";
 import Image from "next/image";
 // import InformationuserClient from "./informationuserclient";
-import { useSidebar } from "@/app/SidebarContext";
+import { useSidebar } from "@/app/contexts/SidebarContext";
 import { GrSchedules } from "react-icons/gr";
 import { TbMessageChatbot } from "react-icons/tb";
 import { logout } from "@/lib/actions";
 import Spinner from "@/components/Spinner";
 import { User2 } from "lucide-react";
+import TranslatedContent from "./TranslateContent";
 const menuItems = [
   {
     title: "Pages",
@@ -86,7 +87,7 @@ const SidebarClient = ({ user }) => {
   }));
   return (
     <div
-      className={`h-full bg-background  p-4 border-r border-solid border-r-[#EEEFF2] font-jakarta ${sidebarClass} `}
+      className={`h-full bg-background dark:bg-darkbackground dark:border-r-black p-4 border-r border-solid border-r-[#EEEFF2] font-jakarta ${sidebarClass} `}
     >
       <div className="w-full max-h-screens">
         <div className="usercontainer">
@@ -119,8 +120,8 @@ const SidebarClient = ({ user }) => {
         <ul className="list-none mt-6">
           {filteredMenuItems.map((cat) => (
             <li key={cat.title} className="mt-10">
-              <span className="text-textPrimary font-semibold">
-                {cat.title}
+              <span className="text-textPrimary font-semibold dark:text-white">
+              <TranslatedContent translationKey={cat.title.toLowerCase()} />
               </span>
               {cat.list.map((item) => (
                 <MenuLink item={{ ...item, expanded }} key={item.title} />
@@ -130,7 +131,7 @@ const SidebarClient = ({ user }) => {
         </ul>
         <form onSubmit={handleLogout}>
           <button className=" mt-10 flex items-center">
-            <MdLogout size={15} className="text-textPrimary" />
+            <MdLogout size={15} className="text-textPrimary dark:text-white" />
             <div className={`${expanded ? "ml-2" : "hidden"}`}>Logout</div>
           </button>
           {isLoading && <Spinner />}
