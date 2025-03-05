@@ -1,9 +1,11 @@
 "use client";
 import { Chart } from "react-google-charts";
 import { useTheme } from "next-themes";
+import { useTranslation } from "@/app/hooks/useTranslation";
 
 export default function BarChartComponent({ data }) {
   const { theme } = useTheme();
+  const { t } = useTranslation();
 
   const month = [
     "January",
@@ -21,12 +23,14 @@ export default function BarChartComponent({ data }) {
   ];
 
   const chartData = [
-    ["Month", "New Patients"],
+    // ["Month", "New Patients"],
+    [ t("month"),  t("newPatients")],
     ...data.map((entry) => [month[entry._id - 1], entry.count]),
   ];
 
   const options = {
-    title: "New patients per month",
+    // title: "New patients per month" ,
+    title:  t("newPatientsPerMonth"),
     backgroundColor: theme === "light" ? "#F9FAFA" : "#333",
     titleTextStyle: { color: theme === "light" ? "#1B2559" : "#FFFFFF" },
     legend: { textStyle: { color: theme === "light" ? "#1B2559" : "#FFFFFF" } },
@@ -44,7 +48,8 @@ export default function BarChartComponent({ data }) {
           fontSize: 17,
         }}
       >
-        New patients per month
+        {/* New patients per month */}
+        {t("newPatientsPerMonth")}
       </h2>
       <Chart
         chartType="ColumnChart"
@@ -56,7 +61,8 @@ export default function BarChartComponent({ data }) {
           <div
             className={theme === "light" ? "text-[#1B2559]" : "text-[#FFFFFF]"}
           >
-            Loading Bar Chart
+            {/* Loading Bar Chart */}
+            {t("loadingBarChart")}
           </div>
         }
       />

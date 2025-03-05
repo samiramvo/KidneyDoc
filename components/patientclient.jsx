@@ -346,6 +346,23 @@ const PatientClient = ({ patients, count, user }) => {
 
     closeModal();
   };
+  const [filteredPatients, setFilteredPatients] = useState(patients);
+
+  const handleFilterChange = async (filter) => {
+    try {
+      const query = new URLSearchParams(filter).toString();
+      const response = await fetch(`/api/patientsfilter?${query}`);
+      if (!response.ok) {
+        console.error("Failed to fetch filtered patients:", response.statusText);
+        return;
+      }
+      const data = await response.json();
+      console.log("DATA", data)
+      setFilteredPatients(data.patients);
+    } catch (error) {
+      console.error("Error fetching filtered patients:", error);
+    }
+  };
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -356,7 +373,7 @@ const PatientClient = ({ patients, count, user }) => {
         </div>
       </div>
       <div className="mb-6">
-        <FilterForm />
+      <FilterForm onFilterChange={handleFilterChange} />
       </div>
 
       <div className="containerpatient  border-t border-solid border-b-[#EEEFF2]  shadow-lg dark:bg-darkgris dark:border-t-black dark:shadow-lg">

@@ -132,7 +132,7 @@ const SidebarClient = ({ user }) => {
         <form onSubmit={handleLogout}>
           <button className=" mt-10 flex items-center">
             <MdLogout size={15} className="text-textPrimary dark:text-white" />
-            <div className={`${expanded ? "ml-2" : "hidden"}`}>Logout</div>
+            <div className={`${expanded ? "ml-2" : "hidden"}`}><TranslatedContent translationKey="logout" /></div>
           </button>
           {isLoading && <Spinner />}
         </form>

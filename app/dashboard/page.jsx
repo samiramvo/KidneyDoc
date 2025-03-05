@@ -161,6 +161,7 @@ const Dashboard = async () => {
   const chartData = await fetchChartData();
   const stats = await fetchDashboardStats();
 
+
   return (
     <div className="dark:bg-darkbackground">
       <div>

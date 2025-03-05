@@ -1,13 +1,15 @@
 "use client";
 import { Chart } from "react-google-charts";
 import { useTheme } from "next-themes";
+import { useTranslation } from "@/app/hooks/useTranslation";
 
 export default function App({ data }) {
   const { theme } = useTheme();
+  const { t } = useTranslation();
 
   const transformData = () => {
-    if (!data) return [["Age group", "Men", "Women"]];
-
+    // if (!data) return [["Age group", "Men", "Women"]];
+    if (!data) return [[t("ageGroups"), t("men"), t("women")]];
     const ageGroups = {};
     data.forEach((item) => {
       const ageGroup = item._id?.ageGroup || "Inconnu";
@@ -19,7 +21,8 @@ export default function App({ data }) {
     });
 
     return [
-      ["Age group", "Men", "Women"],
+      // ["Age group", "Men", "Women"],
+      [t("ageGroups"), t("men"), t("women")],
       ...Object.entries(ageGroups).map(([ageGroup, counts]) => [
         ageGroup,
         counts.Male || 0,
@@ -31,7 +34,8 @@ export default function App({ data }) {
   const chartData = transformData();
 
   const options = {
-    title: "Distribution by age group and gender",
+    // title: "Distribution by age group and gender",
+    title: t("distributionAgeGender"),
     isStacked: true,
     backgroundColor: theme === "light" ? "#F9FAFA" : "#333",
     titleTextStyle: { color: theme === "light" ? "#1B2559" : "#FFFFFF" },
@@ -52,7 +56,8 @@ export default function App({ data }) {
         <div
           className={theme === "light" ? "text-[#1B2559]" : "text-[#FFFFFF]"}
         >
-          Loading Bar Chart
+          {/* Loading Stacked Chart */}
+          {t("loadingStackedChart")}
         </div>
       }
     />

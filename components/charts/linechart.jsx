@@ -1,9 +1,11 @@
 "use client";
 import { Chart } from "react-google-charts";
 import { useTheme } from "next-themes";
+import { useTranslation } from "@/app/hooks/useTranslation";
 
 export default function App({ consultationData, patientData }) {
   const { theme } = useTheme();
+  const { t } = useTranslation();
 
   const months = [
     "Jan",
@@ -21,7 +23,8 @@ export default function App({ consultationData, patientData }) {
   ];
 
   const chartData = [
-    ["Month", "Consultations", "New Patients"],
+    // ["Month", "Consultations", "New Patients"],
+    [t("month"),"Consultations", t("newPatients")],
     ...months.map((month, idx) => [
       month,
       consultationData.find((m) => m._id === idx + 1)?.count || 0,
@@ -30,7 +33,8 @@ export default function App({ consultationData, patientData }) {
   ];
 
   const options = {
-    title: "Monthly evolution",
+    // title: "Monthly evolution",
+    title:t("monthlyEvolution"),
     backgroundColor: theme === "light" ? "#F9FAFA" : "#333",
     titleTextStyle: { color: theme === "light" ? "#1B2559" : "#FFFFFF" },
     legend: { textStyle: { color: theme === "light" ? "#1B2559" : "#FFFFFF" } },
@@ -50,7 +54,7 @@ export default function App({ consultationData, patientData }) {
         <div
           className={theme === "light" ? "text-[#1B2559]" : "text-[#FFFFFF]"}
         >
-          Loading Line Chart
+          {t("loadingLineChart")}
         </div>
       }
     />
