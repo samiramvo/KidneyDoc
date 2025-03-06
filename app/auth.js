@@ -283,6 +283,7 @@ export const { signIn, signOut, auth } = NextAuth({
         token.username = user.username;
         token.img = user.img;
         token.isAdmin = user.isAdmin;
+        token.id = user._id.toString();
       }
       return token;
     },
@@ -292,6 +293,7 @@ export const { signIn, signOut, auth } = NextAuth({
         session.user.img = token.img;
         session.user.isAdmin = token.isAdmin;
         session.user.emailuser = token.emailuser;
+        session.user.id = token.id;
       }
       return session;
     },

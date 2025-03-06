@@ -255,6 +255,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { archivePatient } from "@/lib/actions";
 import AddPatientPage from "@/app/dashboard/patients/AjoutPatient";
 import UpdatePatientPage from "@/app/dashboard/patients/ModifierPatient";
+import { useTranslation } from "@/app/hooks/useTranslation";
 
 const PatientClient = ({ patients, count, user }) => {
   const router = useRouter();
@@ -262,6 +263,7 @@ const PatientClient = ({ patients, count, user }) => {
   const modalType = searchParams.get("modal");
   const patientId = searchParams.get("patient");
   const activePatients = patients.filter((patient) => !patient.isArchived);
+  const { t } = useTranslation();
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -280,6 +282,7 @@ const PatientClient = ({ patients, count, user }) => {
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [namepatient, setNamepatient] = useState("");
   const [prenompatient, setPrenompatient] = useState("");
+ 
 
   const openModal = (id, name_patient, prenom_patient) => {
     setPatientIdToDelete(id);
@@ -368,7 +371,9 @@ const PatientClient = ({ patients, count, user }) => {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="font-bold text-textSecondary text-[26px] mb-8 dark:text-white">
-            Patient Data
+            {/* Patient Data */}
+            {t("patientData")}
+           
           </h1>
         </div>
       </div>
@@ -378,8 +383,8 @@ const PatientClient = ({ patients, count, user }) => {
 
       <div className="containerpatient  border-t border-solid border-b-[#EEEFF2]  shadow-lg dark:bg-darkgris dark:border-t-black dark:shadow-lg">
         <div className="topadmin">
-          <Search placeholder="Search ... " />
-
+          {/* <Search placeholder="Search ... " /> */}
+          <Search placeholder= {t("search")} />
           <button
             onClick={openAddModal}
             className="bg-violettitle dark:bg-darkblanc dark:text-darkbackground text-white rounded-full w-8 h-8 flex items-center justify-center cursor-pointer"
@@ -391,14 +396,23 @@ const PatientClient = ({ patients, count, user }) => {
         <table className="table">
           <thead>
             <tr className="text-violetdesc dark:text-[#A3AED0]">
-              <td>ID</td>
+              {/* <td>ID</td>
               <td>Name</td>
               <td>Assigned Doctor</td>
               <td>Gender</td>
               <td>Age</td>
               <td>Phone Number</td>
               <td>Created At</td>
-              <td>Actions</td>
+              <td>Actions</td> */}
+              <td>{t("id")}</td>
+              <td>{t("name")}</td>
+              <td>{t("assignedDoctor")}</td>
+              <td>{t("gender")}</td>
+              <td>{t("age")}</td>
+              <td>{t("phoneNumber")}</td>
+              <td>{t("createdAt")}</td>
+              <td>{t("actions")}</td>
+             
             </tr>
           </thead>
           <tbody className=" font-medium text-violettitle   text-[15px]">
@@ -463,7 +477,8 @@ const PatientClient = ({ patients, count, user }) => {
             ) : (
               <tr>
                 <td colSpan="8" className="text-center py-4 dark:text-white">
-                  Recherche non trouvée
+                {t("searchNotFound")}
+                
                 </td>
               </tr>
             )}

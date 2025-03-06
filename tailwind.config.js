@@ -29,6 +29,7 @@ module.exports = {
         textSecondary: "#3C3F4A",
         buttonBlue: "#607AFB",
         activecolor: "#EEEFF2",
+        withegris: "#F9FAFA",
         darkbackground: "#181537",
         darkviolet: "#604bff",
         darkgris:"#22203c",

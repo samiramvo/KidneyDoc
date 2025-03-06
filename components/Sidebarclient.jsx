@@ -26,7 +26,7 @@ const menuItems = [
       { title: "Patients", path: "/dashboard/patients", icon: <MdPeople /> },
       {
         title: "Appointments",
-        path: "/dashboard/appointment",
+        path: "/dashboard/appointments",
         icon: <GrSchedules />,
       },
       {

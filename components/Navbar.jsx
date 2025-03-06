@@ -87,11 +87,13 @@ import LanguageSwitcher from "./LanguageSwitcher";
 import ThemeSwitcher from "@/app/ThemeSwitcher";
 import { useSidebar } from "@/app/contexts/SidebarContext";
 import Link from "next/link";
+import { useTranslation } from "@/app/hooks/useTranslation";
 
 const Navbar = () => {
   const pathname = usePathname();
   const pathSegments = pathname.split("/").filter((segment) => segment);
   const { toggleSidebar, expanded } = useSidebar();
+  const {t} = useTranslation();
   return (
     <div className="p-3 flex items-center justify-between whitespace-nowrap border-b border-solid dark:bg-darkbackground dark:border-b-black border-b-[#EEEFF2]">
       <div className="flex items-center gap-4">
@@ -147,10 +149,13 @@ const Navbar = () => {
           {pathSegments.map((segment, index) => {
             // Construire le lien pour chaque segment
             const href = `/${pathSegments.slice(0, index + 1).join("/")}`;
+            const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+            const translatedSegment = capitalize(t(segment));
             return (
               <React.Fragment key={index}>
                 <Link href={href} className="text-violettitle dark:text-white hover:underline">
-                  {segment.charAt(0).toUpperCase() + segment.slice(1)}
+                  {/* {segment.charAt(0).toUpperCase() + segment.slice(1)} */}
+                  {translatedSegment}
                 </Link>
                 {index < pathSegments.length - 1 && <span>/</span>}
               </React.Fragment>

@@ -792,7 +792,7 @@ input {
     @apply w-full h-full bg-white;
 }
 
-.fc-h-event {
+/* .fc-h-event {
     @apply bg-[#593DFF] border border-violet-600;
 
 }
@@ -814,7 +814,76 @@ input {
     @apply bg-[#6AD2FF];
 }
 
-.fc-v-event {
-    @apply bg-[#593DFF];
+ */
+ 
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* Pour IE et Edge */
+    scrollbar-width: none;  /* Pour Firefox */
+  }
+
+  /* Change le fond des jours individuels */
+  .fc-daygrid-day {
+    background-color: #F9FAFA !important; 
+    /* color: white !important; */
+  }
+  /* Change la couleur de l'indicateur d'aujourd'hui */
+  .fc-day-today {
+    background-color: #3C3F4A !important;
+    opacity: 65%;
+    color: white !important;
+   
+  }
+  /* Change le fond des colonnes en mode semaine */
+  /* .fc-timegrid-slot {
+    background-color: #1e1e1e !important; 
+  } */
+  
+  /* Change la couleur des bordures des jours */
+  /* .fc-daygrid-day-frame {
+    border: 1px solid #333 !important; 
+  } */
+  /* .fc {
+    background-color: #1e1e1e; 
+    
+  } */
+  /* Change le fond de la grille des jours */
+/* .fc-view-harness {
+    background-color: #1e1e1e !important;
+  } */
+ /* 
+  
+  /* Change le fond du header (barre du haut avec les boutons) */
+/* .fc-header-toolbar {
+    background-color: #1e1e1e !important; 
+    color: white !important; 
+    padding: 10px;
+    border-radius: 5px;
+  } */
+  
+  /* Change la couleur des boutons (next, prev, today) */
+  .fc-button {
+    background-color: #302CA4 !important; /* Gris foncé */
+    color: white !important; /* Texte en blanc */
+    border: none;
+    padding: 5px 10px;
+  }
+  
+  /* Bouton actif ou au survol */
+  .fc-button:hover,
+  .fc-button:focus,
+  .fc-button-active {
+    background-color: #3C3F4A !important; /* Gris plus clair */
+  }
+  
+  /* Change la couleur du titre (mois/année) */
+  .fc-toolbar-title {
+    color: #3C3F4A !important; /* Texte du titre */
+  }
+  .fc-h-event  {
+   background-color: #302CA4;
+   border: 1px solid black;
 
 }
