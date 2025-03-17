@@ -35,7 +35,7 @@ export default function App({ consultationData, patientData }) {
   const options = {
     // title: "Monthly evolution",
     title:t("monthlyEvolution"),
-    backgroundColor: theme === "light" ? "#F9FAFA" : "#333",
+    backgroundColor: theme === "light" ? "#F9FAFA" : "#22203c",
     titleTextStyle: { color: theme === "light" ? "#1B2559" : "#FFFFFF" },
     legend: { textStyle: { color: theme === "light" ? "#1B2559" : "#FFFFFF" } },
     hAxis: { textStyle: { color: theme === "light" ? "#1B2559" : "#FFFFFF" } },

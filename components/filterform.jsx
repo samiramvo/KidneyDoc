@@ -39,7 +39,7 @@ const TableFilter = ({ onFilterChange = () => {} }) => {
         <select
           value={selectedDoctor}
           onChange={handleDoctorChange}
-          className="bg-transparent focus:outline-none text-gray-600 dark:text-white border-none"
+          className="bg-transparent dark:bg-darkgris focus:outline-none text-gray-600  dark:text-white border-none"
         >
           <option value="">Select by Doctor</option>
           {doctors.length > 0 ? (
@@ -60,7 +60,7 @@ const TableFilter = ({ onFilterChange = () => {} }) => {
         <select
           value={sortOption}
           onChange={handleSortChange}
-          className="bg-transparent focus:outline-none text-gray-600 dark:text-white border-none"
+          className="bg-transparent dark:bg-darkgris focus:outline-none text-gray-600 dark:text-white border-none"
         >
           <option value="">Sort by</option>
           <option value="nameAsc">Name Ascending</option>

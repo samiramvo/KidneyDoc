@@ -519,6 +519,10 @@ select {
   border: 1px solid #ccc;
   border-radius: 10px;
 }
+.dark .form-input2 {
+    background-color: #22203c !important; 
+    color: white !important;
+  }
   
   .espace{
     margin-top: 0.5rem!important;

@@ -17,7 +17,7 @@ export default function App({ data }) {
     // title: "Distribution by gender",
     title: t("genderDistribution"),
     is3D: true,
-    backgroundColor: theme === "light" ? "#F9FAFA" : "#333",
+    backgroundColor: theme === "light" ? "#F9FAFA" : "#22203c",
     titleTextStyle: { color: theme === "light" ? "#1B2559" : "#FFFFFF" },
     legend: { textStyle: { color: theme === "light" ? "#1B2559" : "#FFFFFF" } },
     colors: ["#4318FF", "#6AD2FF"],

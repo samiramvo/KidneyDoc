@@ -451,20 +451,10 @@ import AppointmentClient from "@/components/AppointmentClient";
 import { auth } from "@/app/auth";
 
 export default async function Appointment() {
-  const { user } = await auth();
-  console.log("USER", user);
-  // // Make sure we have a user ID
-  // if (!user || !user._id) {
-  //   console.error("User not authenticated or missing ID");
-  //   // Handle this case - maybe redirect to login or show an error
-  //   return <div>Please log in to view appointments</div>;
-  // }
-  
+  const { user } = await auth(); 
   const userId = user._id;
-  console.log("USER ID", userId);
   
   const appointments = await fetchAppointments(userId);
-  console.log("APPOINTMENTS", appointments);
   const initialEvents = appointments.map(appointment => ({
     title: appointment.title,
     start: appointment.start,
@@ -472,6 +462,5 @@ export default async function Appointment() {
     allDay: appointment.allDay,
     userId: userId,
   }));
-  console.log("INITIAL EVENTS", initialEvents);
   return <AppointmentClient initialEvents={initialEvents} userId={userId} />;
 }

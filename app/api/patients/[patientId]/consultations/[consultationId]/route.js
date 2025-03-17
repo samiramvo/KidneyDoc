@@ -20,6 +20,9 @@ export async function GET(req, { params }) {
       status: 200,
       headers: {
         "Content-Type": "application/pdf",
+        "Content-Disposition": "inline",
+        "Access-Control-Allow-Origin": "*",
+        "X-Frame-Options": "SAMEORIGIN",
       },
     });
   } catch (error) {

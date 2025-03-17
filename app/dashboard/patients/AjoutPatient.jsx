@@ -37,6 +37,7 @@ const AddPatientPage = ({ isOpen, onClose, user }) => {
     gender: z.enum(["Male", "Female"], "Le genre est requis"),
     birth: z
       .string()
+      .min(1, "La date de naissance est requise")
       .refine(
         (date) => !isNaN(new Date(date).getTime()),
         "La date de naissance doit être une date valide"
@@ -188,7 +189,7 @@ const AddPatientPage = ({ isOpen, onClose, user }) => {
                         name="name_patient"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="dark:text-[#A3AED0]">
+                            <FormLabel className="dark:text-white">
                               Last Name
                               <span className="text-red-500 text-[18px]">
                                 *
@@ -200,7 +201,7 @@ const AddPatientPage = ({ isOpen, onClose, user }) => {
                                 placeholder=""
                                 name="name_patient"
                                 id="name_patient"
-                                className="form-input2 bg-white dark:bg-darkgris focus-visible:ring-background focus-visible:ring-1"
+                                className="form-input2 bg-white dark:bg-darkgris focus-visible:ring-background focus-visible:ring-1 "
                                 {...field}
                               />
                             </FormControl>
@@ -215,7 +216,7 @@ const AddPatientPage = ({ isOpen, onClose, user }) => {
                         name="prenom_patient"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="dark:text-[#A3AED0]">
+                            <FormLabel className="dark:text-white">
                               First Name
                               <span className="text-red-500 text-[18px]">
                                 *
@@ -244,7 +245,7 @@ const AddPatientPage = ({ isOpen, onClose, user }) => {
                         name="birth"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="dark:text-[#A3AED0]">
+                            <FormLabel className="dark:text-white">
                               Date of birth
                               <span className="text-red-500 text-[18px]">
                                 *
@@ -270,7 +271,7 @@ const AddPatientPage = ({ isOpen, onClose, user }) => {
                         name="agepatient"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="dark:text-[#A3AED0]">
+                            <FormLabel className="dark:text-white">
                               Age
                               <span className="text-red-500 text-[18px]">
                                 *
@@ -300,7 +301,7 @@ const AddPatientPage = ({ isOpen, onClose, user }) => {
                         name="gender"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="dark:text-[#A3AED0]">
+                            <FormLabel className="dark:text-white">
                               Gender
                               <span className="text-red-500 text-[18px]">
                                 *
@@ -334,7 +335,7 @@ const AddPatientPage = ({ isOpen, onClose, user }) => {
                         name="addresspatient"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="dark:text-[#A3AED0]">
+                            <FormLabel className="dark:text-white">
                               Address
                               <span className="text-red-500 text-[18px]">
                                 *
@@ -363,7 +364,7 @@ const AddPatientPage = ({ isOpen, onClose, user }) => {
                         name="phone_patient"
                         render={({ field, fieldState }) => (
                           <FormItem>
-                            <FormLabel>
+                            <FormLabel className="dark:text-white">
                               Phone Number
                               <span className="text-red-500 text-[18px]">
                                 *
@@ -375,7 +376,7 @@ const AddPatientPage = ({ isOpen, onClose, user }) => {
                                 defaultCountry="BJ"
                                 value={field.value}
                                 onChange={field.onChange}
-                                className="form-input2 bg-white dark:bg-darkbackground focus-visible:ring-background focus-visible:ring-1"
+                                className="form-input2  bg-white dark:bg-darkbackground  focus-visible:ring-background focus-visible:ring-1"
                               />
                             </FormControl>
                             {fieldState.error && (
@@ -393,7 +394,7 @@ const AddPatientPage = ({ isOpen, onClose, user }) => {
                         name="doctor"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="dark:text-[#A3AED0]">
+                            <FormLabel className="dark:text-white">
                               Doctor Assigned
                               <span className="text-red-500 text-[18px]">
                                 *
@@ -404,7 +405,7 @@ const AddPatientPage = ({ isOpen, onClose, user }) => {
                                 type="text"
                                 readOnly
                                 value={`Dr ${user?.username}`}
-                                className="form-input2 bg-white dark:bg-darkgris focus-visible:ring-background focus-visible:ring-1"
+                                className="form-input2  bg-white dark:bg-darkgris focus-visible:ring-background focus-visible:ring-1"
                                 {...field}
                               />
                             </FormControl>

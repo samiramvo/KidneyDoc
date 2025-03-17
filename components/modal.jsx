@@ -54,10 +54,10 @@ const ClientModal = ({ isOpen, onClose, onConfirm, name }) => {
       className={`modal backdrop-blur-custom fixed inset-0 flex items-center justify-center`}
     >
       <div
-        className={`modal-content bg-white p-6 rounded shadow-lg ${animationClass}`}
+        className={`modal-content bg-white dark:bg-darkgris p-6 rounded shadow-lg ${animationClass}`}
       >
-        <h2 className="text-lg font-bold mb-2">Confirmation</h2>
-        <p className="mb-4">Are you sure you want to delete {name}?</p>
+        <h2 className="text-lg font-bold mb-2 dark:text-white">Confirmation</h2>
+        <p className="mb-4 dark:text-white">Are you sure you want to delete {name}?</p>
         <p className="text-red-500 my-5 w-[500px]">
           This action is irreversible. Once deleted, this item cannot be
           recovered but will still be present in the database.

@@ -37,7 +37,7 @@ export default function App({ data }) {
     // title: "Distribution by age group and gender",
     title: t("distributionAgeGender"),
     isStacked: true,
-    backgroundColor: theme === "light" ? "#F9FAFA" : "#333",
+    backgroundColor: theme === "light" ? "#F9FAFA" : "#22203c",
     titleTextStyle: { color: theme === "light" ? "#1B2559" : "#FFFFFF" },
     legend: { textStyle: { color: theme === "light" ? "#1B2559" : "#FFFFFF" } },
     hAxis: { textStyle: { color: theme === "light" ? "#1B2559" : "#FFFFFF" } },

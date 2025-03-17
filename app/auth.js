@@ -268,6 +268,7 @@ export const { signIn, signOut, auth } = NextAuth({
         try {
           const user = await login(credentials);
           return user;
+          
         } catch (err) {
           return null;
         }
@@ -283,17 +284,39 @@ export const { signIn, signOut, auth } = NextAuth({
         token.username = user.username;
         token.img = user.img;
         token.isAdmin = user.isAdmin;
-        token.id = user._id.toString();
+        token._id = user._id;
+        token.phoneuser = user.phoneuser;
+        token.username = user.username;
       }
       return token;
     },
+    // async jwt({ token, user }) {
+    //   if (user) {
+    //     token.emailuser = user.emailuser;
+    //     token.username = user.username;
+    //     token.img = user.img;
+    //     token.isAdmin = user.isAdmin;
+    //     token._id = user._id;
+    //     token.phoneuser = user.phoneuser;
+    //     token.username = user.username;
+    //     token.expires = Date.now() + 24 * 60 * 60 * 1000; 
+    //   }
+
+    //   if (Date.now() > token.expires) {
+    //     throw new Error("Token expiré, veuillez vous reconnecter.");
+    //   }
+
+    //   return token;
+    // },
     async session({ session, token }) {
       if (token) {
         session.user.username = token.username;
         session.user.img = token.img;
         session.user.isAdmin = token.isAdmin;
         session.user.emailuser = token.emailuser;
-        session.user.id = token.id;
+        session.user._id = token._id;
+        session.user.phoneuser = token.phoneuser;
+        session.user.username = token.username;
       }
       return session;
     },

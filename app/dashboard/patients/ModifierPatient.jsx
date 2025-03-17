@@ -121,15 +121,15 @@ const UpdatePatientPage = ({ patient, isOpen, onClose }) => {
   return (
     <div>
       <Modal isOpen={isOpen} onClose={onClose}>
-        <div className="modal-form-container max-h-screens">
+        <div className="modal-form-container max-h-screens font-jakarta dark:bg-darkbackground">
           <div className="modal-form-header flex gap-2 mb-4">
             <div className="modal-form-logo">
               <span>
-                <UserEdit size={28} className="text-violettitle" />
+                <UserEdit size={28} className="text-violettitle dark:text-white" />
               </span>
             </div>
             <div className="modal-form-role flex flex-align-item-center  pb-4">
-              <p className="text-lg text-violettitle font-bold">
+              <p className="text-lg text-violettitle font-bold dark:text-white">
                 Modification du patient {patient?.name_patient}{" "}
                 {patient?.prenom_patient}
               </p>
@@ -151,7 +151,7 @@ const UpdatePatientPage = ({ patient, isOpen, onClose }) => {
                         name="name_patient"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="dark:text-[#A3AED0]">
+                            <FormLabel className="dark:text-white">
                               Last name
                             </FormLabel>
                             <FormControl>
@@ -162,7 +162,7 @@ const UpdatePatientPage = ({ patient, isOpen, onClose }) => {
                                 onChange={field.onChange}
                                 name="name_patient"
                                 id="name_patient"
-                                className="form-input2 bg-white focus-visible:ring-background focus-visible:ring-1 "
+                                className="form-input2 bg-white dark:bg-darkgris focus-visible:ring-background focus-visible:ring-1 "
                                 {...field}
                               />
                             </FormControl>
@@ -177,7 +177,7 @@ const UpdatePatientPage = ({ patient, isOpen, onClose }) => {
                         name="prenom_patient"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="dark:text-[#A3AED0]">
+                            <FormLabel className="dark:text-white">
                               First Name
                             </FormLabel>
                             <FormControl>
@@ -188,7 +188,7 @@ const UpdatePatientPage = ({ patient, isOpen, onClose }) => {
                                 onChange={field.onChange}
                                 id="prenom_patient"
                                 name="prenom_patient"
-                                className="form-input2 bg-white focus-visible:ring-background focus-visible:ring-1"
+                                className="form-input2 bg-white dark:bg-darkgris focus-visible:ring-background focus-visible:ring-1"
                                 {...field}
                               />
                             </FormControl>
@@ -206,7 +206,7 @@ const UpdatePatientPage = ({ patient, isOpen, onClose }) => {
                         name="idpatient"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="dark:text-[#A3AED0]">
+                            <FormLabel className="dark:text-white">
                               ID
                             </FormLabel>
                             <FormControl>
@@ -218,7 +218,7 @@ const UpdatePatientPage = ({ patient, isOpen, onClose }) => {
                                 readOnly
                                 id="idpatient"
                                 name="idpatient"
-                                className="form-input2 bg-white focus-visible:ring-background focus-visible:ring-1"
+                                className="form-input2 bg-white dark:bg-darkgris focus-visible:ring-background focus-visible:ring-1"
                                 {...field}
                               />
                             </FormControl>
@@ -235,7 +235,7 @@ const UpdatePatientPage = ({ patient, isOpen, onClose }) => {
                         name="gender"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="dark:text-[#A3AED0]">
+                            <FormLabel className="dark:text-white">
                               Gender
                             </FormLabel>
                             <FormControl>
@@ -246,7 +246,7 @@ const UpdatePatientPage = ({ patient, isOpen, onClose }) => {
                                   id="gender"
                                   value={field.value}
                                   onChange={field.onChange}
-                                  className="form-input2 bg-white focus-visible:ring-background focus-visible:ring-1"
+                                  className="form-input2 bg-white dark:bg-darkgris focus-visible:ring-background focus-visible:ring-1"
                                 >
                                   <option disabled value="">
                                     Sexe
@@ -267,7 +267,7 @@ const UpdatePatientPage = ({ patient, isOpen, onClose }) => {
                         name="agepatient"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="dark:text-[#A3AED0]">
+                            <FormLabel className="dark:text-white">
                               Age
                             </FormLabel>
                             <FormControl>
@@ -278,7 +278,7 @@ const UpdatePatientPage = ({ patient, isOpen, onClose }) => {
                                 onChange={field.onChange}
                                 name="agepatient"
                                 id="agepatient"
-                                className="form-input2 bg-white focus-visible:ring-background focus-visible:ring-1"
+                                className="form-input2 bg-white dark:bg-darkgris focus-visible:ring-background focus-visible:ring-1"
                                 {...field}
                               />
                             </FormControl>
@@ -296,14 +296,14 @@ const UpdatePatientPage = ({ patient, isOpen, onClose }) => {
                         name="phone_patient"
                         render={({ field, fieldState }) => (
                           <FormItem>
-                            <FormLabel>Phone</FormLabel>
+                            <FormLabel className="dark:text-white">Phone</FormLabel>
                             <FormControl>
                               <PhoneInput
                                 international
                                 value={field.value || ""}
                                 onChange={field.onChange}
                                 placeholder={patient?.phone_patient}
-                                className="form-input2 bg-white focus-visible:ring-background focus-visible:ring-1"
+                                className="form-input2 bg-white dark:bg-darkgris focus-visible:ring-background focus-visible:ring-1"
                               />
                             </FormControl>
                             {fieldState.error && (
@@ -323,7 +323,7 @@ const UpdatePatientPage = ({ patient, isOpen, onClose }) => {
                         name="addresspatient"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel className="dark:text-[#A3AED0]">
+                            <FormLabel className="dark:text-white">
                               Address
                             </FormLabel>
                             <FormControl>
@@ -331,7 +331,7 @@ const UpdatePatientPage = ({ patient, isOpen, onClose }) => {
                                 name="addresspatient"
                                 id="addresspatient"
                                 placeholder={patient?.addresspatient}
-                                className="resize-none rounded-md p-2 w-[100%] border border-input"
+                                className="resize-none dark:bg-darkgris rounded-md p-2 w-[100%] border border-input"
                                 {...field}
                               />
                             </FormControl>
@@ -347,7 +347,7 @@ const UpdatePatientPage = ({ patient, isOpen, onClose }) => {
                     className={`w-[30%] rounded-[20px] px-2 py-2 text-[15px]   bg-violettitle text-white ${
                       isSubmitting
                         ? "opacity-85 cursor-not-allowed"
-                        : "bg-violettitle hover:bg-violettitle"
+                        : "bg-violettitle hover:bg-violettitle dark:bg-darkgris dark:hover:bg-darkviolet"
                     }`}
                   >
                     {isSubmitting ? (
