@@ -82,7 +82,6 @@
 import React from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
-import { MdNotifications, MdOutlineChat, MdPublic } from "react-icons/md";
 import LanguageSwitcher from "./LanguageSwitcher";
 import ThemeSwitcher from "@/app/ThemeSwitcher";
 import { useSidebar } from "@/app/contexts/SidebarContext";

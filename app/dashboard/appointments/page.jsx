@@ -450,17 +450,19 @@ import { fetchAppointments } from "@/lib/data";
 import AppointmentClient from "@/components/AppointmentClient";
 import { auth } from "@/app/auth";
 
+
 export default async function Appointment() {
-  const { user } = await auth(); 
+  const { user } = await auth();
   const userId = user._id;
-  
+
   const appointments = await fetchAppointments(userId);
   const initialEvents = appointments.map(appointment => ({
     title: appointment.title,
     start: appointment.start,
-    id: appointment._id,
+    id: appointment._id.toString(), 
     allDay: appointment.allDay,
     userId: userId,
   }));
+
   return <AppointmentClient initialEvents={initialEvents} userId={userId} />;
 }

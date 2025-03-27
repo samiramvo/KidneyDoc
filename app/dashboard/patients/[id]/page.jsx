@@ -40,10 +40,13 @@ const SinglePatientPage = async ({ params }) => {
   const Patientjson = JSON.parse(JSON.stringify(patient));
   const patients = [Patientjson];
 
+ 
+
   return (
     <div className="patient-details-page">
-      <SinglePatientComponent patient={Patientjson} />
-      <PatientTabs patientId={id} patients={patients} user={user} />
+       <SinglePatientComponent patient={Patientjson} />
+      <PatientTabs patientId={id} patients={patients} user={user} /> 
+      
     </div>
   );
 };

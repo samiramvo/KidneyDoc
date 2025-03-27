@@ -70,7 +70,6 @@ const Login = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [attemptsLeft, setAttemptsLeft] = useState(null);
   const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
 
   const [isBlocked, setIsBlocked] = useState(false);

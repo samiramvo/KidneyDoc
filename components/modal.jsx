@@ -37,6 +37,15 @@ import React, { useEffect, useState } from "react";
 const ClientModal = ({ isOpen, onClose, onConfirm, name }) => {
   const [animationClass, setAnimationClass] = useState("");
 
+  // useEffect(() => {
+  //   if (isOpen) {
+  //     setAnimationClass("modal-open");
+  //   } else if (!isOpen && animationClass === "modal-open") {
+  //     setAnimationClass("modal-close");
+  //     const timer = setTimeout(() => setAnimationClass(""), 300);
+  //     return () => clearTimeout(timer);
+  //   }
+  // }, [isOpen]);
   useEffect(() => {
     if (isOpen) {
       setAnimationClass("modal-open");
@@ -45,7 +54,7 @@ const ClientModal = ({ isOpen, onClose, onConfirm, name }) => {
       const timer = setTimeout(() => setAnimationClass(""), 300);
       return () => clearTimeout(timer);
     }
-  }, [isOpen]);
+  }, [animationClass, isOpen]);
 
   if (!isOpen && animationClass === "") return null;
 

@@ -86,11 +86,8 @@
 "use client";
 import { useState } from "react";
 import { Edit2 } from "iconsax-react";
-import { GrAnalytics } from "react-icons/gr";
-import { HospitalIcon } from "lucide-react";
-import { MdLoupe } from "react-icons/md";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai"; // Import icons
-import Link from "next/link";
+
 
 const SinglePatientComponent = ({ patient }) => {
   const [isExpanded, setIsExpanded] = useState(false); // State to manage expansion
