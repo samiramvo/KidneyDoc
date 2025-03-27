@@ -107,7 +107,7 @@
 //         >
 //           <NoteAdd size={24} className="text-violettitle" />
 //           <p className="text-violettitle text-md">Add Note</p>
-          
+
 //         </div> */}
 //         <button onClick={() => setIsModalOpen(true)} className="flex items-center gap-2 bg-violettitle text-white p-2 rounded">
 //           <MdOutlineNoteAdd size={22} />
@@ -240,7 +240,7 @@
 //                       </FormItem>
 //                     )}
 //                   />
-                  
+
 //                     <Button
 //                     type="submit"
 //                     className={`w-[20%] rounded-[20px] px-2 py-2 text-[15px] ml-4  bg-violettitle text-white ${
@@ -255,7 +255,7 @@
 //                       "Create"
 //                     )}
 //                   </Button>
-                
+
 //                 </form>
 //               </Form>
 //             </div>
@@ -350,7 +350,7 @@
 //         createdAt: newNote.createdAt.toISOString(), // Convertir Date en string ISO
 //         updatedAt: newNote.updatedAt.toISOString(), // Convertir Date en string ISO
 //       };
-      
+
 
 //       setNotes((prevNotes) => [...prevNotes, simpleNote]);
 //       toast.success("Note ajoutée avec succès !");
@@ -636,7 +636,7 @@
 //       //   createdAt: newNote.createdAt.toISOString(),
 //       //   updatedAt: newNote.updatedAt.toISOString(),
 //       // };
-      
+
 //       setNotes((prevNotes) => [...prevNotes, ...newNote]);
 //       toast.success("Note ajoutée avec succès !");
 //       form.reset();
@@ -889,19 +889,52 @@
 // export default NotePatientComponent;
 
 import React, { useState, useEffect } from "react";
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, IconButton, Dialog, DialogContent, DialogActions, Button } from "@mui/material";
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, IconButton, Dialog, DialogContent, DialogActions } from "@mui/material";
 import FolderIcon from "@mui/icons-material/Folder";
 import DescriptionIcon from "@mui/icons-material/Description";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import toast from "react-hot-toast";
-import { fetchNotesByPatientId } from "@/lib/actions";
+import { addNote, fetchNotesByPatientId } from "@/lib/actions";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { MdNoteAdd, MdOutlineNoteAdd } from "react-icons/md";
+import { LoaderCircle } from "lucide-react";
+import { Button } from "./ui/button";
+import Modal from "./modalform";
 
-const NotePatientComponent = ({ patientId }) => {
+const NotePatientComponent = ({ patientId, currentUser }) => {
   const [notes, setNotes] = useState([]);
   const [openFolders, setOpenFolders] = useState({});
   const [openModal, setOpenModal] = useState(false);
   const [pdfUrl, setPdfUrl] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isPdfModalOpen, setIsPdfModalOpen] = useState(false);
+  const [selectedNote, setSelectedNote] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const formSchema = z.object({
+    title: z.string().min(1, "Le titre est requis"),
+    type: z.string().min(1, "Le type est requis"),
+    description: z.string().min(1, "La description est requise"),
+  });
+
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      title: "",
+      type: "",
+      description: "",
+    },
+  });
   useEffect(() => {
     const fetchNotes = async () => {
       try {
@@ -915,6 +948,30 @@ const NotePatientComponent = ({ patientId }) => {
 
     fetchNotes();
   }, [patientId]);
+
+  const handleSubmit = async (values) => {
+    try {
+      const formData = new FormData();
+      
+      formData.append("title", values.title);
+      formData.append("type", values.type);
+      formData.append("description", values.description);
+      formData.append("patientId", patientId);
+      setIsSubmitting(true);
+
+      const newNote = await addNote(formData, currentUser?.username);
+
+      setNotes((prevNotes) => [...prevNotes, ...newNote]);
+      toast.success("Note ajoutée avec succès !");
+      form.reset();
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error("Erreur lors de l'ajout de la note :", error);
+      toast.error("Échec de l'ajout de la note.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const groupNotesByDate = (notes) => {
     return notes.reduce((acc, note) => {
@@ -963,11 +1020,22 @@ const NotePatientComponent = ({ patientId }) => {
 
   return (
     <div className="p-4">
+      <div className="flex justify-between">
+        <h3 className="text-lg font-semibold mb-4">Notes</h3>
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className="flex items-center gap-2 bg-violettitle text-white p-2 rounded"
+        >
+          <MdOutlineNoteAdd size={22} />
+          <span className="text-sm">Add Note</span>
+        </button>
+      </div>
+
       <TableContainer>
         <Table>
           <TableHead>
             <TableRow>
-            <TableCell><strong>Name</strong></TableCell>
+              <TableCell><strong>Name</strong></TableCell>
               <TableCell><strong>Uploaded By</strong></TableCell>
               <TableCell><strong>Upload Date</strong></TableCell>
               <TableCell align="right"><strong>Actions</strong></TableCell>
@@ -1001,7 +1069,7 @@ const NotePatientComponent = ({ patientId }) => {
                               {note.title}
                             </TableCell>
                             <TableCell>{note.createdBy || "Inconnu"}</TableCell>
-                            <TableCell>{new Date( note.createdAt).toLocaleDateString("fr-FR")}</TableCell>
+                            <TableCell>{new Date(note.createdAt).toLocaleDateString("fr-FR")}</TableCell>
                             <TableCell align="right">
                               <IconButton aria-label="voir le PDF" onClick={() => handleOpenModal(note._id)}>
                                 <VisibilityIcon />
@@ -1016,6 +1084,138 @@ const NotePatientComponent = ({ patientId }) => {
           </TableBody>
         </Table>
       </TableContainer>
+
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <div className="modal-form-container max-h-screen font-jakarta dark:bg-darkbackground">
+          <div className="modal-form-header flex gap-2 ">
+            <div className="modal-form-logo">
+              <span className="mr-4">
+                <MdNoteAdd size={28} className="text-violettitle dark:text-white" />
+              </span>
+            </div>
+            <div className="modal-form-role flex flex-align-item-center  pb-4">
+              <p className="text-lg text-violettitle font-bold dark:text-white">
+                Add a Note
+              </p>
+            </div>
+          </div>
+          <div className="modal-form-body">
+            <div>
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(handleSubmit)} className="form-layout">
+                  <div className="form-row w-[100%] mb-4">
+                    <div className="w-[48%]">
+                      <FormField
+                        control={form.control}
+                        name="title"
+                        id="title"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>
+                              Titre
+                              <span className="text-red-500 text-[18px]">
+                                *
+                              </span>
+                            </FormLabel>
+                            <FormControl>
+                              <input
+                                type="text"
+                                placeholder="Title"
+                                className="w-full mb-2 p-2 border rounded"
+                                {...field}
+                              />
+                            </FormControl>
+                            <FormMessage className="text-red-400 dark:text-red-700 font-medium" />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div className="w-[48%]">
+                      <FormField
+                        control={form.control}
+                        name="type"
+                          id="type"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>
+                              Type
+                              <span className="text-red-500 text-[18px]">
+                                *
+                              </span>
+                            </FormLabel>
+                            <FormControl>
+                              <select
+                                className="w-full mb-2 p-2 border rounded"
+                                {...field}
+                              >
+                                <option value="">Select Type</option>
+                                <option value="Consultation">Consultation</option>
+                                <option value="Suivi">Suivi</option>
+                                <option value="Évaluation">Évaluation</option>
+                                <option value="Rapport d'examen">
+                                  Rapport d&apos;examen
+                                </option>
+                                <option value="Prescription">Prescription</option>
+                                <option value="Observation">Observation</option>
+                                <option value="Note de sortie">Note de sortie</option>
+                                <option value="Note d'admission">
+                                  Note d&apos;admission
+                                </option>
+                                <option value="Note de transfert">
+                                  Note de transfert
+                                </option>
+                              </select>
+                            </FormControl>
+                            <FormMessage className="text-red-400 dark:text-red-700 font-medium" />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+                  <FormField
+                    control={form.control}
+                    name="description"
+                      id="description"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>
+                          Description
+                          <span className="text-red-500 text-[18px]">
+                            *
+                          </span>
+                        </FormLabel>
+                        <FormControl>
+                          <textarea
+                            placeholder="Description"
+                            className="w-full mb-2 p-2 border rounded h-[100px]"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage className="text-red-400 dark:text-red-700 font-medium" />
+                      </FormItem>
+                    )}
+                  />
+
+                  <Button
+                    type="submit"
+                    className={`w-[20%] rounded-[20px] px-2 py-2 text-[15px] ml-4  bg-violettitle text-white ${isSubmitting
+                        ? "opacity-85 cursor-not-allowed"
+                        : "bg-violettitle hover:bg-violettitle dark:bg-darkgris dark:hover:bg-darkviolet "
+                      }`}
+                  >
+                    {isSubmitting ? (
+                      <LoaderCircle size={30} className="animate-spin" />
+                    ) : (
+                      "Create"
+                    )}
+                  </Button>
+                </form>
+              </Form>
+            </div>
+          </div>
+        </div>
+      </Modal>
+
 
       {/* Modal pour afficher le PDF */}
       <Dialog open={openModal} onClose={() => setOpenModal(false)} maxWidth="lg" fullWidth>

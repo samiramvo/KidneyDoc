@@ -41,7 +41,7 @@
 //         const formData = new FormData();
 //         fileInput.forEach((file) => formData.append("files", file));
 //         formData.append("patientId", patientId);
-  
+
 //         const newDocuments = await addDocument(formData, currentUser?.username);
 //         setDocuments((prevDocs) => [...prevDocs, ...newDocuments]);
 //         toast.success("Files uploaded successfully!");
@@ -190,11 +190,18 @@ import React, { useState, useEffect } from "react";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, IconButton, Dialog, DialogContent, DialogActions, Button } from "@mui/material";
 import FolderIcon from "@mui/icons-material/Folder";
 import DescriptionIcon from "@mui/icons-material/Description";
+import { DocumentDownload } from "iconsax-react";
+import Modal from "./modalform";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import toast from "react-hot-toast";
-import { fetchDocumentsByPatientId } from "@/lib/actions";
+import { addDocument, fetchDocumentsByPatientId } from "@/lib/actions";
 
-const DocumentComponent = ({ patientId }) => {
+const DocumentComponent = ({ patientId, currentUser }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [fileInput, setFileInput] = useState(null);
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [documents, setDocuments] = useState([]);
   const [openFolders, setOpenFolders] = useState({});
   const [openModal, setOpenModal] = useState(false);
@@ -213,6 +220,33 @@ const DocumentComponent = ({ patientId }) => {
 
     fetchDocuments();
   }, [patientId]);
+
+  const handleFileChange = (event) => {
+    const files = Array.from(event.target.files);
+    setFileInput(files);
+  };
+
+  const handleUpload = async () => {
+    if (fileInput) {
+      try {
+        setIsSubmitting(true);
+        const formData = new FormData();
+        fileInput.forEach((file) => formData.append("files", file));
+        formData.append("patientId", patientId);
+
+        const newDocuments = await addDocument(formData, currentUser?.username);
+        setDocuments((prevDocs) => [...prevDocs, ...newDocuments]);
+        toast.success("Files uploaded successfully!");
+        setFileInput(null);
+        setIsModalOpen(false);
+      } catch (error) {
+        console.error("Error uploading files:", error);
+        toast.error("Failed to upload files.");
+      } finally {
+        setIsSubmitting(false);
+      }
+    }
+  };
 
   const groupDocumentsByDate = (documents) => {
     return documents.reduce((acc, doc) => {
@@ -254,15 +288,25 @@ const DocumentComponent = ({ patientId }) => {
 
   return (
     <div className="p-4">
+      <div className="flex justify-between">
+        <h3 className="text-lg font-semibold mb-4">Documents</h3>
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className="flex items-center gap-2 bg-violettitle text-white p-2 rounded"
+        >
+          <DocumentDownload size={22} />
+          <span className="text-sm">Add files</span>
+        </button>
+      </div>
       <TableContainer>
         <Table>
           <TableHead>
             <TableRow>
-            <TableCell><strong>Name</strong></TableCell>
+              <TableCell><strong>Name</strong></TableCell>
               <TableCell><strong>Uploaded By</strong></TableCell>
-               <TableCell><strong>Upload Date</strong></TableCell>
+              <TableCell><strong>Upload Date</strong></TableCell>
               <TableCell align="right"><strong>Actions</strong></TableCell>
-           
+
             </TableRow>
           </TableHead>
 
@@ -290,11 +334,11 @@ const DocumentComponent = ({ patientId }) => {
                         docs.map((doc) => (
                           <TableRow key={doc._id}>
                             <TableCell style={{ paddingLeft: "64px" }}>
-                               <DescriptionIcon style={{ marginRight: "8px" }} />
-                               {doc.name}
-                             </TableCell>
-                             <TableCell>{`Dr ${doc.uploadedBy || "Unknown"}`}</TableCell>
-                             <TableCell>{new Date(doc.uploadDate).toLocaleDateString("fr-FR")}</TableCell>
+                              <DescriptionIcon style={{ marginRight: "8px" }} />
+                              {doc.name}
+                            </TableCell>
+                            <TableCell>{`Dr ${doc.uploadedBy || "Unknown"}`}</TableCell>
+                            <TableCell>{new Date(doc.uploadDate).toLocaleDateString("fr-FR")}</TableCell>
                             <TableCell align="right">
                               <IconButton aria-label="view document" onClick={() => handleOpenModal(doc._id)}>
                                 <VisibilityIcon />
@@ -310,8 +354,42 @@ const DocumentComponent = ({ patientId }) => {
         </Table>
       </TableContainer>
 
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <div className="modal-form-container max-h-screen font-jakarta dark:bg-darkbackground">
+          <div className="modal-form-header flex gap-2 ">
+          <div className="modal-form-logo">
+              <span className="mr-4">
+                <DocumentDownload size={28} className="text-violettitle dark:text-white" />
+              </span>
+            </div>
+            <div className="modal-form-role flex flex-align-item-center  pb-4">
+              <p className="text-lg text-violettitle font-bold dark:text-white">
+              Upload Documents
+              </p>
+            </div>
+            </div>
+        </div>
+        <div className="modal-form-body">
+          <input
+            type="file"
+            accept="image/png, image/jpeg, application/pdf"
+            onChange={handleFileChange}
+            multiple
+            className="w-full mb-2 p-2 border rounded"
+          />
+          <button
+            onClick={handleUpload}
+            className={`w-[20%]  rounded-[20px] px-2 py-2 text-[15px] bg-violettitle text-white ${isSubmitting ? "opacity-85 cursor-not-allowed" : ""
+              }`}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Uploading..." : "Upload"}
+          </button>
+        </div>
+
+      </Modal >
       {/* Modal pour afficher le PDF */}
-      <Dialog open={openModal} onClose={() => setOpenModal(false)} maxWidth="lg" fullWidth>
+      < Dialog open={openModal} onClose={() => setOpenModal(false)} maxWidth="lg" fullWidth >
         <DialogContent dividers>
           {pdfUrl ? (
             <iframe src={pdfUrl} width="100%" height="600px"></iframe>
@@ -322,8 +400,8 @@ const DocumentComponent = ({ patientId }) => {
         <DialogActions>
           <Button onClick={() => setOpenModal(false)} color="primary">Fermer</Button>
         </DialogActions>
-      </Dialog>
-    </div>
+      </Dialog >
+    </div >
   );
 };
 
